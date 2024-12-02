@@ -1,0 +1,193 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.devtools.ksp'
+
+}
+apply plugin: 'kotlin-android'
+
+android {
+    namespace 'edu.aku.hassannaqvi.fitlife'
+    compileSdk 34
+    buildFeatures {
+        dataBinding true
+//        viewBinding true
+//        compose true
+
+    }
+    Properties versionProps = new Properties()
+    def versionPropsFile = file('version.properties')
+
+    //Create a version properties file and add required properties with default values
+    if (!versionPropsFile.exists()) {
+        versionProps['VERSION_PATCH'] = "0"
+        versionProps['VERSION_BUILD'] = "0"
+        versionProps['VERSION_NUMBER'] = "0"
+
+        Writer writer = new FileWriter(versionPropsFile, false)
+        versionProps.store(versionPropsFile.newWriter(), null)
+    }
+
+    // Read existing
+    if (versionPropsFile.canRead()) {
+        versionProps = new Properties()
+
+        versionProps.load(new FileInputStream(versionPropsFile))
+
+        def value = 0
+        def versionType = "D"
+        def runTasks = gradle.startParameter.taskNames
+        //  def versionNumber = 0
+        //  def versionMinor = 0
+
+        if ('assemble' in runTasks || ':app:assembleRelease' in runTasks || 'aR' in runTasks) {
+            value = 1
+            versionType = "R"
+        }
+        def versionBuild = versionProps['VERSION_BUILD'].toInteger() + 1
+        def versionPatch = versionProps['VERSION_PATCH'].toInteger() + value
+        def versionNumber = versionProps['VERSION_NUMBER'].toInteger()
+        if ((versionPatch / 24).toInteger() > versionNumber) {
+            versionNumber = versionNumber + value
+        }
+
+
+        versionProps['VERSION_PATCH'] = versionPatch.toString()
+        versionProps['VERSION_BUILD'] = versionBuild.toString()
+        versionProps['VERSION_NUMBER'] = versionNumber.toString()
+
+        versionProps.store(versionPropsFile.newWriter(), null)
+
+        defaultConfig {
+            applicationId "edu.aku.hassannaqvi.fitlife"
+            versionCode versionBuild
+            versionName "${versionNumber}.${versionPatch}${versionType}"
+            minSdk 28
+            targetSdk 34
+            compileSdkVersion 34
+        }
+        def apk = null
+
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+
+                def appName = rootProject.name
+                def date = new Date()
+                def formattedDate = date.format('yyyy_MM_dd')
+
+                //   def outputDir = new File("${project.buildDir.absolutePath}/intermediates/apk/${variant.flavorName}/${variant.buildType.name}")
+                //def outputFileName = "app-${variant.flavorName}-${variant.buildType.name}.apk"
+                def outputFileName = "${appName}_${formattedDate}_${versionType}v${versionBuild}.apk"
+                // def outputFile = new File("$outputDir/$outputFileName")
+                // variant.packageApplicationProvider.get().outputDirectory = new File("$outputDir")
+                output.outputFileName = outputFileName
+                println "Found output file: " + variant.name
+
+
+                /*     if (outputFileName != null && outputFileName.endsWith('.apk')) {
+                  //output.outputFileName = outputFileName
+                  output.outputFileName = new File("${project.buildDir.absolutePath}/outputs/apk/", "${outputDir}-${versionMajor}.${versionMinor}.${versionPatch}-${outputFileName}")
+              }*/
+            }
+        }
+
+    } else {
+        throw new GradleException("Could not read version.properties!")
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17" // Ensure this matches the Java version
+    }
+    buildToolsVersion '34.0.0'
+}
+tasks.withType(JavaCompile) {
+    exclude '**/TakePhotoX.java'
+}
+
+apply plugin: 'kotlin-android'
+
+dependencies {
+
+
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.core:core-splashscreen:1.0.1'
+    implementation 'com.google.android.gms:play-services-location:21.3.0'
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+/*
+    implementation 'androidx.core:core:1.10.1'
+*/
+
+
+    // Datepicker
+    implementation 'com.github.BlackBoxVision:datetimepicker-edittext:v0.4.0'
+
+    // Sqlcipher
+    // implementation 'net.zetetic:android-database-sqlcipher:4.5.4' -- Deprecated
+    implementation 'androidx.sqlite:sqlite:2.4.0'
+    implementation 'net.zetetic:sqlcipher-android:4.6.0@aar'
+    //Rooted
+    implementation 'com.scottyab:rootbeer-lib:0.1.0'
+
+    // EditText Picker (Ali)
+    implementation 'com.github.AliAzaz:Edittext-Library:2.0.0'
+    implementation 'com.github.AliAzaz:AndroidValidatorCrawler:1.0.3'
+
+    def work_version = '2.9.0'
+
+    // (Java only)
+    implementation "androidx.work:work-runtime:$work_version"
+
+    // Kotlin + coroutines
+    implementation "androidx.work:work-runtime-ktx:$work_version"
+
+    // optional - RxJava2 support
+    implementation "androidx.work:work-rxjava2:$work_version"
+
+    // optional - GCMNetworkManager support
+    implementation "androidx.work:work-gcm:$work_version"
+
+    // optional - Test helpers
+    androidTestImplementation "androidx.work:work-testing:$work_version"
+
+    // optional - Multiprocess support
+    implementation "androidx.work:work-multiprocess:$work_version"
+
+    // Permissions
+    implementation 'com.karumi:dexter:6.2.3'
+
+    //Image Compressor
+    implementation 'id.zelory:compressor:2.1.1'
+
+    def room_version = "2.5.0"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    // To use Kotlin annotation processing tool (kapt)
+    kapt "androidx.room:room-compiler:$room_version"
+    // To use Kotlin Symbol Processing (KSP)
+    ksp "androidx.room:room-compiler:$room_version"
+
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.1'
+
+
+
+}

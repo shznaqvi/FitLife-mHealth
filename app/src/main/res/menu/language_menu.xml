@@ -1,0 +1,35 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/NO"
+        android:icon="@drawable/ic_language_change"
+        android:title="@string/options"
+        app:showAsAction="always">
+        <!-- Settings, should always be in the overflow -->
+        <menu>
+
+            <item android:title="Language Selection" />
+
+            <group
+                android:id="@+id/lang_group"
+                android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/UR"
+                    android:title="اُردو" />
+                <item
+                    android:id="@+id/SD"
+                    android:title="سنڌي" />
+
+                <item
+                    android:id="@+id/EN"
+                    android:title="English" />
+
+            </group>
+
+        </menu>
+    </item>
+
+</menu>

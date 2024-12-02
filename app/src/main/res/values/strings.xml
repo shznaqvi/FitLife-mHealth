@@ -1,0 +1,193 @@
+<resources>
+    <string name="app_name">eSHEPP</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Common strings -->
+    <string name="btnDownload" translatable="false">Download Data</string>
+    <string name="btnUpload">Upload Data</string>
+    <string name="promptemail">Email</string>
+    <string name="promptpassword">Password</string>
+    <string name="actionsignin">Login</string>
+    <string name="actionsigninshort">Sign in</string>
+    <string name="splashText"> </string>
+    <string name="checkpendingforms">CHECK PENDING FORMS</string>
+    <string name="startinterview" translatable="false">START INTERVIEW</string>
+    <string name="openHouseholdForm" translatable="false">OPEN HOUSEHOLD FORM</string>
+    <string name="addChild" translatable="false">ADD A CHILD</string>
+    <string name="openbloodform" translatable="false">UPDATE BLOOD INFORMANTION</string>
+    <string name="openstoolform" translatable="false">UPDATE STOOL INFORMANTION</string>
+    <string name="recordssummary">Records Summary</string>
+    <string name="mainmenu">Main Menu</string>
+    <string name="onlyfortesting">ONLY FOR TESTING</string>
+    <string name="database">Database</string>
+    <string name="district">DISTRICT</string>
+    <string name="uc" translatable="false">UC</string>
+    <string name="btnSave" translatable="false">Save</string>
+    <string name="btnEnd" translatable="false">Cancel</string>
+    <string name="signin" translatable="false">SIGN IN</string>
+    <string name="signin_msg">Enter your usename and password to access the app.</string>
+
+    <string name="username" translatable="false">Username</string>
+    <string name="password" translatable="false">Password</string>
+    <string name="newPassword" translatable="false">New Password</string>
+    <string name="confirmPassword" translatable="false">Confirm Password</string>
+    <string name="btnResetPassword">Reset Password</string>
+    <string name="country">Language (Click to change)</string>
+    <string name="pakistan" translatable="false">Pakistan</string>
+    <string name="tajikistan" translatable="false">Tajikistan</string>
+    <string name="btnLogin" translatable="false">Login</string>
+    <string name="btnReset" translatable="false">Reset</string>
+    <string name="btnDownloadData" translatable="false">Download Data</string>
+    <string name="csMAexist" translatable="false">might be already exist</string>
+
+    <string name="netwrok" translatable="false">Network connection not available!</string>
+    <string name="invalidpass" translatable="false">Invalid Password</string>
+    <string name="unameRequired" translatable="false">Username is required.</string>
+    <string name="incorrcetPass" translatable="false">Incorrect Password</string>
+    <string name="downData" translatable="false">Download Data</string>
+    <string name="permission" translatable="false">Permissions Required</string>
+    <string name="warning" translatable="false">Warning</string>
+    <string name="newApp" translatable="false">New App downloaded!!</string>
+    <string name="appVer" translatable="false">App New Version</string>
+    <string name="btnSync">Download Data</string>
+    <string name="downloaded" translatable="false">Downloaded</string>
+    <string name="appDownload" translatable="false">appDownload</string>
+    <string name="newVer" translatable="false">New Version</string>
+    <string name="downloading" translatable="false">Downloading</string>
+    <string name="available" translatable="false">Available</string>
+    <string name="downError" translatable="false">Cant download.. Internet connectivity issue!</string>
+    <string name="backbtn" translatable="false">Press Back again to Exit</string>
+    <string name="noNetwork" translatable="false">No network connection available!</string>
+    <string name="appAvailable" translatable="false">APP is available!</string>
+    <string name="oldAppMsg" translatable="false">App Ver." + " is now available. Your are currently using older Ver."</string>
+    <string name="installNewApp" translatable="false">Install new version to use this app</string>
+    <string name="install" translatable="false">Install</string>
+    <string name="cancel" translatable="false">Cancel</string>
+    <string name="complete" translatable="false">complete</string>
+    <string name="updatingError" translatable="false">Error in updating db!!</string>
+    <string name="updateDbError1" translatable="false">"Sorry. You can\'t go further."</string>
+    <string name="updateDbError2" translatable="false">"Please contact IT Team (Failed to update DB)"</string>
+    <string name="bckbtn" translatable="false">You Cant go back</string>
+    <string name="processing" translatable="false">Processing</string>
+    <string name="confirmation" translatable="false">Confirmation!</string>
+    <string name="confirm">Confirm?</string>
+    <string name="cntbtn" translatable="false">Are you sure, you want to continue - interview</string>
+    <string name="failedUpdateDb" translatable="false">SORRY! Failed to update DB</string>
+    <string name="invalidDate" translatable="false">Invalid date!</string>
+    <string name="ageCalc" translatable="false">"Both Month and Year don\'t be zero!!"</string>
+    <string name="actiondatabase" translatable="false">Database Manager</string>
+    <string name="actionCheckWorker" translatable="false">Check Worker Status</string>
+    <string name="actiondatasync" translatable="false">Sync Data</string>
+    <string name="dkn"> Don’t Know </string>
+    <string name="none"> No one </string>
+    <string name="never"> Never</string>
+    <string name="na"> Applicable /Not Available</string>
+    <string name="nap"> Not Applicable </string>
+    <string name="errorinvalidpassword">This password is too short</string>
+    <string name="errorfieldrequired">This field is required</string>
+    <string name="errorincorrectpassword">This password is incorrect</string>
+    <string name="nav">Not Available </string>
+    <string name="ref"> Refused </string>
+    <string name="other"> Other </string>
+    <string name="specify"> Please explain </string>
+    <string name="year"> Year </string>
+    <string name="month"> Month </string>
+    <string name="weeks"> Week(s) </string>
+    <string name="days"> Day(s) </string>
+    <string name="hours"> Hour(s) </string>
+    <string name="minutes"> Minute(s) </string>
+    <string name="kg"> Kilograms </string>
+    <string name="km"> Kilometers </string>
+    <string name="cm"> cm </string>
+    <string name="in"> Inch </string>
+    <string name="rupees"> Rupees </string>
+    <string name="num"> Number </string>
+    <string name="name"> Name </string>
+
+    <!--Error Messages-->
+    <string name="upd_db_form" translatable="false"> updateDB(Form):\t </string>
+    <string name="upd_db_error" translatable="false"> Updating Database… ERROR! </string>
+    <string name="db_excp_error" translatable="false"> Database Exception... ERROR! </string>
+    <string name="upd_db" translatable="false"> Updating Database...\t </string>
+    <string name="fail_db_upd" translatable="false"> Failed to Update Database! </string>
+    <string name="backPress" translatable="false"> Back Press Not Allowed </string>
+    <string name="invalid_response" translatable="false"> Invalid Response </string>
+    <string name="agecal" translatable="false">ageCal:\t</string>
+    <string name="title_child_dialog" translatable="false">Child Count</string>
+    <string name="message_child_dialog_proceeed" translatable="false">You have entered only %1$s of %2$s Children in the household. \nAre you sure you want to continue now?</string>
+    <string name="message_child_dialog_addmore" translatable="false">You have already entered %1$s Children. \nAre you sure you want to add more Child?</string>
+    <string name="network_conn_error" translatable="false"> Network connection not available ! </string>
+    <string name="no_mother_selected_child_list" translatable="false"> No Mother has been selected. Please select a mother before opening Child List </string>
+    <string name="onitemselected" translatable="false"> onItemSelected(Samples):\t </string>
+    <string name="upd_samples" translatable="false"> updateDB(Samples):\t </string>
+    <string name="upd_anthro" translatable="false"> updateDB(Anthro):\t </string>
+    <string name="folder_not_created" translatable="false"> Folder Not Created </string>
+    <string name="invalid_password" translatable="false"> Invalid Password </string>
+    <string name="username_required" translatable="false"> Username is required. </string>
+    <string name="username_password_same" translatable="false"> Username and Password cannot be same. </string>
+    <string name="incorrect_username_or_password" translatable="false">Incorrect Username or Password</string>
+    <string name="open_hh_form" translatable="false"> Open Household Form </string>
+    <string name="hh_not_found" translatable="false">Household not Found</string>
+    <string name="hh_exists_form" translatable="false"> JSONException(Form): \t </string>
+    <string name="child_info_missing" translatable="false">Please fill child sections before entering this information</string>
+    <string name="open_new_form" translatable="false">OPEN NEW FORM</string>
+    <string name="options" translatable="false">Options</string>
+    <string name="householdidentificationmainheading">Household Identification: </string>
+    <string name="lang">English\n</string>
+    <string name="ncdPrevention">NCD Prevention</string>
+
+    <!-- Session 1: Risk Factor Questions -->
+
+    <!-- Question Numbers -->
+    <string name="Q_a01" translatable="false">A01</string>
+    <string name="Q_a02" translatable="false">A02</string>
+    <string name="Q_a03" translatable="false">A03</string>
+    <string name="Q_a04" translatable="false">A04</string>
+    <string name="Q_a05" translatable="false">A05</string>
+    <string name="Q_a06" translatable="false">A06</string>
+
+    <!-- Question A01 -->
+    <string name="a01">What are Non-Communicable Diseases (NCDs)?</string>
+    <string name="a01A">Diseases that spread from one person to another</string>
+    <string name="a01B">Diseases caused by germs or infections</string>
+    <string name="a01C_c">Long-lasting diseases that do not spread from person to person</string> <!-- Correct Answer -->
+    <string name="a01D">Diseases that only affect animals</string>
+
+    <!-- Question A02 -->
+    <string name="a02">Why is it important to prevent NCDs?</string>
+    <string name="a02A">NCDs can be easily treated</string>
+    <string name="a02B_c">Preventing NCDs can help people live better and save money on healthcare</string> <!-- Correct Answer -->
+    <string name="a02C">NCDs cannot be prevented</string>
+    <string name="a02D">NCDs only affect older people</string>
+
+    <!-- Question A03 -->
+    <string name="a03">What can help reduce the risk of NCDs?</string>
+    <string name="a03A_c">Being physically active</string> <!-- Correct Answer -->
+    <string name="a03B">Eating lots of junk food</string>
+    <string name="a03C">Smoking cigarettes</string>
+    <string name="a03D">Skipping health check-ups</string>
+
+    <!-- Question A04 -->
+    <string name="a04">What impact do NCDs have on a person’s life?</string>
+    <string name="a04A">They have a small impact and are easy to manage</string>
+    <string name="a04B_c">They can cause serious health problems, lower quality of life, and early death</string> <!-- Correct Answer -->
+    <string name="a04C">They make people healthier</string>
+    <string name="a04D">They only affect physical health, not mental health</string>
+
+    <!-- Question A05 (Select all that apply) -->
+    <string name="a05">What are some effective ways to prevent NCDs? (Select all that apply)</string>
+    <string name="a05A_c">Eating a healthy diet</string> <!-- Correct Answer -->
+    <string name="a05B_c">Exercising regularly</string> <!-- Correct Answer -->
+    <string name="a05C_c">Avoiding tobacco and excessive alcohol</string> <!-- Correct Answer -->
+    <string name="a05D">Ignoring signs of illness</string>
+
+    <!-- Question A06 -->
+    <string name="a06">Which of these is NOT a changeable risk factor for NCDs?</string>
+    <string name="a06A_c">Family history of disease</string> <!-- Correct Answer -->
+    <string name="a06B">Smoking</string>
+    <string name="a06C">Lack of exercise</string>
+    <string name="a06D">Unhealthy diet</string>
+
+
+</resources>

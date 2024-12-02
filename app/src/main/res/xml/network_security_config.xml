@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">aku.edu</domain>
+
+        <trust-anchors>
+            <certificates src="@raw/star_aku_edu_2024" />
+        </trust-anchors>
+        <pin-set expiration="2023-03-08">
+            <pin digest="SHA-256">sBehhhJc5wTNYVfhoFYMY9LR6xtWYmN0AIBvjlPVR8o=</pin>
+            <!-- backup pin -->
+            <pin digest="SHA-256">5kJvNEMw0KjrCAu7eXY5HZdvyCS13BbA0VJG1RSP91w=</pin>
+        </pin-set>
+
+    </domain-config>
+</network-security-config>
