@@ -135,7 +135,7 @@
     <string name="options" translatable="false">Options</string>
     <string name="householdidentificationmainheading">Household Identification: </string>
     <string name="lang">English\n</string>
-    <string name="ncdPrevention">NCD Prevention</string>
+    <string name="ncdPrevention">NCD Prevention Program</string>
 
     <!-- Session 1: Risk Factor Questions -->
 
@@ -188,6 +188,7 @@
     <string name="a06B">Smoking</string>
     <string name="a06C">Lack of exercise</string>
     <string name="a06D">Unhealthy diet</string>
+    <string name="ProjectName">School eHealth Education Program Pakistan (eSHEPP)</string>
 
 
 </resources>

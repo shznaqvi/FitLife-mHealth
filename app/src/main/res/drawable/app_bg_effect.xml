@@ -3,7 +3,7 @@
     <item>
         <bitmap
             android:gravity="center_vertical|center_horizontal"
-            android:src="@drawable/app_bg_gray_dark" />
+            android:src="@drawable/app_bg" />
     </item>
 
     <item>

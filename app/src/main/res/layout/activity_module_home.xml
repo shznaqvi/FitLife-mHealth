@@ -51,23 +51,26 @@
 
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
+                    android:paddingTop="24dp"
                     android:layout_height="match_parent">
                 <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:columnCount="2"
-                    android:padding="24dp"
+                    android:paddingTop="24dp"
+                    android:paddingBottom="24dp"
+                    android:padding="18dp"
                     android:orientation="horizontal">
 
                     <!-- Card 1 -->
                     <androidx.cardview.widget.CardView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_margin="4dp"
                         android:layout_rowSpan="1"
                         android:layout_columnSpan="1"
                         android:layout_columnWeight="1"
-                        app:cardCornerRadius="8dp"
+                        app:cardCornerRadius="12dp"
                         app:cardElevation="5dp">
 
                         <LinearLayout
@@ -75,26 +78,26 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:padding="16dp"
+                            android:padding="4dp"
                             android:onClick="sectionPress"
                             android:gravity="center_horizontal">
 
                             <!-- Logo Image on top -->
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="172dp"
+                                android:layout_height="110dp"
                                 android:src="@drawable/ncd_risk_factors"
                             android:contentDescription="Logo"
                             android:layout_marginBottom="8dp"/>
-
                             <!-- Text below the logo -->
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:textSize="18dp"
                                 android:gravity="center"
                                 android:text="Risk Factors"
                                 android:textStyle="bold"
-                                android:textSize="24sp" />
+                              />
 
                         </LinearLayout>
 
@@ -104,11 +107,11 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_margin="4dp"
                         android:layout_rowSpan="1"
                         android:layout_columnSpan="1"
                         android:layout_columnWeight="1"
-                        app:cardCornerRadius="8dp"
+                        app:cardCornerRadius="12dp"
                         app:cardElevation="5dp">
 
                         <LinearLayout
@@ -116,26 +119,26 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:padding="16dp"
+                            android:padding="4dp"
                             android:onClick="sectionPress"
                             android:gravity="center_horizontal">
 
                             <!-- Logo Image on top -->
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="172dp"
+                                android:layout_height="110dp"
                                 android:src="@drawable/ncd_physical_activity"
                                 android:contentDescription="Logo"
                                 android:layout_marginBottom="8dp"/>
-
                             <!-- Text below the logo -->
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:textSize="18dp"
                                 android:gravity="center"
                                 android:text="Physical Activity"
                                 android:textStyle="bold"
-                                android:textSize="24sp" />
+                                />
 
                         </LinearLayout>
 
@@ -144,11 +147,11 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_margin="4dp"
                         android:layout_rowSpan="1"
                         android:layout_columnSpan="1"
                         android:layout_columnWeight="1"
-                        app:cardCornerRadius="8dp"
+                        app:cardCornerRadius="12dp"
                         app:cardElevation="5dp">
 
                         <LinearLayout
@@ -156,26 +159,26 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:padding="16dp"
+                            android:padding="4dp"
                             android:onClick="sectionPress"
                             android:gravity="center_horizontal">
 
                             <!-- Logo Image on top -->
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="172dp"
+                                android:layout_height="110dp"
                                 android:src="@drawable/ncd_food"
                                 android:contentDescription="Logo"
                                 android:layout_marginBottom="8dp"/>
-
                             <!-- Text below the logo -->
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:textSize="18dp"
                                 android:gravity="center"
                                 android:text="Food"
                                 android:textStyle="bold"
-                                android:textSize="24sp" />
+                                />
 
                         </LinearLayout>
 
@@ -185,11 +188,11 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_margin="4dp"
                         android:layout_rowSpan="1"
                         android:layout_columnSpan="1"
                         android:layout_columnWeight="1"
-                        app:cardCornerRadius="8dp"
+                        app:cardCornerRadius="12dp"
                         app:cardElevation="5dp">
 
                         <LinearLayout
@@ -197,27 +200,26 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:padding="16dp"
+                            android:padding="4dp"
                             android:onClick="sectionPress"
-
                             android:gravity="center_horizontal">
 
                             <!-- Logo Image on top -->
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="172dp"
+                                android:layout_height="110dp"
                                 android:src="@drawable/ncd_smoking"
                                 android:contentDescription="Logo"
                                 android:layout_marginBottom="8dp"/>
-
                             <!-- Text below the logo -->
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:textSize="18dp"
                                 android:gravity="center"
-                                android:text="No Smoking"
+                                android:text="Smoking"
                                 android:textStyle="bold"
-                                android:textSize="24sp" />
+                                />
 
                         </LinearLayout>
 
@@ -227,11 +229,11 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_margin="4dp"
                         android:layout_rowSpan="1"
                         android:layout_columnSpan="1"
                         android:layout_columnWeight="1"
-                        app:cardCornerRadius="8dp"
+                        app:cardCornerRadius="12dp"
                         app:cardElevation="5dp">
 
                         <LinearLayout
@@ -239,27 +241,26 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:padding="16dp"
+                            android:padding="4dp"
                             android:onClick="sectionPress"
-
                             android:gravity="center_horizontal">
 
                             <!-- Logo Image on top -->
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="172dp"
+                                android:layout_height="110dp"
                                 android:src="@drawable/ncd_mental_health"
                                 android:contentDescription="Logo"
                                 android:layout_marginBottom="8dp"/>
-
                             <!-- Text below the logo -->
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:textSize="18dp"
                                 android:gravity="center"
                                 android:text="Mental Health"
                                 android:textStyle="bold"
-                                android:textSize="24sp" />
+                                />
 
                         </LinearLayout>
 
@@ -268,11 +269,11 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_margin="4dp"
                         android:layout_rowSpan="1"
                         android:layout_columnSpan="1"
                         android:layout_columnWeight="1"
-                        app:cardCornerRadius="8dp"
+                        app:cardCornerRadius="12dp"
                         app:cardElevation="5dp">
 
                         <LinearLayout
@@ -280,26 +281,26 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:padding="16dp"
+                            android:padding="4dp"
                             android:onClick="sectionPress"
                             android:gravity="center_horizontal">
 
                             <!-- Logo Image on top -->
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="172dp"
+                                android:layout_height="110dp"
                                 android:src="@drawable/ncd_wrap_up"
                                 android:contentDescription="Logo"
                                 android:layout_marginBottom="8dp"/>
-
                             <!-- Text below the logo -->
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:textSize="18dp"
                                 android:gravity="center"
-                                android:text="Wrap Up"
+                                android:text="Wrap-Up"
                                 android:textStyle="bold"
-                                android:textSize="24sp" />
+                                />
 
                         </LinearLayout>
 
@@ -706,26 +707,33 @@
 
             </LinearLayout>
 
-
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+               android:layout_marginStart="24dp"
+    android:layout_marginTop="24dp"
+    android:layout_marginEnd="24dp"
+    app:cardCornerRadius="12dp"
+    android:elevation="8dp"
+    android:minHeight="56dp"
+    android:layout_centerHorizontal="true"
+    >
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
+
                 android:background="@color/colorPrimary"
                 android:elevation="1dp"
                 android:fontFamily="@font/open_sans_condensed_light"
                 android:gravity="center_horizontal|center_vertical"
-                android:minHeight="56dp"
+
                 android:radius="10dp"
                 android:text="NCD PREVENTION MODULE"
                 android:textColor="@color/white"
                 android:textSize="36sp"
                 android:textStyle="bold" />
-
+</androidx.cardview.widget.CardView>
 
         </RelativeLayout>
     </LinearLayout>
