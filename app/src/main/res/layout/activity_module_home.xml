@@ -52,7 +52,8 @@
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:paddingTop="24dp"
-                    android:layout_height="match_parent">
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
                 <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -309,6 +310,29 @@
                 </GridLayout>
                 </androidx.core.widget.NestedScrollView>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/grayLight"
+                android:gravity="center_horizontal"
+
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/all_round_corners"
+                    android:backgroundTint="@color/colorAccent"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:elevation="5dp"
+                    android:layout_margin="8dp"
+                    android:onClick="btnContinue"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:text="Provide Feedback"
+                    />
+            </LinearLayout>
                 <!-- <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

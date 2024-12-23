@@ -79,4 +79,12 @@ public class ModuleHome extends AppCompatActivity {
         startActivity(i);
 
     }
+    public void btnContinue(View view) {
+        // Navigate to a new activity
+        Intent intent = new Intent(this, FeedbackActivity.class);
+        startActivity(intent);
+
+        // Optionally finish the current activity if you don't want it to stay in the back stack
+        //finish();
+    }
 }

@@ -40,6 +40,9 @@
         android:usesCleartextTraffic="false"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".ui.FeedbackActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.ModuleHome"
             android:exported="false" />
         <activity
@@ -82,7 +85,7 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
 
         <meta-data
             android:name="YEK_REVRES"

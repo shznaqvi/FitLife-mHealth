@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <import type="android.view.View" />
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/app_bg"
+        android:orientation="vertical">
+
+        <!-- CUSTOM TOOLBAR -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@null"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/CustomToolbarTheme"
+            app:popupTheme="@style/CustomPopupTheme"
+            app:subtitleTextAppearance="@style/Toolbar.SubtitleText"
+            app:title="@string/app_name"
+            app:titleTextAppearance="@style/Toolbar.TitleText" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3">
+
+            <LinearLayout
+                android:id="@+id/mainDrawer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="64dp"
+                android:background="@drawable/top_round_shape"
+                android:elevation="1dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingStart="24dp"
+                android:paddingTop="32dp"
+                android:paddingEnd="24dp"
+                android:paddingBottom="24dp">
+
+
+                <TextView
+                    android:id="@+id/activityTitle"
+                    style="@style/button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryDark"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:radius="12dp"
+                    android:textColor="@color/white"
+                    android:text="Feedback Form"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+/>
+
+                <TextView
+                    android:id="@+id/mTextViewS"
+                    style="@style/labels"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/whiteOverlay"
+                    android:elevation="1dp"
+                    android:gravity="center_horizontal"
+                    android:paddingBottom="1dp"
+                    android:shadowColor="@color/grayLight"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="1"
+                    android:text="Upload Photo"
+                    android:visibility="gone" />
+
+                <ProgressBar
+                    android:id="@+id/pBar"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:indeterminate="false"
+                    android:progress="1"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/photoLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true"
+                    android:orientation="vertical"
+                    android:padding="12dp"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <EditText
+                            android:id="@+id/input_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Your Name"
+                            android:inputType="textPersonName"
+                            android:padding="10dp"
+                            android:layout_marginBottom="10dp" />
+
+                        <EditText
+                            android:id="@+id/input_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Your Email"
+                            android:inputType="textEmailAddress"
+                            android:padding="10dp"
+                            android:layout_marginBottom="10dp" />
+
+                        <EditText
+                            android:id="@+id/input_feedback"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Your Feedback"
+                            android:inputType="textMultiLine"
+                            android:lines="14"
+                            android:gravity="top|start"
+                            android:padding="10dp"
+                            android:layout_marginBottom="10dp" />
+
+
+                    </LinearLayout>
+                </ScrollView>
+
+                <!-- <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:padding="12dp"
+                    app:cardCornerRadius="24dp">
+
+                    <LinearLayout
+                        android:id="@+id/startDataEntry"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:onClick="sectionPress"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="12dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:drawableStart="@drawable/new_form"
+                                android:drawablePadding="12dp"
+                                android:gravity="center_vertical"
+                                android:minWidth="460dp"
+                                android:text="@string/start_data_entry"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="36dp"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:text="Open to enter data from paper"
+                                android:textColor="@color/gray"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:layout_margin="12dp"
+                            android:background="@drawable/ic_item_right_arrow"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="24dp" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>-->
+
+                <!-- <androidx.cardview.widget.CardView
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_marginStart="24dp"
+                     android:layout_marginTop="8dp"
+                     android:layout_marginEnd="24dp"
+                     android:padding="12dp"
+                     app:cardCornerRadius="24dp">
+
+                     <LinearLayout
+                         android:id="@+id/openAnthro"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:onClick="sectionPress"
+                         android:orientation="horizontal">
+
+                         <LinearLayout
+                             android:layout_width="0dp"
+                             android:layout_height="wrap_content"
+                             android:layout_margin="12dp"
+                             android:layout_weight="1"
+                             android:orientation="vertical">
+
+                             <TextView
+                                 android:layout_width="match_parent"
+                                 android:layout_height="wrap_content"
+                                 android:background="@color/white"
+                                 android:drawableStart="@drawable/onhold_forms"
+                                 android:drawablePadding="12dp"
+                                 android:gravity="center_vertical"
+                                 android:minWidth="460dp"
+                                 android:text="A2"
+                                 android:textColor="@color/colorPrimary"
+                                 android:textSize="16dp" />
+
+                             <TextView
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginStart="36dp"
+                                 android:gravity="center_horizontal|center_vertical"
+                                 android:text="Update anthropometry and examination"
+                                 android:textColor="@color/gray"
+                                 android:textSize="14sp" />
+                         </LinearLayout>
+
+                         <TextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:layout_gravity="center_horizontal|center_vertical"
+                             android:layout_margin="12dp"
+                             android:background="@drawable/ic_item_right_arrow"
+                             android:textColor="@color/colorAccent"
+                             android:textSize="24dp" />
+
+                     </LinearLayout>
+                 </androidx.cardview.widget.CardView>-->
+
+                <!--EndButton LinearLayout-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="24dp"
+                    android:orientation="horizontal">
+<View
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="match_parent"/>
+                    <Button
+                        android:id="@+id/btn_End"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/grayLight"
+                        android:onClick="btnEnd"
+                        android:text="go back"
+                        android:textColor="@color/gray"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"/>
+                    <Button
+                        android:id="@+id/btn_Continue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/capsule"
+
+                        android:onClick="btnContinue"
+                        android:text="submit"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+                <!--EndButton LinearLayout-->
+
+            </LinearLayout>
+
+
+
+
+
+        </RelativeLayout>
+    </LinearLayout>
+</layout>
