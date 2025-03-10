@@ -11,41 +11,39 @@ import android.view.View;
 import android.widget.Toast;
 import androidx.databinding.DataBindingUtil;
 
+import com.validatorcrawler.aliazaz.Validator;
+
 public class FeedbackActivity extends AppCompatActivity {
 
-    private ActivityFeedbackBinding binding;
+    private ActivityFeedbackBinding bi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Set up data binding
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_feedback);
+        bi = DataBindingUtil.setContentView(this, R.layout.activity_feedback);
 
         // Setting up the toolbar
-        setSupportActionBar(binding.toolbar);
+        setSupportActionBar(bi.toolbar);
 
         // You can also access your views through the binding object
-        binding.btnContinue.setOnClickListener(v -> submitFeedback());
-        binding.btnEnd.setOnClickListener(v -> endFeedback());
+        bi.btnContinue.setOnClickListener(v -> submitFeedback());
+        bi.btnEnd.setOnClickListener(v -> endFeedback());
 
         // Handling the visibility of progress bar or other elements dynamically
-        binding.pBar.setVisibility(View.VISIBLE); // example to show progress bar
+        bi.pBar.setVisibility(View.VISIBLE); // example to show progress bar
     }
 
     // Method for handling submit button click
     private void submitFeedback() {
-        String name = binding.inputName.getText().toString();
-        String email = binding.inputEmail.getText().toString();
-        String feedback = binding.inputFeedback.getText().toString();
+        if (!formValidationEnd()) return;
+        Toast.makeText(this, "Feedback submited successfully!", Toast.LENGTH_LONG).show();
+        finish();
+    }
 
-        if (!name.isEmpty() && !email.isEmpty() && !feedback.isEmpty()) {
-            // Handle the submission logic (e.g., send data to the server)
-            Toast.makeText(this, "Feedback Submitted", Toast.LENGTH_SHORT).show();
-            finish(); // Finish the current activity
-        } else {
-            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
-        }
+    private boolean formValidationEnd() {
+        return Validator.emptyCheckingContainer(this, bi.secGrpA);
     }
 
     // Method for handling continue button click

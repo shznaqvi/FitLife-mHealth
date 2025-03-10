@@ -14,7 +14,7 @@ import edu.aku.hassannaqvi.fitlife.contracts.TableContracts.UsersTable
 object CreateTable {
 
 
-    const val SQL_CREATE_LISTING = ("CREATE TABLE "
+  /*  const val SQL_CREATE_LISTING = ("CREATE TABLE "
             + TestsTable.TABLE_NAME + "("
             + TestsTable.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + TestsTable.COLUMN_SESSION_ID + " TEXT,"
@@ -43,7 +43,7 @@ object CreateTable {
             + TestsTable.COLUMN_STESTS + " TEXT"
 
             + ");")
-
+*/
     const val SQL_CREATE_STREETS = "CREATE TABLE " +
             StreetsTable.TABLE_NAME + " (" +
             StreetsTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -185,14 +185,6 @@ object CreateTable {
             + ");"
             )*/
 
-    const val SQL_ALTER_FORMS_GPS_LAT =
-        ("ALTER TABLE " + TestsTable.TABLE_NAME + " ADD " + TestsTable.COLUMN_GPSLAT + " TEXT; ")
-    const val SQL_ALTER_FORMS_GPS_LNG =
-        ("ALTER TABLE " + TestsTable.TABLE_NAME + " ADD " + TestsTable.COLUMN_GPSLNG + " TEXT; ")
-    const val SQL_ALTER_FORMS_GPS_DATE =
-        ("ALTER TABLE " + TestsTable.TABLE_NAME + " ADD " + TestsTable.COLUMN_GPSDATE + " TEXT; ")
-    const val SQL_ALTER_FORMS_GPS_ACC =
-        ("ALTER TABLE " + TestsTable.TABLE_NAME + " ADD " + TestsTable.COLUMN_GPSACC + " TEXT; ")
 
     const val SQL_ALTER_CHILD_GPS_LAT =
         ("ALTER TABLE " + ChildTable.TABLE_NAME + " ADD " + ChildTable.COLUMN_GPSLAT + " TEXT; ")

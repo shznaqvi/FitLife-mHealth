@@ -25,7 +25,6 @@ import java.util.Date;
 import edu.aku.hassannaqvi.fitlife.contracts.TableContracts;
 import edu.aku.hassannaqvi.fitlife.contracts.TableContracts.ChildTable;
 import edu.aku.hassannaqvi.fitlife.contracts.TableContracts.EntryLogTable;
-import edu.aku.hassannaqvi.fitlife.contracts.TableContracts.FamilyMembersTable;
 import edu.aku.hassannaqvi.fitlife.contracts.TableContracts.TestsTable;
 import edu.aku.hassannaqvi.fitlife.contracts.TableContracts.StreetsTable;
 import edu.aku.hassannaqvi.fitlife.contracts.TableContracts.UsersTable;
@@ -55,7 +54,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CreateTable.SQL_CREATE_CLUSTERS);
 
 
-        db.execSQL(CreateTable.SQL_CREATE_LISTING);
+        //db.execSQL(CreateTable.SQL_CREATE_LISTING);
         db.execSQL(CreateTable.SQL_CREATE_STREETS);
         db.execSQL(CreateTable.SQL_CREATE_ENTRYLOGS);
 
@@ -95,11 +94,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(TableContracts.TestsTable.COLUMN_UID, tests.getUid());
         values.put(TestsTable.COLUMN_USERNAME, tests.getUserName());
         values.put(TestsTable.COLUMN_SYSDATE, tests.getSysDate());
-        values.put(TestsTable.COLUMN_GPSLAT, tests.getGpsLat());
+/*        values.put(TestsTable.COLUMN_GPSLAT, tests.getGpsLat());
         values.put(TestsTable.COLUMN_GPSLNG, tests.getGpsLng());
         values.put(TestsTable.COLUMN_GPSPRO, tests.getGpsProvider());
         values.put(TestsTable.COLUMN_GPSDATE, tests.getGpsDT());
-        values.put(TestsTable.COLUMN_GPSACC, tests.getGpsAcc());
+        values.put(TestsTable.COLUMN_GPSACC, tests.getGpsAcc());*/
         values.put(TestsTable.COLUMN_ISTATUS, tests.getiStatus());
         values.put(TestsTable.COLUMN_DEVICEID, tests.getDeviceId());
         values.put(TestsTable.COLUMN_APPVERSION, tests.getAppver());
@@ -158,7 +157,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(column, value);
 
         String selection = TableContracts.TestsTable._ID + " =? ";
-        String[] selectionArgs = {String.valueOf(MainApp.listings.getId())};
+        String[] selectionArgs = {String.valueOf(MainApp.tests.getId())};
 
         return db.update(TestsTable.TABLE_NAME,
                 values,
@@ -173,7 +172,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(column, value);
 
         String selection = TestsTable._ID + " =? ";
-        String[] selectionArgs = {String.valueOf(MainApp.listings.getId())};
+        String[] selectionArgs = {String.valueOf(MainApp.tests.getId())};
 
         return db.update(TestsTable.TABLE_NAME,
                 values,
@@ -405,15 +404,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 // New value for one column
         ContentValues values = new ContentValues();
-        values.put(FamilyMembersTable.COLUMN_SYNCED, true);
-        values.put(FamilyMembersTable.COLUMN_SYNCED_DATE, new Date().toString());
+        values.put(TestsTable.COLUMN_SYNCED, true);
+        values.put(TestsTable.COLUMN_SYNCED_DATE, new Date().toString());
 
 // Which row to update, based on the title
-        String where = FamilyMembersTable.COLUMN_ID + " = ?";
+        String where = TestsTable.COLUMN_ID + " = ?";
         String[] whereArgs = {id};
 
         int count = db.update(
-                FamilyMembersTable.TABLE_NAME,
+                TestsTable.TABLE_NAME,
                 values,
                 where,
                 whereArgs);

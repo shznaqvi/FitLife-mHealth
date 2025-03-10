@@ -3,7 +3,7 @@ package edu.aku.hassannaqvi.fitlife.models;
 
 import static edu.aku.hassannaqvi.fitlife.core.MainApp.PROJECT_NAME;
 import static edu.aku.hassannaqvi.fitlife.core.MainApp._EMPTY_;
-import static edu.aku.hassannaqvi.fitlife.core.MainApp.listings;
+import static edu.aku.hassannaqvi.fitlife.core.MainApp.tests;
 
 import android.database.Cursor;
 import android.util.Log;
@@ -65,6 +65,8 @@ public class Tests extends BaseObservable implements Observable {
     String gpsProvider = _EMPTY_;
     String iStatus = _EMPTY_;
     String iStatus96x = _EMPTY_;
+    String[] correctAnswers = {"3", "2", "1", "2", "4", "1"}; // Correct answers indexed as 0, 1, 2
+
 
     public Tests() {
         setSysDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(new Date().getTime()));
@@ -78,7 +80,7 @@ public class Tests extends BaseObservable implements Observable {
         setDeviceId(MainApp.deviceid);  // Ensure this is properly set in your application
         setAppver(MainApp.appInfo.getAppVersion());      // Ensure this is properly set in your application
         setProjectName(PROJECT_NAME); // Ensure this is properly set in your application
-        listings.setUserName(MainApp.user.getUserName());
+        tests.setUserName(MainApp.user.getUserName());
 
         //listings.setStructureNo(String.valueOf(MainApp.maxStructure));
         setGPS();
@@ -307,6 +309,11 @@ public class Tests extends BaseObservable implements Observable {
 
     public void setPre01(String pre01) {
         this.pre01 = pre01;
+
+        if (pre01.equals(correctAnswers[1-1])) {
+            MainApp.preScore++;
+        }
+
         notifyPropertyChanged(BR.pre01);
     }
 
@@ -318,6 +325,9 @@ public class Tests extends BaseObservable implements Observable {
 
     public void setPre02(String pre02) {
         this.pre02 = pre02;
+        if (pre02.equals(correctAnswers[2-1])) {
+            MainApp.preScore++;
+        }
         notifyPropertyChanged(BR.pre02);
     }
 
@@ -329,6 +339,9 @@ public class Tests extends BaseObservable implements Observable {
 
     public void setPre03(String pre03) {
         this.pre03 = pre03;
+        if (pre03.equals(correctAnswers[3-1])) {
+            MainApp.preScore++;
+        }
         notifyPropertyChanged(BR.pre03);
     }
 
@@ -340,6 +353,9 @@ public class Tests extends BaseObservable implements Observable {
 
     public void setPre04(String pre04) {
         this.pre04 = pre04;
+        if (pre04.equals(correctAnswers[4-1])) {
+            MainApp.preScore++;
+        }
         notifyPropertyChanged(BR.pre04);
     }
 
@@ -351,6 +367,9 @@ public class Tests extends BaseObservable implements Observable {
 
     public void setPre05(String pre05) {
         this.pre05 = pre05;
+        if (pre05.equals(correctAnswers[5-1])) {
+            MainApp.preScore++;
+        }
         notifyPropertyChanged(BR.pre05);
     }
 
@@ -362,6 +381,9 @@ public class Tests extends BaseObservable implements Observable {
 
     public void setPre06(String pre06) {
         this.pre06 = pre06;
+        if (pre06.equals(correctAnswers[6-1])) {
+            MainApp.preScore++;
+        }
         notifyPropertyChanged(BR.pre06);
     }
 
@@ -375,6 +397,9 @@ public class Tests extends BaseObservable implements Observable {
 
     public void setPost01(String post01) {
         this.post01 = post01;
+        if (post01.equals(correctAnswers[1-1])) {
+            MainApp.postScore++;
+        }
         notifyPropertyChanged(BR.post01);
     }
 
@@ -386,6 +411,9 @@ public class Tests extends BaseObservable implements Observable {
 
     public void setPost02(String post02) {
         this.post02 = post02;
+        if (post02.equals(correctAnswers[2-1])) {
+            MainApp.postScore++;
+        }
         notifyPropertyChanged(BR.post02);
     }
 
@@ -397,6 +425,9 @@ public class Tests extends BaseObservable implements Observable {
 
     public void setPost03(String post03) {
         this.post03 = post03;
+        if (post03.equals(correctAnswers[3-1])) {
+            MainApp.postScore++;
+        }
         notifyPropertyChanged(BR.post03);
     }
 
@@ -408,6 +439,9 @@ public class Tests extends BaseObservable implements Observable {
 
     public void setPost04(String post04) {
         this.post04 = post04;
+        if (post04.equals(correctAnswers[4-1])) {
+            MainApp.postScore++;
+        }
         notifyPropertyChanged(BR.post04);
     }
 
@@ -419,6 +453,9 @@ public class Tests extends BaseObservable implements Observable {
 
     public void setPost05(String post05) {
         this.post05 = post05;
+        if (post05.equals(correctAnswers[5-1])) {
+            MainApp.postScore++;
+        }
         notifyPropertyChanged(BR.post05);
     }
 
@@ -430,6 +467,9 @@ public class Tests extends BaseObservable implements Observable {
 
     public void setPost06(String post06) {
         this.post06 = post06;
+        if (post06.equals(correctAnswers[6-1])) {
+            MainApp.postScore++;
+        }
         notifyPropertyChanged(BR.post06);
     }
 
@@ -439,7 +479,7 @@ public class Tests extends BaseObservable implements Observable {
         }
 
         this.id = cursor.getString(cursor.getColumnIndexOrThrow(TableContracts.TestsTable.COLUMN_ID));
-        this.sessionID = cursor.getString(cursor.getColumnIndexOrThrow(TestsTable.COLUMN_SESSION_ID));
+        this.sessionID = cursor.getString(cursor.getColumnIndexOrThrow(TableContracts.TestsTable.COLUMN_SESSION_ID));
 
         this.uid = cursor.getString(cursor.getColumnIndexOrThrow(TableContracts.TestsTable.COLUMN_UID));
         this.projectName = cursor.getString(cursor.getColumnIndexOrThrow(TableContracts.TestsTable.COLUMN_PROJECT_NAME));
@@ -452,11 +492,7 @@ public class Tests extends BaseObservable implements Observable {
         this.iStatus = cursor.getString(cursor.getColumnIndexOrThrow(TableContracts.TestsTable.COLUMN_ISTATUS));
         this.synced = cursor.getString(cursor.getColumnIndexOrThrow(TableContracts.TestsTable.COLUMN_SYNCED));
         this.syncDate = cursor.getString(cursor.getColumnIndexOrThrow(TableContracts.TestsTable.COLUMN_SYNC_DATE));
-        this.gpsLat = cursor.getString(cursor.getColumnIndexOrThrow(TableContracts.TestsTable.COLUMN_GPSLAT));
-        this.gpsLng = cursor.getString(cursor.getColumnIndexOrThrow(TestsTable.COLUMN_GPSLNG));
-        this.gpsProvider = cursor.getString(cursor.getColumnIndexOrThrow(TableContracts.TestsTable.COLUMN_GPSPRO));
-        this.gpsDT = cursor.getString(cursor.getColumnIndexOrThrow(TableContracts.TestsTable.COLUMN_GPSDATE));
-        this.gpsAcc = cursor.getString(cursor.getColumnIndexOrThrow(TableContracts.TestsTable.COLUMN_GPSACC));
+
 
         // Hydrate sHH fields
         String sTestJsonString = cursor.getString(cursor.getColumnIndexOrThrow(TableContracts.TestsTable.COLUMN_STESTS));
@@ -496,7 +532,7 @@ public class Tests extends BaseObservable implements Observable {
 
         // Common fields
         json.put(TableContracts.TestsTable.COLUMN_ID, this.id);
-        json.put(TestsTable.COLUMN_SESSION_ID, this.sessionID);
+        json.put(TableContracts.TestsTable.COLUMN_SESSION_ID, this.sessionID);
         json.put(TableContracts.TestsTable.COLUMN_UID, this.uid);
         json.put(TestsTable.COLUMN_PROJECT_NAME, this.projectName);
         json.put(TableContracts.TestsTable.COLUMN_USERNAME, this.userName);
@@ -506,11 +542,7 @@ public class Tests extends BaseObservable implements Observable {
 //        json.put(TestsTable.COLUMN_SYNCED, this.synced);
 //        json.put(TestsTable.COLUMN_SYNC_DATE, this.syncDate);
         json.put(TableContracts.TestsTable.COLUMN_APPVERSION, this.appver);
-        json.put(TableContracts.TestsTable.COLUMN_GPSLAT, this.gpsLat);
-        json.put(TableContracts.TestsTable.COLUMN_GPSLNG, this.gpsLng);
-        json.put(TableContracts.TestsTable.COLUMN_GPSPRO, this.gpsProvider);
-        json.put(TableContracts.TestsTable.COLUMN_GPSDATE, this.gpsDT);
-        json.put(TableContracts.TestsTable.COLUMN_GPSACC, this.gpsAcc);
+
 
         // Convert sHH and sBG groups to JSONObjects
         json.put(TableContracts.TestsTable.COLUMN_STESTS, new JSONObject(sTestToString()));

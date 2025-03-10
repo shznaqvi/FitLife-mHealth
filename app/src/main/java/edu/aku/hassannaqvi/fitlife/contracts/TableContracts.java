@@ -5,8 +5,8 @@ import android.provider.BaseColumns;
 public class TableContracts {
 
 
-    public static abstract class FamilyMembersTable implements BaseColumns {
-        public static final String TABLE_NAME = "FamilyMember";
+    public static abstract class TestsTable implements BaseColumns {
+        public static final String TABLE_NAME = "Tests";
         public static final String COLUMN_NAME_NULLABLE = "NULLHACK";
         public static final String COLUMN_PROJECT_NAME = "projectName";
         public static final String COLUMN_ID = "_id";
@@ -33,38 +33,32 @@ public class TableContracts {
         public static final String COLUMN_SYNCED = "synced";
         public static final String COLUMN_SYNCED_DATE = "synced_date";
         public static final String COLUMN_APPVERSION = "appversion";
-       // public static final String COLUMN_ISTATUS = "istatus";
+    public static final String COLUMN_ISTATUS = "istatus";
+        public static final String COLUMN_SESSION_ID = "session_id";
+        public static final String COLUMN_SYNC_DATE = "sync_date";
+        public static final String COLUMN_STESTS = "sTests";
     }
-    public static abstract class TestsTable implements BaseColumns {
-        public static final String TABLE_NAME = "Tests";
+
+    public static abstract class FeedbackTable implements BaseColumns {
+        public static final String TABLE_NAME = "Feedback";
         public static final String COLUMN_NAME_NULLABLE = "NULLHACK";
         public static final String COLUMN_PROJECT_NAME = "projectName";
         public static final String COLUMN_ID = "_id";
-        public static final String COLUMN_SESSION_ID = "_sessionId";
         public static final String COLUMN_UID = "_uid";
-        public static final String COLUMN_STUID = "_stuid";
-        public static final String COLUMN_DISTRICT_ID = "dist_id";
-        public static final String COLUMN_AREA = "area";
-        public static final String COLUMN_CLUSTER_CODE = "clusterCode";
-        public static final String COLUMN_STREET_NUMBER = "streetNum";
-        public static final String COLUMN_TAB_NUMBER = "tabno";
-        public static final String COLUMN_STRUCTURE_NUMBER = "structureNum";
-        public static final String COLUMN_HHID = "hhid";
+
         public static final String COLUMN_USERNAME = "username";
         public static final String COLUMN_SYSDATE = "sysdate";
-        public static final String COLUMN_GPSLAT = "xlt";
-        public static final String COLUMN_GPSLNG = "xlg";
-        public static final String COLUMN_GPSPRO = "xpro";
-        public static final String COLUMN_GPSDATE = "xdt";
-        public static final String COLUMN_GPSACC = "xac";
-        public static final String COLUMN_SYNCED = "synced";
-        public static final String COLUMN_SYNC_DATE = "syncdate";
-        public static final String COLUMN_APPVERSION = "appversion";
-        public static final String COLUMN_ISTATUS = "iStatus";
+
+        public static final String COLUMN_SNO = "sno";
+        public static final String COLUMN_SFB = "sFb";
+
+
+
         public static final String COLUMN_DEVICEID = "deviceid";
-
-        public static final String COLUMN_STESTS = "sTests";
-
+        public static final String COLUMN_SYNCED = "synced";
+        public static final String COLUMN_SYNC_DATE = "sync_date";
+        public static final String COLUMN_APPVERSION = "appversion";
+        public static final String COLUMN_ISTATUS = "istatus";
     }
 
     public static abstract class StreetsTable implements BaseColumns {

@@ -9,10 +9,13 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import edu.aku.hassannaqvi.fitlife.core.MainApp;
 import edu.aku.hassannaqvi.fitlife.databinding.ActivityVideoPlayerBinding;
+import edu.aku.hassannaqvi.fitlife.ui.sections.PostTestActivity;
 
 public class VideoPlayerActivity extends AppCompatActivity {
 
@@ -20,6 +23,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private View customView;
     private WebChromeClient.CustomViewCallback customViewCallback;
     private FrameLayout fullscreenContainer;
+    private boolean isVideoFinished = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +33,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         // Set toolbar and retrieve intent extras
         setSupportActionBar(bi.toolbar);
-        bi.sectionName.setText(getIntent().getStringExtra("sessionName"));
-        bi.sectionObj.setText(getIntent().getStringExtra("sessionObj"));
+        bi.sectionName.setText(MainApp.sessionName);
+        bi.sectionObj.setText(MainApp.sessionObj);
 
         // Configure WebView settings
         WebSettings webSettings = bi.youtubeWebview.getSettings();
@@ -38,15 +42,20 @@ public class VideoPlayerActivity extends AppCompatActivity {
         webSettings.setDomStorageEnabled(true);
         webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
 
+        // Add JavaScript interface
+        bi.youtubeWebview.addJavascriptInterface(new Object() {
+            @android.webkit.JavascriptInterface
+            public void onVideoEnded() {
+                isVideoFinished = true;
+                runOnUiThread(() -> enableContinueButton());
+            }
+        }, "Android");
+
         // Load the YouTube video using an iframe URL
-        String videoId = getIntent().getStringExtra("videoID");
-        String iframeUrl = "https://www.youtube.com/embed/" + videoId +     "?autoplay=1&showinfo=0&vq=hd720&controls=0&rel=0&modestbranding=1";;
+        String iframeUrl = "https://www.youtube.com/embed/" + MainApp.videoID + "?autoplay=1&showinfo=0&vq=hd720&controls=0&rel=0&modestbranding=1";
         bi.youtubeWebview.loadUrl(iframeUrl);
 
         // Set WebViewClient to handle URL loading within WebView
-        bi.youtubeWebview.setWebViewClient(new WebViewClient());
-
-        // Set WebChromeClient to handle fullscreen
         bi.youtubeWebview.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
@@ -58,6 +67,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
                         "if (shareButton) { shareButton.style.display = 'none'; }" +
                         "var relatedVideos = document.querySelector('.ytp-related');" +
                         "if (relatedVideos) { relatedVideos.style.display = 'none'; }" +
+                        "var player = document.querySelector('.html5-video-player');" +
+                        "player.addEventListener('ended', function() { Android.onVideoEnded(); });" +
                         "})()");
             }
         });
@@ -106,6 +117,29 @@ public class VideoPlayerActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    private void enableContinueButton() {
+        Toast.makeText(this, "Continue button enabled!", Toast.LENGTH_SHORT).show();
+        bi.btnContinue.setEnabled(true);
+        bi.btnContinue.setClickable(true);
+    }
+
+    public void btnEnd(View view) {
+        finish();
+    }
+
+    public void btnContinue(View v) {
+        Intent intent = new Intent(this, PostTestActivity.class);
+        startActivity(intent);
+        finish();
+        if (isVideoFinished) {
+            startActivity(intent);
+            finish();
+        } else {
+            // Show a message to the user that the video is not finished yet
+            Toast.makeText(this, "Please finish watching the video before continuing.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

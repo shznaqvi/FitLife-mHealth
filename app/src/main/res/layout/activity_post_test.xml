@@ -1,0 +1,510 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+        <variable
+            name="callback"
+            type="edu.aku.hassannaqvi.fitlife.ui.sections.PostTestActivity" />
+
+        <variable
+            name="tests"
+            type="edu.aku.hassannaqvi.fitlife.models.Tests" />
+    </data>
+    <!-- CUSTOM TOOLBAR -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/app_bg_effect"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@null"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ToolbarTheme"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:subtitle="Post Test"
+            app:subtitleTextAppearance="@style/Toolbar.SubtitleText"
+            app:subtitleTextColor="@color/grayLight"
+            app:theme="@style/ActionBarTheme"
+            app:title="@string/app_name"
+            app:titleTextAppearance="@style/Toolbar.TitleText" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/secGrpA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Risk Factor Questions Section -->
+                <!-- Question Post01 -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/fldGrpCVpost01"
+                    style="@style/cardView">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bottom"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/quesNum"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="@string/Q_a01" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/a01" />
+
+                        </LinearLayout>
+
+                        <RadioGroup
+                            android:id="@+id/post01"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RadioButton
+                                android:id="@+id/post01A"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post01.equals(`1`)}"
+                                android:onClick="@{()->tests.setPost01(`1`)}"
+                                android:text="@string/a01A" />
+
+                            <RadioButton
+                                android:id="@+id/post01B"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post01.equals(`2`)}"
+                                android:onClick="@{()->tests.setPost01(`2`)}"
+                                android:text="@string/a01B" />
+
+                            <RadioButton
+                                android:id="@+id/post01C"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post01.equals(`3`)}"
+                                android:onClick="@{()->tests.setPost01(`3`)}"
+                                android:text="@string/a01Cc" />
+
+                            <RadioButton
+                                android:id="@+id/post01D"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post01.equals(`4`)}"
+                                android:onClick="@{()->tests.setPost01(`4`)}"
+                                android:text="@string/a01D" />
+                        </RadioGroup>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Question Post02 -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/fldGrpCVpost02"
+                    style="@style/cardView">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bottom"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/quesNum"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="@string/Q_a02" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/a02" />
+
+                        </LinearLayout>
+
+                        <RadioGroup
+                            android:id="@+id/post02"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RadioButton
+                                android:id="@+id/post02A"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post02.equals(`1`)}"
+                                android:onClick="@{()->tests.setPost02(`1`)}"
+                                android:text="@string/a02A" />
+
+                            <RadioButton
+                                android:id="@+id/post02B"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post02.equals(`2`)}"
+                                android:onClick="@{()->tests.setPost02(`2`)}"
+                                android:text="@string/a02B" />
+
+                            <RadioButton
+                                android:id="@+id/post02C"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post02.equals(`3`)}"
+                                android:onClick="@{()->tests.setPost02(`3`)}"
+                                android:text="@string/a02C" />
+
+                            <RadioButton
+                                android:id="@+id/post02D"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post02.equals(`4`)}"
+                                android:onClick="@{()->tests.setPost02(`4`)}"
+                                android:text="@string/a02D" />
+                        </RadioGroup>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Question Post03 -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/fldGrpCVpost03"
+                    style="@style/cardView">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bottom"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/quesNum"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="@string/Q_a03" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/a03" />
+
+                        </LinearLayout>
+
+                        <RadioGroup
+                            android:id="@+id/post03"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RadioButton
+                                android:id="@+id/post03A"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post03.equals(`1`)}"
+                                android:onClick="@{()->tests.setPost03(`1`)}"
+                                android:text="@string/a03A" />
+
+                            <RadioButton
+                                android:id="@+id/post03B"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post03.equals(`2`)}"
+                                android:onClick="@{()->tests.setPost03(`2`)}"
+                                android:text="@string/a03B" />
+
+                            <RadioButton
+                                android:id="@+id/post03C"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post03.equals(`3`)}"
+                                android:onClick="@{()->tests.setPost03(`3`)}"
+                                android:text="@string/a03C" />
+
+                            <RadioButton
+                                android:id="@+id/post03D"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post03.equals(`4`)}"
+                                android:onClick="@{()->tests.setPost03(`4`)}"
+                                android:text="@string/a03D" />
+                        </RadioGroup>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Question Post04 -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/fldGrpCVpost04"
+                    style="@style/cardView">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bottom"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/quesNum"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="@string/Q_a04" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/a04" />
+
+                        </LinearLayout>
+
+                        <RadioGroup
+                            android:id="@+id/post04"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RadioButton
+                                android:id="@+id/post04A"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post04.equals(`1`)}"
+                                android:onClick="@{()->tests.setPost04(`1`)}"
+                                android:text="@string/a04A" />
+
+                            <RadioButton
+                                android:id="@+id/post04B"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post04.equals(`2`)}"
+                                android:onClick="@{()->tests.setPost04(`2`)}"
+                                android:text="@string/a04B" />
+
+                            <RadioButton
+                                android:id="@+id/post04C"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post04.equals(`3`)}"
+                                android:onClick="@{()->tests.setPost04(`3`)}"
+                                android:text="@string/a04C" />
+
+                            <RadioButton
+                                android:id="@+id/post04D"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post04.equals(`4`)}"
+                                android:onClick="@{()->tests.setPost04(`4`)}"
+                                android:text="@string/a04D" />
+                        </RadioGroup>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Question Post05 -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/fldGrpCVpost05"
+                    style="@style/cardView">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bottom"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/quesNum"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="@string/Q_a05" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/a05" />
+
+                        </LinearLayout>
+
+                        <RadioGroup
+                            android:id="@+id/post05"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RadioButton
+                                android:id="@+id/post05A"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post05.equals(`1`)}"
+                                android:onClick="@{()->tests.setPost05(`1`)}"
+                                android:text="@string/a05A" />
+
+                            <RadioButton
+                                android:id="@+id/post05B"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post05.equals(`2`)}"
+                                android:onClick="@{()->tests.setPost05(`2`)}"
+                                android:text="@string/a05B" />
+
+                            <RadioButton
+                                android:id="@+id/post05C"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post05.equals(`3`)}"
+                                android:onClick="@{()->tests.setPost05(`3`)}"
+                                android:text="@string/a05C" />
+
+                            <RadioButton
+                                android:id="@+id/post05D"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post05.equals(`4`)}"
+                                android:onClick="@{()->tests.setPost05(`4`)}"
+                                android:text="@string/a05D" />
+                        </RadioGroup>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Question Post06 -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/fldGrpCVpost06"
+                    style="@style/cardView">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bottom"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/quesNum"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="@string/Q_a06" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/a06" />
+
+                        </LinearLayout>
+
+                        <RadioGroup
+                            android:id="@+id/post06"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RadioButton
+                                android:id="@+id/post06A"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post06.equals(`1`)}"
+                                android:onClick="@{()->tests.setPost06(`1`)}"
+                                android:text="@string/a06A" />
+
+                            <RadioButton
+                                android:id="@+id/post06B"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post06.equals(`2`)}"
+                                android:onClick="@{()->tests.setPost06(`2`)}"
+                                android:text="@string/a06B" />
+
+                            <RadioButton
+                                android:id="@+id/post06C"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post06.equals(`3`)}"
+                                android:onClick="@{()->tests.setPost06(`3`)}"
+                                android:text="@string/a06C" />
+
+                            <RadioButton
+                                android:id="@+id/post06D"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post06.equals(`4`)}"
+                                android:onClick="@{()->tests.setPost06(`4`)}"
+                                android:text="@string/a06D" />
+                        </RadioGroup>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!--EndButton LinearLayout-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="24dp"
+                    android:orientation="horizontal"
+                    android:padding="24dp">
+
+                    <Button
+                        android:id="@+id/btn_End"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:onClick="@{() -> callback.btnEnd()}"
+                        android:text="Cancel"
+                        android:textColor="@color/childBg"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/btn_Continue"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/capsule"
+                        android:backgroundTint="@color/colorAccent"
+                        android:backgroundTintMode="src_atop"
+                        android:onClick="@{() -> callback.btnContinue()}"
+                        android:text="Save"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

@@ -8,6 +8,7 @@ import android.app.DownloadManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -57,6 +58,24 @@ public class MainActivity extends AppCompatActivity {
         bi.toolbar.setSubtitle("Welcome, " + MainApp.user.getFullname() + (MainApp.admin ? " (Admin)" : "") + "!");
         invalidateOptionsMenu();
 
+        // Set BottomNavigationView Listener
+        bi.navView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.nav_home) {
+                openEmailApp();
+                return true;
+            } else if (item.getItemId() == R.id.nav_feedback) {
+                // Handle Profile action
+                Intent i = new Intent(MainActivity.this, FeedbackActivity.class);
+                                startActivity(i);
+                return true;
+            } else if (item.getItemId() == R.id.nav_instructions) {
+                // Handle Settings action
+                Intent i = new Intent(MainActivity.this, UserGuideActivity.class);
+                startActivity(i);
+                return true;
+            }
+            return false;
+        });
 
         try {
             String pwExpiry = String.valueOf(new JSONObject(MainApp.user.getPwdExpiry()).get("date")).substring(0, 10);
@@ -343,5 +362,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         handler.removeCallbacks(updateTitleRunnable); // Stop updates when activity is destroyed
+    }
+
+    private void openEmailApp() {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:shznaqvi@gmail.com?subject=" + Uri.encode(MainApp.user.getUserName() + " Contacting for support")));
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 }

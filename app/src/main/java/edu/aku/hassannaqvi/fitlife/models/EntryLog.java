@@ -54,12 +54,12 @@ public class EntryLog extends BaseObservable implements Observable {
     public void populateMeta() {
 
         setProjectName(PROJECT_NAME);
-        setUuid(MainApp.listings.getUid());  // not applicable in Tests table
+        setUuid(MainApp.tests.getUid());  // not applicable in Tests table
         setUserName(MainApp.user.getUserName());
-        setSysDate(MainApp.listings.getSysDate());
+        setSysDate(MainApp.tests.getSysDate());
         setEntryDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(new Date().getTime()));
-        setiStatus(MainApp.listings.getiStatus());
-        setiStatus96x(MainApp.listings.getiStatus96x());
+        setiStatus(MainApp.tests.getiStatus());
+        setiStatus96x(MainApp.tests.getiStatus96x());
         setAppver(MainApp.appInfo.getAppVersion());
         //setEntryType(MainApp.listings.getEntryType());
         setDeviceId(MainApp.deviceid);

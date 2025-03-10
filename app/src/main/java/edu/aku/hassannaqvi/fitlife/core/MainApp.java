@@ -88,7 +88,9 @@ public class MainApp extends Application implements LifecycleObserver {
     public static ArrayAdapter<String> streetAdapter;
     //public static Samples samples;
     public static String[] downloadData;
-    public static Tests listings;
+    public static Tests tests;
+    public static int preScore = 0;
+    public static int postScore = 0;
     public static String DeviceURL = "devices.php";
     public static AppInfo appInfo;
     public static Users user;
@@ -133,6 +135,10 @@ public class MainApp extends Application implements LifecycleObserver {
     public static int totalFloors = 0;
     public static int currentFloor = 1;
     public static int currentApartment = 1;
+    public static int sessionid;
+    public static String sessionName;
+    public static String sessionObj;
+    public static String videoID;
 
     protected static LocationManager locationManager;
     private Handler inactivityHandler;

@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:paddingTop="24dp"
-                    android:src="@drawable/app_icon"
+                    android:src="@drawable/final_logo"
                     android:visibility="gone" />
 
                 <TextView
@@ -113,13 +113,13 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="230dp"
-                                android:adjustViewBounds="true"
 
                                 android:background="@color/colorPrimaryOverlay"
                                 android:elevation="8dp"
-                                android:padding="16dp"
+                                android:padding="24dp"
+                                android:adjustViewBounds="true"
                                 android:scaleType="fitCenter"
-                                android:src="@drawable/app_icon"
+                                android:src="@drawable/final_logo"
                                 android:text="Primary Card Header" />
 
                             <LinearLayout

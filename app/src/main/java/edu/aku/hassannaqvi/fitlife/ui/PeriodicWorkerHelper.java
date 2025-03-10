@@ -94,13 +94,13 @@ public class PeriodicWorkerHelper {
             Log.d(TAG, "ProcessStart: JSONException(Forms): " + e.getMessage());
         }
 
-        // Familymembers
-        uploadTables.add(new SyncModel(TableContracts.FamilyMembersTable.TABLE_NAME));
+        // Tests
+        uploadTables.add(new SyncModel(TableContracts.TestsTable.TABLE_NAME));
         try {
-            MainApp.uploadDataPeriodic.add(db.getUnsyncedFamilyMembers());
+            MainApp.uploadDataPeriodic.add(db.getUnsyncedTests());
         } catch (JSONException e) {
             e.printStackTrace();
-            Log.d(TAG, "ProcessStart: JSONException(Familymembers): " + e.getMessage());
+            Log.d(TAG, "ProcessStart: JSONException(Tests): " + e.getMessage());
         }*/
 
         // Entry Log

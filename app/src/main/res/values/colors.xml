@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#009688</color> <!-- Teal: Symbolizes health, rejuvenation, and energy -->
-    <color name="colorPrimaryLight">#B2DFDB</color> <!-- Light Teal: Adds calmness and a welcoming tone -->
-    <color name="colorPrimaryDark">#00796B</color> <!-- Dark Teal: Adds depth and a professional look -->
+    <color name="colorPrimary">#388E3C</color> <!-- Teal: Symbolizes health, rejuvenation, and energy -->
+    <color name="colorPrimaryLight">#4CAF50</color> <!-- Light Teal: Adds calmness and a welcoming tone -->
+    <color name="colorPrimaryDark">#1B5E20</color> <!-- Dark Teal: Adds depth and a professional look -->
     <color name="colorAccent">#FFC107</color> <!-- Amber: Represents youthful energy and optimism -->
     <color name="colorAccentLight">#FFE082</color> <!-- Light Amber: A softer, uplifting tone that balances with energy -->
 
 
-    <color name="colorPrimaryOverlay">#7f009688</color>
-    <color name="colorPrimaryLightOverlay">#7fB2DFDB</color>
-    <color name="colorPrimaryDarkOverlay">#7f00796B</color>
+    <color name="colorPrimaryOverlay">#7f388E3C</color>
+    <color name="colorPrimaryLightOverlay">#7f4CAF50</color>
+    <color name="colorPrimaryDarkOverlay">#7f1B5E20</color>
     <color name="colorAccentOverlay">#7fFFC107</color>
     <color name="colorAccentLightOverlay">#7fFFE082</color>
 
@@ -18,7 +18,7 @@
     <color name="disabled_color">#ef7f7f</color>
 
     <!-- Standard App Colors -->
-    <color name="gray">#757575</color>
+    <color name="gray">#6d757575</color>
     <color name="grayDark">#424242</color>
     <color name="grayLight">#d6d6d6</color>
     <color name="grayLightd6">#d6d6d6</color>
@@ -43,6 +43,7 @@
 
     <color name="motherBg">#FFCDD2</color>
     <color name="childBg">#C5CAE9</color>
+    <color name="greenBg">#7fCAE9C5</color>
     <color name="adolMaleBg">#B2DFDB</color>
     <color name="adolFemaleBg">#FBC02D</color>
 
@@ -66,5 +67,12 @@
     <color name="very_high">#D32F2F</color> <!-- Dark Red -->
     <color name="high_medium">#FFA726</color> <!-- Orange -->
     <color name="low">#388E3C</color>
+    <color name="glassGray">#efefef</color>
+
+    <color name="muted_green">#4CAF50</color> <!-- Soft Green -->
+    <color name="muted_green_alfa">#7f4CAF50</color> <!-- Soft Green -->
+    <color name="warm_mustard">#FBC02D</color> <!-- Warm Mustard -->
+    <color name="soft_coral">#E57373</color> <!-- Soft Coral -->
+
 
 </resources>

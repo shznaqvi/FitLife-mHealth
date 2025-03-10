@@ -1,0 +1,1228 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+        <variable
+            name="callback"
+            type="edu.aku.hassannaqvi.fitlife.ui.sections.ResultsTestActivity" />
+
+        <variable
+            name="tests"
+            type="edu.aku.hassannaqvi.fitlife.models.Tests" />
+        <variable
+            name="mainApp"
+            type="edu.aku.hassannaqvi.fitlife.core.MainApp" />
+    </data>
+    <!-- CUSTOM TOOLBAR -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/app_bg_effect"
+        android:orientation="vertical">
+
+        <!-- Status Bar Placeholder (Ensures content is not overlapped) -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:background="?attr/colorPrimaryDark"/>
+
+        <!-- Toolbar -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <!-- App Icon -->
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/app_icon"
+            android:contentDescription="App Logo"
+            android:layout_gravity="start"
+            android:scaleType="fitCenter"/>
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textSize="20sp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:layout_gravity="center"/>
+
+            <!-- Menu Icon -->
+            <ImageView
+                android:id="@+id/menu_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_menu_hamburger"
+            android:contentDescription="Menu"
+            android:layout_gravity="end"
+            android:padding="8dp"/>
+        </androidx.appcompat.widget.Toolbar>
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/greenBg"
+    android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="56dp"
+            android:layout_marginEnd="56dp"
+            style="@style/cardView">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="16dp"
+            android:background="@android:color/white">
+
+            <!-- Heading -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp"
+                android:textColor="@color/gray"
+                android:fontFamily="@font/alexandria"
+                android:text="Test Scores Summary"
+                android:textStyle="bold" />
+            <!-- Light Gray Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#D3D3D3"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"/>
+
+            <!-- Table Layout -->
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1">
+
+                <!-- Header Row -->
+                <TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:padding="8dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Score"
+                        android:textAllCaps="true"
+                        android:fontFamily="@font/alexandria"
+                        android:textColor="@color/gray"
+
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:padding="8dp"/>
+
+                    <TextView
+                        android:layout_width="101dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/alexandria"
+                        android:gravity="center"
+                        android:padding="8dp"
+
+
+                        android:text="Correct"
+                        android:textAllCaps="true"
+
+                        android:textColor="@color/gray"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Wrong"
+                        android:textStyle="bold"
+                        android:textAllCaps="true"
+                        android:fontFamily="@font/alexandria"
+                        android:textColor="@color/gray"
+                        android:textAppearance="@null"
+                        android:gravity="center"
+                        android:padding="8dp"/>
+                </TableRow>
+
+                <!-- Pre-Test Scores -->
+                <TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Pre"
+                        android:textColor="@color/gray"
+
+                        android:textStyle="bold"
+
+                        android:fontFamily="@font/alexandria"
+
+                      />
+
+                    <TextView
+                        android:id="@+id/tvPreScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text='@{String.format("%.2f", (100f * mainApp.preScore) / 6)+"%"}'
+                        android:textSize="42sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:fontFamily="@font/alexandria"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/tvPreCorrect"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{String.valueOf(mainApp.preScore)}"
+                        android:textSize="42sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/alexandria"
+                        android:textColor="@color/muted_green"
+                        android:gravity="center"
+                      />
+
+                    <TextView
+                        android:id="@+id/tvPreWrong"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{String.valueOf(6-mainApp.preScore)}"
+                        android:textSize="42sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:fontFamily="@font/alexandria"
+                        android:textColor="@color/soft_coral"
+
+
+
+                      />
+                </TableRow>
+
+                <!-- Post-Test Scores -->
+                <TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Post"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/alexandria"
+                        android:textColor="@color/gray"
+
+                      />
+
+                    <TextView
+                        android:id="@+id/tvPostScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text='@{String.format("%.2f", (100f * mainApp.postScore) / 6)+"%"}'
+                        android:textSize="42sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textAppearance="@null"
+                        android:fontFamily="@font/alexandria"
+                        tools:text="0%"
+                        android:textColor="@color/gray"
+
+                     />
+
+                    <TextView
+                        android:id="@+id/tvPostCorrect"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{String.valueOf(mainApp.postScore)}"
+                        android:gravity="center"
+                        android:fontFamily="@font/alexandria"
+                        android:textSize="42sp"
+
+                        tools:text="0"
+                        android:textStyle="bold"
+                        android:textColor="@color/muted_green"
+
+                       />
+
+                    <TextView
+                        android:id="@+id/tvPostWrong"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{String.valueOf(6-mainApp.postScore)}"
+                        android:textSize="42sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:fontFamily="@font/alexandria"
+                        android:textColor="@color/soft_coral"
+
+                        />
+                </TableRow>
+                <!-- Light Gray Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#D3D3D3"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"/>
+            </TableLayout>
+            <Button
+                android:id="@+id/btnDownload"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:background="@drawable/download_button"
+android:visibility="gone"
+                android:text="Download Certificate"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:paddingStart="40dp"
+                android:paddingEnd="16dp"/>
+
+        </LinearLayout>
+        </androidx.cardview.widget.CardView>
+</androidx.appcompat.widget.LinearLayoutCompat>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:elevation="2dp"
+            android:background="@color/whiteOverlay"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:elevation="2dp"
+            android:background="@color/gray"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/secGrpA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Risk Factor Questions Section -->
+                <!-- Question Pre01 -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/fldGrpCVpre01"
+                    style="@style/cardView">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bottom"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/quesNum"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="@string/Q_a01" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/a01" />
+
+                        </LinearLayout>
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:visibility="@{tests.pre01.equals(`1`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:text="pre"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:visibility="@{tests.pre01.equals(`2`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:text="pre"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.pre01.equals(`3`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="pre"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.pre01.equals(`4`) ? View.VISIBLE : View.INVISIBLE}"
+
+                                    android:text="pre"/>
+                                
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post01.equals(`1`) ? View.VISIBLE : View.INVISIBLE}"
+
+                                    android:text="post"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post01.equals(`2`) ? View.VISIBLE : View.INVISIBLE}"
+
+                                    android:text="post"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post01.equals(`3`) ? View.VISIBLE : View.INVISIBLE}"
+
+                                    android:text="post"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post01.equals(`4`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="post"/>
+                                
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        <RadioGroup
+                            android:id="@+id/pre01"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+
+                            <RadioButton
+                                android:id="@+id/pre01A"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post01.equals(`1`)}"
+                                android:editable="false"
+                                android:text="@string/a01A" />
+
+                            <RadioButton
+                                android:id="@+id/pre01B"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post01.equals(`2`)}"
+                                android:editable="false"
+                                android:text="@string/a01B" />
+
+                            <RadioButton
+                                android:id="@+id/pre01C"
+                                android:background="@color/muted_green_alfa"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post01.equals(`3`)}"
+                                android:editable="false"
+
+                                android:text="@string/a01Cc" />
+
+                            <RadioButton
+                                android:editable="false"
+
+                                android:id="@+id/pre01D"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.post01.equals(`4`)}"
+                                android:text="@string/a01D" />
+                        </RadioGroup>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Question Pre02 -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/fldGrpCVpre02"
+                    style="@style/cardView">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bottom"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/quesNum"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="@string/Q_a02" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/a02" />
+
+                        </LinearLayout>
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:visibility="@{tests.pre02.equals(`1`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:text="pre"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:visibility="@{tests.pre02.equals(`2`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:text="pre"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.pre02.equals(`3`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="pre"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.pre02.equals(`4`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="pre"/>
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post02.equals(`1`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="post"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post02.equals(`2`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="post"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post02.equals(`3`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="post"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post02.equals(`4`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="post"/>
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                            <RadioGroup
+                                android:id="@+id/pre02"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
+
+                                <RadioButton
+                                    android:editable="false"
+                                    android:id="@+id/pre02A"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post02.equals(`1`)}"
+                                    android:text="@string/a02A" />
+
+                                <RadioButton
+                                    android:editable="false"
+                                    android:id="@+id/pre02B"
+                                    android:background="@color/muted_green_alfa"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post02.equals(`2`)}"
+                                    android:text="@string/a02B" />
+
+                                <RadioButton
+                                    android:editable="false"
+                                    android:id="@+id/pre02C"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post02.equals(`3`)}"
+                                    android:text="@string/a02C" />
+
+                                <RadioButton
+                                    android:editable="false"
+                                    android:id="@+id/pre02D"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post02.equals(`4`)}"
+                                    android:text="@string/a02D" />
+                            </RadioGroup>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Question Pre03 -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/fldGrpCVpre03"
+                    style="@style/cardView">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bottom"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/quesNum"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="@string/Q_a03" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/a03" />
+
+                        </LinearLayout>
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:visibility="@{tests.pre03.equals(`1`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:text="pre"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:visibility="@{tests.pre03.equals(`2`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:text="pre"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.pre03.equals(`3`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="pre"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.pre03.equals(`4`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="pre"/>
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post03.equals(`1`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="post"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post03.equals(`2`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="post"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post03.equals(`3`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="post"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post03.equals(`4`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="post"/>
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                            <RadioGroup
+                                android:id="@+id/pre03"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
+
+                                <RadioButton
+                                    android:editable="false"
+                                    android:background="@color/muted_green_alfa"
+                                    android:id="@+id/pre03A"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post03.equals(`1`)}"
+                                    android:text="@string/a03A" />
+
+                                <RadioButton
+                                    android:editable="false"
+                                    android:id="@+id/pre03B"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post03.equals(`2`)}"
+                                    android:text="@string/a03B" />
+
+                                <RadioButton
+                                    android:editable="false"
+                                    android:id="@+id/pre03C"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post03.equals(`3`)}"
+                                    android:text="@string/a03C" />
+
+                                <RadioButton
+                                    android:editable="false"
+                                    android:id="@+id/pre03D"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post03.equals(`4`)}"
+                                    android:text="@string/a03D" />
+                            </RadioGroup>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <!-- Question Pre04 -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/fldGrpCVpre04"
+                    style="@style/cardView">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bottom"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/quesNum"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="@string/Q_a04" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/a04" />
+
+                        </LinearLayout>
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:visibility="@{tests.pre04.equals(`1`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:text="pre"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:visibility="@{tests.pre04.equals(`2`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:text="pre"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.pre04.equals(`3`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="pre"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.pre04.equals(`4`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="pre"/>
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post04.equals(`1`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="post"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post04.equals(`2`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="post"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post04.equals(`3`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="post"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post04.equals(`4`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="post"/>
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                            <RadioGroup
+                                android:id="@+id/pre04"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
+
+                                <RadioButton
+                                    android:editable="false"
+                                    android:id="@+id/pre04A"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post04.equals(`1`)}"
+                                    android:text="@string/a04A" />
+
+                                <RadioButton
+                                    android:editable="false"
+                                    android:background="@color/muted_green_alfa"
+                                    android:id="@+id/pre04B"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post04.equals(`2`)}"
+                                    android:text="@string/a04B" />
+
+                                <RadioButton
+                                    android:editable="false"
+                                    android:id="@+id/pre04C"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post04.equals(`3`)}"
+                                    android:text="@string/a04C" />
+
+                                <RadioButton
+                                    android:editable="false"
+                                    android:id="@+id/pre04D"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post04.equals(`4`)}"
+                                    android:text="@string/a04D" />
+                            </RadioGroup>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <!-- Question Pre05 -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/fldGrpCVpre05"
+                    style="@style/cardView">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bottom"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/quesNum"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="@string/Q_a05" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/a05" />
+
+                        </LinearLayout>
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:visibility="@{tests.pre05.equals(`1`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:text="pre"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:visibility="@{tests.pre05.equals(`2`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:text="pre"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.pre05.equals(`3`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="pre"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.pre05.equals(`4`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="pre"/>
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post05.equals(`1`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="post"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post05.equals(`2`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="post"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post05.equals(`3`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="post"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post05.equals(`4`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="post"/>
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                            <RadioGroup
+                                android:id="@+id/pre05"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
+
+                                <RadioButton
+                                    android:editable="false"
+                                    android:id="@+id/pre05A"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post05.equals(`1`)}"
+                                    android:text="@string/a05A" />
+
+                                <RadioButton
+                                    android:editable="false"
+                                    android:id="@+id/pre05B"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post05.equals(`2`)}"
+                                    android:text="@string/a05B" />
+
+                                <RadioButton
+                                    android:editable="false"
+                                    android:id="@+id/pre05C"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post05.equals(`3`)}"
+                                    android:text="@string/a05C" />
+
+                                <RadioButton
+                                    android:editable="false"
+                                    android:background="@color/muted_green_alfa"
+                                    android:id="@+id/pre05D"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post05.equals(`4`)}"
+                                    android:text="@string/a05D" />
+                            </RadioGroup>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <!-- Question Pre06 -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/fldGrpCVpre06"
+                    style="@style/cardView">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bottom"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/quesNum"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="@string/Q_a06" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/a06" />
+
+                        </LinearLayout>
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:visibility="@{tests.pre06.equals(`1`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:text="pre"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:visibility="@{tests.pre06.equals(`2`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:text="pre"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.pre06.equals(`3`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="pre"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.pre06.equals(`4`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="pre"/>
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post06.equals(`1`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="post"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post06.equals(`2`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="post"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post06.equals(`3`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="post"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:visibility="@{tests.post06.equals(`4`) ? View.VISIBLE : View.INVISIBLE}"
+                                    android:text="post"/>
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                            <RadioGroup
+                                android:id="@+id/pre06"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
+
+                                <RadioButton
+                                    android:editable="false"
+                                    android:background="@color/muted_green_alfa"
+                                    android:id="@+id/pre06A"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post06.equals(`1`)}"
+                                    android:text="@string/a06A" />
+
+                                <RadioButton
+                                    android:editable="false"
+                                    android:id="@+id/pre06B"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post06.equals(`2`)}"
+                                    android:text="@string/a06B" />
+
+                                <RadioButton
+                                    android:editable="false"
+                                    android:id="@+id/pre06C"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post06.equals(`3`)}"
+                                    android:text="@string/a06C" />
+
+                                <RadioButton
+                                    android:editable="false"
+                                    android:id="@+id/pre06D"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post06.equals(`4`)}"
+                                    android:text="@string/a06D" />
+                            </RadioGroup>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <!--EndButton LinearLayout-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="24dp"
+                    android:orientation="horizontal"
+                    android:padding="24dp">
+
+                    <Button
+                        android:visibility="gone"
+                        android:id="@+id/btn_End"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:onClick="@{() -> callback.btnEnd()}"
+                        android:text="Cancel"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/btn_Continue"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/capsule"
+                        android:backgroundTint="@color/colorAccent"
+                        android:backgroundTintMode="src_atop"
+                        android:onClick="@{() -> callback.btnContinue()}"
+                        android:text="Continue"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

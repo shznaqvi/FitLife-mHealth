@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/app_bg_effect"
+        android:layoutDirection="ltr"
+        android:orientation="vertical"
+        android:textDirection="ltr">
+
+        <!-- CUSTOM TOOLBAR -->
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:backgroundTint="#333333"
+            android:layoutDirection="ltr"
+            android:textAlignment="center"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:menu="@menu/item_menu"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:subtitleTextColor="@color/grayLight"
+            app:title="@string/app_name"
+            app:titleTextColor="@color/white" />
+
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/all_round_corners"
+                android:elevation="1dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+
+                    <!-- Card for Title -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="12dp"
+                        android:backgroundTint="@color/colorAccentLightOverlay"
+                        app:cardElevation="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:id="@+id/title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="🎉 Welcome to the School eHealth Program! 🎉"
+                                android:textColor="#4CAF50"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="12dp"
+                                android:text="Hey there! Let’s get started on your journey to learn about health in a fun and exciting way!"
+                                android:textSize="14sp"
+                                android:lineSpacingExtra="4dp"
+                                android:lineSpacingMultiplier="1.3"
+                                android:textColor="#333333" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <!-- Card for Signing Up -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="12dp"
+                        android:backgroundTint="#EBEEFF"
+                        app:cardElevation="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:id="@+id/section1_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text=" Step 1: Create Your Account"
+                                android:textColor="#3F51B5"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:paddingTop="12dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="1. Tap the Sign-Up button 🎯\n2. Fill out your name, Gmail, and details.\n3. Choose a strong password (mix of letters, numbers, and special symbols like # or $).\n4. Tap Submit and you’re in! ✅"
+                                android:textSize="14sp"
+                                android:lineSpacingExtra="4dp"
+                                android:lineSpacingMultiplier="1.3"
+                                android:textColor="#333333" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <!-- Card for Logging In -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="12dp"
+                        android:backgroundTint="#E1FFF8"
+                        app:cardElevation="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <!-- Title for Login Section -->
+                            <TextView
+                                android:id="@+id/login_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="🔑 Step 2: Logging In"
+                                android:textColor="#3F51B5"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <!-- Content for Login Section -->
+                            <TextView
+                                android:paddingTop="12dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:lineSpacingExtra="4dp"
+                                android:lineSpacingMultiplier="1.3"
+                                android:text="1. Enter your Gmail address.\n2. Enter your password.\n3. Tap Sign-In to access the app."
+                                android:textColor="#555555"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <!-- Card for Channels -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="12dp"
+                        android:backgroundTint="#F8E1FF"
+                        app:cardElevation="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <!-- Title for Main Screen Overview -->
+                            <TextView
+                                android:id="@+id/main_screen_overview_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="🖥 Step 3: Main Screen Overview"
+                                android:textColor="#3F51B5"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <!-- Content for Main Screen Overview -->
+                            <TextView
+                                android:paddingTop="12dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:lineSpacingExtra="4dp"
+                                android:lineSpacingMultiplier="1.3"
+                                android:text="• Channels: Explore a variety of health education channels.\n• Options Menu: Learn how to navigate the app, read instructions, and provide feedback."
+                                android:textColor="#555555"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                <!-- Card for Navigating Channels -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="6dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#FFF8E1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <!-- Title for Navigating Channels Section -->
+                        <TextView
+                            android:id="@+id/navigating_channels_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="🎬 4. Navigating Channels"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="#FF9800" />
+
+                        <!-- Content for Navigating Channels Section -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="12dp"
+                            android:text="How to complete your channel and get your certificate! 🎓\n\n Pick a Channel: Choose one from the list!\n Watch All Videos: Check out each video and unlock the next one 🔓\n Get Your Certificate: After finishing all videos, tap 'Download Certificate' to get your prize! "
+                            android:textSize="14sp"
+                            android:lineSpacingExtra="4dp"
+                            android:lineSpacingMultiplier="1.3"
+                            android:textColor="#333333" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Card for Video Screen Features -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="6dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#FFEBEE">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <!-- Title for Video Screen Features Section -->
+                        <TextView
+                            android:id="@+id/video_screen_features_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="📺 5. Video Screen Features"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="#03A9F4" />
+
+                        <!-- Content for Video Screen Features Section -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="12dp"
+                            android:text="Enjoy watching and learning! 🎥\n\n1. Watch Videos: Learn new things in fun videos.\n2. Ask Questions: Use the chat box if you have questions 💬\n3. More Resources: Click for extra info in the PDF 📑"
+                            android:textSize="16sp"
+                            android:lineSpacingExtra="4dp"
+                            android:lineSpacingMultiplier="1.3"
+                            android:textColor="#333333" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Card for Tips for a Great Experience -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="6dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#E8F5E9">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <!-- Title for Tips for a Great Experience Section -->
+                        <TextView
+                            android:id="@+id/tips_for_experience_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="💡 6. Tips for a Great Experience"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="#388E3C" />
+
+                        <!-- Content for Tips for a Great Experience Section -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="12dp"
+                            android:text="Here are some helpful tips! 🌟\n\n⚡ Stable Internet: Make sure your connection is strong for smooth videos.\n📲 Keep the App Updated: Stay up-to-date for the best features!\n🎉 Engage: Chat with us and give your feedback to improve!"
+                            android:textSize="16sp"
+                            android:lineSpacingExtra="4dp"
+                            android:lineSpacingMultiplier="1.3"
+                            android:textColor="#333333" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+
+
+                <!-- Card for Help -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:id="@+id/section4_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text=" Need Help? We’ve Got You!"
+                                android:textColor="#3F51B5"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="12dp"
+                                android:text="• Use the Private Chat feature to ask questions.\n• Email us for technical support.\n• Don’t worry – we’re here to help! 😊"
+                                android:textColor="#555555"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <!-- End Note Card -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:id="@+id/end_note"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="12dp"
+                                android:gravity="center"
+                                android:text="🌟 You're all set! Let’s make learning fun and exciting together. Happy exploring! 🌟"
+                                android:textColor="#4CAF50"
+                                android:textSize="16sp"
+                                android:textStyle="italic" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+            <!-- Bottom Navigation -->
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/nav_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                app:menu="@menu/bottom_nav_menu"
+                app:labelVisibilityMode="labeled"
+                app:itemIconTint="@color/colorPrimary"
+                app:itemTextColor="@color/grayDark"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

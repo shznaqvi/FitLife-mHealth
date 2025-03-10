@@ -151,19 +151,19 @@
     <string name="a01">What are Non-Communicable Diseases (NCDs)?</string>
     <string name="a01A">Diseases that spread from one person to another</string>
     <string name="a01B">Diseases caused by germs or infections</string>
-    <string name="a01C_c">Long-lasting diseases that do not spread from person to person</string> <!-- Correct Answer -->
+    <string name="a01Cc">Long-lasting diseases that do not spread from person to person</string> <!-- Correct Answer -->
     <string name="a01D">Diseases that only affect animals</string>
 
     <!-- Question A02 -->
     <string name="a02">Why is it important to prevent NCDs?</string>
     <string name="a02A">NCDs can be easily treated</string>
-    <string name="a02B_c">Preventing NCDs can help people live better and save money on healthcare</string> <!-- Correct Answer -->
+    <string name="a02B">Preventing NCDs can help people live better and save money on healthcare</string> <!-- Correct Answer -->
     <string name="a02C">NCDs cannot be prevented</string>
     <string name="a02D">NCDs only affect older people</string>
 
     <!-- Question A03 -->
     <string name="a03">What can help reduce the risk of NCDs?</string>
-    <string name="a03A_c">Being physically active</string> <!-- Correct Answer -->
+    <string name="a03A">Being physically active</string> <!-- Correct Answer -->
     <string name="a03B">Eating lots of junk food</string>
     <string name="a03C">Smoking cigarettes</string>
     <string name="a03D">Skipping health check-ups</string>
@@ -171,24 +171,108 @@
     <!-- Question A04 -->
     <string name="a04">What impact do NCDs have on a person’s life?</string>
     <string name="a04A">They have a small impact and are easy to manage</string>
-    <string name="a04B_c">They can cause serious health problems, lower quality of life, and early death</string> <!-- Correct Answer -->
+    <string name="a04B">They can cause serious health problems, lower quality of life, and early death</string> <!-- Correct Answer -->
     <string name="a04C">They make people healthier</string>
     <string name="a04D">They only affect physical health, not mental health</string>
 
     <!-- Question A05 (Select all that apply) -->
     <string name="a05">What are some effective ways to prevent NCDs? (Select all that apply)</string>
-    <string name="a05A_c">Eating a healthy diet</string> <!-- Correct Answer -->
-    <string name="a05B_c">Exercising regularly</string> <!-- Correct Answer -->
-    <string name="a05C_c">Avoiding tobacco and excessive alcohol</string> <!-- Correct Answer -->
+    <string name="a05A">Eating a healthy diet</string> <!-- Correct Answer -->
+    <string name="a05B">Exercising regularly</string> <!-- Correct Answer -->
+    <string name="a05C">Avoiding tobacco and excessive alcohol</string> <!-- Correct Answer -->
     <string name="a05D">Ignoring signs of illness</string>
 
     <!-- Question A06 -->
     <string name="a06">Which of these is NOT a changeable risk factor for NCDs?</string>
-    <string name="a06A_c">Family history of disease</string> <!-- Correct Answer -->
+    <string name="a06A">Family history of disease</string> <!-- Correct Answer -->
     <string name="a06B">Smoking</string>
     <string name="a06C">Lack of exercise</string>
     <string name="a06D">Unhealthy diet</string>
     <string name="ProjectName">School eHealth Education Program Pakistan (eSHEPP)</string>
+
+
+    <!--Feedback Performa-->
+    <!-- Section Title -->
+    <string name="section_fba">Feedback Section A: Acceptability</string>
+
+    <!-- Questions and Options -->
+    <string name="qfba01">FBA01</string>
+    <string name="fba01">How likely are you to recommend this web-based health awareness application to others?</string>
+    <string name="fba0101">Very Likely</string>
+    <string name="fba0102">Likely</string>
+    <string name="fba0103">Neutral</string>
+    <string name="fba0104">Unlikely</string>
+    <string name="fba0105">Very Unlikely</string>
+
+    <string name="qfba02">FBA02</string>
+    <string name="fba02">Did you find the content of the application relevant and informative?</string>
+    <string name="fba0201">Strongly Agree</string>
+    <string name="fba0202">Agree</string>
+    <string name="fba0203">Neutral</string>
+    <string name="fba0204">Disagree</string>
+    <string name="fba0205">Strongly Disagree</string>
+
+    <string name="qfba03">FBA03</string>
+    <string name="fba03">How would you rate the overall design and layout of the application?</string>
+    <string name="fba0301">Excellent</string>
+    <string name="fba0302">Good</string>
+    <string name="fba0303">Fair</string>
+    <string name="fba0304">Poor</string>
+    <string name="fba0305">Very Poor</string>
+
+    <!-- Section Title -->
+    <string name="section_fbb">Feedback Section B: Feasibility</string>
+
+    <!-- Questions and Options -->
+    <string name="qfbb01">FBB01</string>
+    <string name="fbb01">Did you encounter any technical difficulties while using the application?</string>
+    <string name="fbb0101">Yes, frequently</string>
+    <string name="fbb0102">Yes, occasionally</string>
+    <string name="fbb0103">No, rarely</string>
+    <string name="fbb0104">No, never</string>
+
+    <string name="qfbb02">FBB02</string>
+    <string name="fbb02">How easy was it to navigate through different sections/features of the application?</string>
+    <string name="fbb0201">Very Easy</string>
+    <string name="fbb0202">Easy</string>
+    <string name="fbb0203">Neutral</string>
+    <string name="fbb0204">Difficult</string>
+    <string name="fbb0205">Very Difficult</string>
+
+    <string name="qfbb03">FBB03</string>
+    <string name="fbb03">Did the application provide features that met your health awareness needs?</string>
+    <string name="fbb0301">Completely</string>
+    <string name="fbb0302">Mostly</string>
+    <string name="fbb0303">Somewhat</string>
+    <string name="fbb0304">Not at all</string>
+
+    <!-- Section Title -->
+    <string name="section_fbc">Feedback Section C: Usability</string>
+
+    <!-- Questions and Options -->
+    <string name="qfbc01">FBC01</string>
+    <string name="fbc01">How would you rate the responsiveness of the application (speed, loading time)?</string>
+    <string name="fbc0101">Very Responsive</string>
+    <string name="fbc0102">Responsive</string>
+    <string name="fbc0103">Neutral</string>
+    <string name="fbc0104">Slow</string>
+    <string name="fbc0105">Very Slow</string>
+
+    <string name="qfbc02">FBC02</string>
+    <string name="fbc02">Did you find the language and terminology used in the application easy to understand?</string>
+    <string name="fbc0201">Yes, very easy</string>
+    <string name="fbc0202">Yes, somewhat easy</string>
+    <string name="fbc0203">Neutral</string>
+    <string name="fbc0204">No, somewhat difficult</string>
+    <string name="fbc0205">No, very difficult</string>
+
+    <string name="qfbc03">FBC03</string>
+    <string name="fbc03">Overall, how satisfied are you with your experience using this web-based health awareness application?</string>
+    <string name="fbc0301">Very Satisfied</string>
+    <string name="fbc0302">Satisfied</string>
+    <string name="fbc0303">Neutral</string>
+    <string name="fbc0304">Dissatisfied</string>
+    <string name="fbc0305">Very Dissatisfied</string>
 
 
 </resources>
