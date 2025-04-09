@@ -4,9 +4,9 @@
         <domain includeSubdomains="true">aku.edu</domain>
 
         <trust-anchors>
-            <certificates src="@raw/star_aku_edu_2024" />
+            <certificates src="@raw/star_aku_edu_2025" />
         </trust-anchors>
-        <pin-set expiration="2023-03-08">
+        <pin-set expiration="2026-01-31">
             <pin digest="SHA-256">sBehhhJc5wTNYVfhoFYMY9LR6xtWYmN0AIBvjlPVR8o=</pin>
             <!-- backup pin -->
             <pin digest="SHA-256">5kJvNEMw0KjrCAu7eXY5HZdvyCS13BbA0VJG1RSP91w=</pin>

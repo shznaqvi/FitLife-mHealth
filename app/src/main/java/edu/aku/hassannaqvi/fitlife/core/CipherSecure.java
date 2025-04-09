@@ -117,7 +117,7 @@ public class CipherSecure {
 
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
             AssetManager assetManager = context.getAssets();
-            InputStream caInput = assetManager.open("star_aku_edu_2024.crt");
+            InputStream caInput = assetManager.open("star_aku_edu_2025.crt");
             Certificate ca;
             try {
                 ca = cf.generateCertificate(caInput);

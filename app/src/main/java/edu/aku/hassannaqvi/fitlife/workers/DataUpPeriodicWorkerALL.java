@@ -274,7 +274,7 @@ public class DataUpPeriodicWorkerALL extends Worker {
         try {
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
             AssetManager assetManager = mContext.getAssets();
-            caInput = assetManager.open("star_aku_edu_2024.crt");
+            caInput = assetManager.open("star_aku_edu_2025.crt");
 
 
             ca = cf.generateCertificate(caInput);

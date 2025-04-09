@@ -762,5 +762,9 @@ public class LoginActivity extends AppCompatActivity {
         // Refresh the UI or do other necessary updates
     }
 
+    public void registerUser(View view) {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+    }
 }
 

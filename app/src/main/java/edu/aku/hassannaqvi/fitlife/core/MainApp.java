@@ -62,9 +62,10 @@ public class MainApp extends Application implements LifecycleObserver {
     // public static final String _IP = "https://cls-pae-fp51764";// .TEST server
     // public static final String _IP = "http://f49461:8080/prosystem";// .TEST server
     //public static final String _IP = "http://43.245.131.159:8080";// .TEST server
-    public static final String _HOST_URL = MainApp._IP + "/wellnessscale/api/";// .TEST server;
+    public static final String _HOST_URL = MainApp._IP + "/eshepp/api/";// .TEST server;
     public static final String _PHOTO_UPLOAD_URL = _HOST_URL + "uploads.php";
     public static final String _SERVER_URL = "syncgcm.php";
+    public static final String _REGISTER_USER_URL = "regUser.php";
     public static final String _USER_URL = "resetpassword.php";
     public static final String _SERVER_GET_URL = "getDatagcm.php";
     public static final String _UPDATE_URL = MainApp._IP + "/room_database/app/";

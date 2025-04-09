@@ -25,6 +25,16 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.SENDTO" />
+
+            <data
+                android:host="*"
+                android:scheme="mailto" />
+        </intent>
+    </queries>
+
     <application
         android:name=".core.MainApp"
         android:allowBackup="false"
@@ -40,6 +50,10 @@
         android:usesCleartextTraffic="false"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".ui.RegisterActivity"
+            android:theme="@style/Theme.main"
+            android:exported="false" />
+        <activity
             android:name=".ui.sections.PreTestActivity"
             android:exported="false" />
         <activity
@@ -48,7 +62,6 @@
         <activity
             android:name=".ui.sections.ResultsTestActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.UserGuideActivity"
             android:exported="false" />
@@ -112,14 +125,6 @@
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="location" />
-
     </application>
-        <queries>
-            <intent>
-                <action android:name="android.intent.action.SENDTO"/>
-                <data android:scheme="mailto" android:host="*" />
-            </intent>
-        </queries>
-
 
 </manifest>
