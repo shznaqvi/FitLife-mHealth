@@ -55,12 +55,17 @@
             android:exported="false" />
         <activity
             android:name=".ui.sections.PreTestActivity"
+            android:theme="@style/AppThemeEnglish1"
             android:exported="false" />
         <activity
             android:name=".ui.sections.PostTestActivity"
+            android:theme="@style/AppThemeEnglish1"
+
             android:exported="false" />
         <activity
             android:name=".ui.sections.ResultsTestActivity"
+            android:theme="@style/AppThemeEnglish1"
+
             android:exported="false" />
         <activity
             android:name=".ui.UserGuideActivity"
@@ -75,7 +80,7 @@
             android:name=".ui.LoginActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
+            android:theme="@style/Theme.main"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -91,26 +96,26 @@
                     android:name=".ui.EndingActivity"
                     android:exported="false"
                     android:screenOrientation="portrait"
-                    android:theme="@style/AppThemeEnglish1"
+                    android:theme="@style/Theme.mainEnglish1"
                     android:windowSoftInputMode="adjustResize|stateHidden" />
         -->
         <activity
             android:name=".ui.SyncActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
+            android:theme="@style/Theme.main"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".ui.MainActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
+            android:theme="@style/Theme.main"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".ui.VideoPlayerActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
+            android:theme="@style/Theme.main"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:windowSoftInputMode="adjustResize" />
 
         <meta-data

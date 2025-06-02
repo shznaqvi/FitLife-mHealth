@@ -22,6 +22,7 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 import edu.aku.hassannaqvi.fitlife.R;
+import edu.aku.hassannaqvi.fitlife.contracts.TableContracts;
 import edu.aku.hassannaqvi.fitlife.contracts.TableContracts.EntryLogTable;
 import edu.aku.hassannaqvi.fitlife.core.CustomLifecycleOwner;
 import edu.aku.hassannaqvi.fitlife.core.MainApp;
@@ -88,12 +89,12 @@ public class PeriodicWorkerHelper {
        /* // Forms
         uploadTables.add(new SyncModel(TestsTable.TABLE_NAME));
         try {
-            MainApp.uploadDataPeriodic.add(db.getUnsyncedFormHH());
+            MainApp.uploadDataPeriodic.add(db.getUnsyncedTests());
         } catch (JSONException e) {
             e.printStackTrace();
             Log.d(TAG, "ProcessStart: JSONException(Forms): " + e.getMessage());
         }
-
+*/
         // Tests
         uploadTables.add(new SyncModel(TableContracts.TestsTable.TABLE_NAME));
         try {
@@ -101,12 +102,14 @@ public class PeriodicWorkerHelper {
         } catch (JSONException e) {
             e.printStackTrace();
             Log.d(TAG, "ProcessStart: JSONException(Tests): " + e.getMessage());
-        }*/
+        }
+        MainApp.downloadData = new String[uploadDataPeriodic.size()];
 
         // Entry Log
         uploadTables.add(new SyncModel(EntryLogTable.TABLE_NAME));
         try {
             uploadDataPeriodic.add(db.getUnsyncedEntryLog());
+
         } catch (JSONException e) {
             e.printStackTrace();
             Log.d(TAG, "ProcessStart: JSONException(Forms): " + e.getMessage());

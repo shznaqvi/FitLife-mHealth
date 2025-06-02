@@ -160,10 +160,10 @@
                                 android:drawableStart="@drawable/ic_interview"
                                 android:drawablePadding="12dp"
                                 android:gravity="center_vertical"
-                                android:minWidth="460dp"
                                 android:text="@string/ncdPrevention"
                                 android:textColor="@color/colorPrimary"
-                                android:textSize="16dp" />
+                                android:textStyle="bold"
+                                />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -172,7 +172,7 @@
                                 android:gravity="center_horizontal|center_vertical"
                                 android:text="Open module to start "
                                 android:textColor="@color/gray"
-                                android:textSize="14sp" />
+                                 />
                         </LinearLayout>
 
                         <TextView
@@ -608,19 +608,25 @@
                 android:textStyle="bold" />
 
             <!-- Bottom Navigation -->
+            <com.google.android.material.navigationrail.NavigationRailView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                >
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/nav_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 app:menu="@menu/bottom_nav_menu"
                 app:labelVisibilityMode="labeled"
                 app:itemIconTint="@color/colorPrimary"
                 app:itemTextColor="@color/grayDark"
                 android:background="@color/grayLight"
-              />
+                android:layout_alignParentBottom="true"
 
+                />
 
+            </com.google.android.material.navigationrail.NavigationRailView>
         </RelativeLayout>
     </LinearLayout>
 </layout>

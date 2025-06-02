@@ -36,7 +36,8 @@ public class TableContracts {
     public static final String COLUMN_ISTATUS = "istatus";
         public static final String COLUMN_SESSION_ID = "session_id";
         public static final String COLUMN_SYNC_DATE = "sync_date";
-        public static final String COLUMN_STESTS = "sTests";
+        public static final String COLUMN_SPRETESTS = "sPreTests";
+        public static final String COLUMN_SPOSTTESTS = "sPostTests";
     }
 
     public static abstract class FeedbackTable implements BaseColumns {

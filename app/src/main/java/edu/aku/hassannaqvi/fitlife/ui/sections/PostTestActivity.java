@@ -2,18 +2,34 @@ package edu.aku.hassannaqvi.fitlife.ui.sections;
 
 
 
+import static edu.aku.hassannaqvi.fitlife.core.MainApp.PROJECT_NAME;
+import static edu.aku.hassannaqvi.fitlife.core.MainApp.tests;
+
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.validatorcrawler.aliazaz.Validator;
 
+import org.json.JSONException;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import edu.aku.hassannaqvi.fitlife.R;
+import edu.aku.hassannaqvi.fitlife.contracts.TableContracts;
 import edu.aku.hassannaqvi.fitlife.core.MainApp;
 import edu.aku.hassannaqvi.fitlife.database.DatabaseHelper;
 import edu.aku.hassannaqvi.fitlife.databinding.ActivityPostTestBinding;
+import edu.aku.hassannaqvi.fitlife.models.EntryLog;
+import edu.aku.hassannaqvi.fitlife.ui.VideoPlayerActivity;
 
 
 public class PostTestActivity extends AppCompatActivity {
@@ -39,6 +55,7 @@ public class PostTestActivity extends AppCompatActivity {
         //         bi.btnContinue.setText("Review Next");
         db = MainApp.appInfo.dbHelper;
         //     form.setA101C(String.valueOf(new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH).format(new Date().getTime())));
+        recordEntry("Post-Test Started: "+MainApp.sessionName);
 
     }
 
@@ -103,51 +120,79 @@ public class PostTestActivity extends AppCompatActivity {
     }*/
 
 
+/*    private boolean insertNewRecord() {
+        if (!tests.getUid().equals("") || MainApp.superuser) return true;
+
+        tests.populateMeta();
+
+        long rowId = 0;
+        try {
+            rowId = db.addTest(MainApp.tests);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(this, R.string.db_excp_error + " FORM-add", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        MainApp.tests.setId(String.valueOf(rowId));
+        if (rowId > 0) {
+            MainApp.tests.setUid(MainApp.tests.getDeviceId() + MainApp.tests.getId());
+            db.updatesFormColumn(TableContracts.TestsTable.COLUMN_UID, MainApp.tests.getUid());
+            return true;
+        } else {
+            Toast.makeText(this, R.string.upd_db_error + " FORM-update", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }*/
+
+    private boolean updateDB() {
+        if (MainApp.superuser) return true;
+
+        db = MainApp.appInfo.getDbHelper();
+        long updcount = 0;
+        try {
+            updcount = db.updatesFormColumn(TableContracts.TestsTable.COLUMN_SPOSTTESTS, tests.sPostTestToString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.d(TAG, R.string.upd_db + e.getMessage());
+            Toast.makeText(this, R.string.upd_db + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+        if (updcount > 0) return true;
+        else {
+            Toast.makeText(this, R.string.upd_db_error, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+
     public void btnContinue() {
         if (!formValidation()) return;
-            Intent i;
-            i = new Intent(this, ResultsTestActivity.class);
-            startActivity(i);
-            finish();
-        // if (!insertNewRecord()) return;
+        //if (!insertNewRecord()) return;
         // saveDraft();
-      /*  if (updateDB()) {
-            setResult(RESULT_OK);
-            Intent i;
-            i = new Intent(this, SectionB1Activity.class).putExtra("complete", true).setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
-            startActivity(i);
+        if (updateDB()) {
+            recordEntry("Post-Test Finished: "+MainApp.sessionName);
+
             finish();
 
-          *//*  if (tests.getA110().equals("1")) {
-                Intent i;
-                i = new Intent(this, SectionB1Activity.class).putExtra("complete", true).setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
-                startActivity(i);
-                finish();
+            startActivity(new Intent(this, ResultsTestActivity.class));
+
+            // THIS IS NOT A CONSENT ACTIVITY
+          /*  if (form.getA110().equals("1")) {
+                startActivity(new Intent(this, FamilyMembersListActivity.class));
             } else {
-                Intent returnIntent = new Intent();
-                //  returnIntent.putExtra("requestCode", requestCode);
-                setResult(RESULT_OK, returnIntent);
-                finish();
-            }*//*
-        } else {
+                Intent endingActivityIntent = new Intent(this, EndingActivity.class);
+                endingActivityIntent.putExtra("complete", false);
+                endingActivityIntent.putExtra("checkToEnable", 4);
+                startActivity(endingActivityIntent);
+            }*/
+        } else
             Toast.makeText(this, R.string.fail_db_upd, Toast.LENGTH_SHORT).show();
-        }*/
     }
 
 
-
     public void btnEnd() {
+        recordEntry("Post-Test Canceled: "+MainApp.sessionName);
+
         finish();
-     //   if (!formValidationEnd()) return;
-     //   if (!insertNewRecord()) return;
-   /*     if (updateDB()) {
-            finish();
-      //      startActivity(new Intent(this, EndingActivity.class).putExtra("complete", false));
-        } else {
-            Toast.makeText(this, "Failed to Update Database!", Toast.LENGTH_SHORT).show();
-        }*/
-        /*finish();
-        startActivity(new Intent(this, EndingActivity.class).putExtra("complete", false));*/
+        //startActivity(new Intent(this, EndingActivity.class).putExtra("complete", false));
     }
 
 
@@ -171,5 +216,30 @@ public class PostTestActivity extends AppCompatActivity {
         // Dont Allow BackPress
         // Toast.makeText(this, "Back Press Not Allowed", Toast.LENGTH_SHORT).show();
 
+    }
+
+    private void recordEntry(String entryType) {
+        EntryLog entryLog = new EntryLog();
+        entryLog.setProjectName(PROJECT_NAME);
+        entryLog.setUserName(MainApp.user.getUserName());
+        entryLog.setEntryDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(new Date().getTime()));
+        entryLog.setAppver(MainApp.appInfo.getAppVersion());
+        entryLog.setEntryType(entryType);
+        entryLog.setDeviceId(MainApp.deviceid);
+        Long rowId = null;
+        try {
+            rowId = db.addEntryLog(entryLog);
+            if (rowId != -1) {
+                entryLog.setId(String.valueOf(rowId));
+                entryLog.setUid(entryLog.getDeviceId() + entryLog.getId());
+                db.updatesEntryLogColumn(TableContracts.EntryLogTable.COLUMN_UID, entryLog.getUid(), entryLog.getId());
+            } else {
+                Toast.makeText(this, R.string.upd_db_error, Toast.LENGTH_SHORT).show();
+
+            }
+        } catch (SQLiteException e) {
+            Toast.makeText(this, "SQLiteException(EntryLog)" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "recordEntry: " + e.getMessage());
+        }
     }
 }

@@ -59,7 +59,7 @@ android {
             versionCode versionBuild
             versionName "${versionNumber}.${versionPatch}${versionType}"
             minSdk 28
-            targetSdk 34
+            targetSdk 32
             compileSdkVersion 34
         }
 
@@ -122,7 +122,7 @@ dependencies {
     // Sqlcipher
     // implementation 'net.zetetic:android-database-sqlcipher:4.5.4' -- Deprecated
     implementation 'androidx.sqlite:sqlite:2.4.0'
-    implementation 'net.zetetic:sqlcipher-android:4.6.0@aar'
+    implementation 'net.zetetic:sqlcipher-android:4.5.4'
     //Rooted
     implementation 'com.scottyab:rootbeer-lib:0.1.0'
 

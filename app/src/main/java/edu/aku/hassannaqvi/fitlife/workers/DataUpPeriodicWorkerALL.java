@@ -100,10 +100,10 @@ public class DataUpPeriodicWorkerALL extends Worker {
             // Forms
             case TableContracts.TestsTable.TABLE_NAME:
                 try {
-                    uploadData = db.getUnsyncedListing();
+                    uploadData = db.getUnsyncedTests();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.d(TAG, "ProcessStart: JSONException(Forms): " + e.getMessage());
+                    Log.d(TAG, "ProcessStart: JSONException(Tests): " + e.getMessage());
                 }
                 break;
 
@@ -114,7 +114,7 @@ public class DataUpPeriodicWorkerALL extends Worker {
                     uploadData = db.getUnsyncedEntryLog();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.d(TAG, "ProcessStart: JSONException(Forms): " + e.getMessage());
+                    Log.d(TAG, "ProcessStart: JSONException(EntryLog): " + e.getMessage());
                 }
         }
 

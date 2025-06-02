@@ -2,9 +2,14 @@ package edu.aku.hassannaqvi.fitlife.ui.sections;
 
 
 
+import static edu.aku.hassannaqvi.fitlife.core.MainApp.PROJECT_NAME;
+
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -12,10 +17,16 @@ import androidx.databinding.DataBindingUtil;
 
 import com.validatorcrawler.aliazaz.Validator;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import edu.aku.hassannaqvi.fitlife.R;
+import edu.aku.hassannaqvi.fitlife.contracts.TableContracts;
 import edu.aku.hassannaqvi.fitlife.core.MainApp;
 import edu.aku.hassannaqvi.fitlife.database.DatabaseHelper;
 import edu.aku.hassannaqvi.fitlife.databinding.ActivityResultTestBinding;
+import edu.aku.hassannaqvi.fitlife.models.EntryLog;
 
 
 public class ResultsTestActivity extends AppCompatActivity {
@@ -212,5 +223,30 @@ public class ResultsTestActivity extends AppCompatActivity {
         // Dont Allow BackPress
         // Toast.makeText(this, "Back Press Not Allowed", Toast.LENGTH_SHORT).show();
 
+    }
+
+    private void recordEntry(String entryType) {
+        EntryLog entryLog = new EntryLog();
+        entryLog.setProjectName(PROJECT_NAME);
+        entryLog.setUserName(MainApp.user.getUserName());
+        entryLog.setEntryDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(new Date().getTime()));
+        entryLog.setAppver(MainApp.appInfo.getAppVersion());
+        entryLog.setEntryType(entryType);
+        entryLog.setDeviceId(MainApp.deviceid);
+        Long rowId = null;
+        try {
+            rowId = db.addEntryLog(entryLog);
+            if (rowId != -1) {
+                entryLog.setId(String.valueOf(rowId));
+                entryLog.setUid(entryLog.getDeviceId() + entryLog.getId());
+                db.updatesEntryLogColumn(TableContracts.EntryLogTable.COLUMN_UID, entryLog.getUid(), entryLog.getId());
+            } else {
+                Toast.makeText(this, R.string.upd_db_error, Toast.LENGTH_SHORT).show();
+
+            }
+        } catch (SQLiteException e) {
+            Toast.makeText(this, "SQLiteException(EntryLog)" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "recordEntry: " + e.getMessage());
+        }
     }
 }

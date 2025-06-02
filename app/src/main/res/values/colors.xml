@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimary">#2E7D32</color> <!-- Rich Teal Green: Health, growth, safety -->
+    <color name="colorPrimaryLight">#66BB6A</color> <!-- Fresh Green: Approachable, energetic -->
+    <color name="colorPrimaryDark">#005005</color> <!-- Deep Green: Trustworthy, professional -->
 
-    <color name="colorPrimary">#388E3C</color> <!-- Teal: Symbolizes health, rejuvenation, and energy -->
-    <color name="colorPrimaryLight">#4CAF50</color> <!-- Light Teal: Adds calmness and a welcoming tone -->
-    <color name="colorPrimaryDark">#1B5E20</color> <!-- Dark Teal: Adds depth and a professional look -->
-    <color name="colorAccent">#FFC107</color> <!-- Amber: Represents youthful energy and optimism -->
-    <color name="colorAccentLight">#FFE082</color> <!-- Light Amber: A softer, uplifting tone that balances with energy -->
+    <color name="colorAccent">#FFB300</color> <!-- Vivid Amber: Optimism, attention -->
+    <color name="colorAccentLight">#FFD54F</color> <!-- Soft Amber: Friendly, encouraging -->
+
+    <color name="colorSecondary">#03A9F4</color> <!-- Sky Blue: Clarity, technology, and calm -->
+    <color name="colorSecondaryLight">#B3E5FC</color> <!-- Light Blue: Soft, inviting -->
+    <color name="colorSecondaryDark">#0288D1</color> <!-- Medium Blue: Stability and focus -->
+
+    <color name="colorBackground">#FAFAFA</color> <!-- Clean, neutral white-gray -->
+    <color name="colorSurface">#FFFFFF</color> <!-- Card and panel base -->
+
+    <color name="colorTextPrimary">#212121</color> <!-- Dark Gray: High contrast for readability -->
+    <color name="colorTextSecondary">#757575</color> <!-- Medium Gray: Subtle info, secondary labels -->
 
 
     <color name="colorPrimaryOverlay">#7f388E3C</color>
@@ -37,7 +47,6 @@
     <color name="redDark">#990000</color>
     <color name="Pink">#FF80AB</color>
     <color name="lightPink">#F8BBD0</color>
-    <color name="colorSecondary">#00617d</color>
     <color name="gray_material">#727272</color>
     <color name="girlPink">#FF80AB</color>
 
@@ -72,7 +81,8 @@
     <color name="muted_green">#4CAF50</color> <!-- Soft Green -->
     <color name="muted_green_alfa">#7f4CAF50</color> <!-- Soft Green -->
     <color name="warm_mustard">#FBC02D</color> <!-- Warm Mustard -->
-    <color name="soft_coral">#E57373</color> <!-- Soft Coral -->
+    <color name="soft_coral">#E57373</color>
+    <color name="red">#ef0000</color> <!-- Soft Coral -->
 
 
 </resources>

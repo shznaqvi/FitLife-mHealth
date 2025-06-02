@@ -13,6 +13,7 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/llview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
@@ -20,6 +21,15 @@
         android:layoutDirection="ltr"
         android:orientation="vertical"
         android:textDirection="ltr">
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:max="100"
+            android:progress="0"
+            android:layout_marginTop="0dp"
+            android:visibility="gone" />
 
         <!-- CUSTOM TOOLBAR -->
 
@@ -36,6 +46,7 @@
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:subtitleTextColor="@color/grayLight"
             app:title="@string/app_name"
+            android:visibility="gone"
             app:buttonGravity="center_vertical"
             app:titleTextColor="@color/white" />
 
@@ -43,6 +54,7 @@
 
 
         <LinearLayout
+            android:id="@+id/webviewHolder"
             android:layout_width="match_parent"
             android:layout_height="315dp"
             android:orientation="vertical">
@@ -52,12 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
-        <FrameLayout
-            android:id="@+id/fullscreen_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            android:background="@color/black" />
+
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -83,13 +90,14 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_margin="14dp"
+                    android:layout_margin="4dp"
                     android:gravity="center_vertical"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_interview"
                         android:drawablePadding="12dp"
@@ -98,6 +106,14 @@
                         android:text="@string/ncdPrevention"
                         android:textColor="@color/colorPrimary"
                         android:textSize="16dp" />
+
+                    <ImageButton
+                        android:id="@+id/btnDownload"
+                        android:layout_width="24dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="24dp"
+                        android:background="@color/colorAccent"
+                        android:src="@drawable/ic_download" />
 
                 </LinearLayout>
 
@@ -118,38 +134,71 @@
                 android:orientation="vertical">
 
 
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="110dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="56dp"
+                    android:elevation="1dp">
 
-
+                    <TextView
+                        android:id="@+id/sectionObj"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="- Understand NCDs and their health implications.\n- Define NCDs and identify types (e.g., heart diseases, stroke, cancer, diabetes).\n- Discuss prevalence of NCDs in Pakistan.\n- Emphasize the importance of preventing NCDs."
+                        android:lineSpacingMultiplier="1.1"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark" />
+                </ScrollView>
             </LinearLayout>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:elevation="8dp"
+            android:background="@color/colorAccent"
+            android:orientation="horizontal"
+            >
+
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="56dp"
-                android:elevation="8dp"
-                android:background="@color/colorAccent"
                 android:padding="8dp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
                 android:text="Session Description:"/>
+            <TextView
+                android:id="@+id/vidProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/colorPrimaryDark"
+                android:background="@color/colorAccentLightOverlay"
+                android:gravity="center"
+                android:paddingStart="8dp"
+                android:text="Duration: 00:00" />
+            <TextView
+                android:id="@+id/vidDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/colorPrimaryDark"
+                android:background="@color/colorAccentLightOverlay"
+                android:gravity="center"
+                android:paddingEnd="8dp"
+                android:text=" / 00:00"/>
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/playPauseButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_pause"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="110dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="56dp"
-                android:elevation="1dp">
-
-                <TextView
-                    android:id="@+id/sectionObj"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:text="- Understand NCDs and their health implications.\n- Define NCDs and identify types (e.g., heart diseases, stroke, cancer, diabetes).\n- Discuss prevalence of NCDs in Pakistan.\n- Emphasize the importance of preventing NCDs." />
-            </ScrollView>
             <TextView
                 android:id="@+id/sectionName"
                 android:layout_width="match_parent"
@@ -163,6 +212,7 @@
                 android:gravity="center_vertical"
                 android:minHeight="56dp"
                 android:radius="10dp"
+                android:textSize="22sp"
                 android:text="Session 1: Non-Communicable Diseases (NCDs) and its risk factors"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
@@ -194,21 +244,24 @@
 
                     <Button
                         android:id="@+id/btnContinue"
-                        style="?android:attr/buttonBarButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/capsule"
-                        android:backgroundTint="@color/colorAccent"
-                        android:backgroundTintMode="src_atop"
+
                         android:onClick="btnContinue"
                         android:text="Continue"
-
-                        android:textColor="@color/white"
                         android:textStyle="bold" />
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
         </RelativeLayout>
+        <FrameLayout
+            android:id="@+id/fullscreen_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:background="@color/black" />
     </LinearLayout>
+
 </layout>

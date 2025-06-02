@@ -38,7 +38,7 @@
     <string name="tajikistan" translatable="false">Tajikistan</string>
     <string name="btnLogin" translatable="false">Login</string>
     <string name="btnReset" translatable="false">Reset</string>
-    <string name="btnRegisterUSer" translatable="false">Register New User</string>
+    <string name="btnRegisterUSer" translatable="false">Register</string>
     <string name="btnDownloadData" translatable="false">Download Data</string>
     <string name="csMAexist" translatable="false">might be already exist</string>
 

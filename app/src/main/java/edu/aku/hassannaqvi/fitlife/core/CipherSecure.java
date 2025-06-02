@@ -7,6 +7,7 @@ import static edu.aku.hassannaqvi.fitlife.core.MainApp.TRATS;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Base64;
+import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -190,20 +191,26 @@ public class CipherSecure {
     }
 
 
-    public static String hashSHA384()
-            throws NoSuchAlgorithmException {
-        String input = IBAHC;
-        //input = input.substring(12,12+32);
-        MessageDigest mDigest = MessageDigest.getInstance("SHA-384");
+        public static String hashSHA384()
+                throws NoSuchAlgorithmException {
+            String input = IBAHC;
+            Log.d(TAG, "hashSHA384 (input): "+ input);
+            //input = input.substring(12,12+32);
+            MessageDigest mDigest = MessageDigest.getInstance("SHA-384");
+            Log.d(TAG, "hashSHA384 (mDigest): "+ mDigest);
 
-        byte[] shaByteArr = mDigest.digest(input.getBytes(StandardCharsets.UTF_8));
-     /*   StringBuilder hexStrBuilder = new StringBuilder();
-        for (int i = 0; i < shaByteArr.length; i++) {
-            hexStrBuilder.append(String.format("%02x", shaByteArr[i]));
-        }*/
-        // Log.d(TAG, "hashSHA256: "+ new String(shaByteArr).substring(TRATS,TRATS+32));
-        //  return Base64.encodeToString(hexStrBuilder.toString().substring(12,12+32).getBytes(StandardCharsets.UTF_8),  Base64.NO_WRAP);
-        return Base64.encodeToString(shaByteArr, Base64.NO_WRAP).substring(TRATS, TRATS + 32);
-    }
+            byte[] shaByteArr = mDigest.digest(input.getBytes(StandardCharsets.UTF_8));
+            Log.d(TAG, "hashSHA384 (shaByteArr): "+ Arrays.toString(shaByteArr));
+
+         /*   StringBuilder hexStrBuilder = new StringBuilder();
+            for (int i = 0; i < shaByteArr.length; i++) {
+                hexStrBuilder.append(String.format("%02x", shaByteArr[i]));
+            }*/
+            // Log.d(TAG, "hashSHA256: "+ new String(shaByteArr).substring(TRATS,TRATS+32));
+            //  return Base64.encodeToString(hexStrBuilder.toString().substring(12,12+32).getBytes(StandardCharsets.UTF_8),  Base64.NO_WRAP);
+            String hash_base64 = Base64.encodeToString(shaByteArr, Base64.NO_WRAP).substring(TRATS, TRATS + 32);
+            Log.d(TAG, "hashSHA384 (hash_base64): "+ hash_base64);
+             return hash_base64;
+        }
 
 }

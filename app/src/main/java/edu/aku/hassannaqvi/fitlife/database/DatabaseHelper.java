@@ -54,7 +54,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CreateTable.SQL_CREATE_CLUSTERS);
 
 
-        //db.execSQL(CreateTable.SQL_CREATE_LISTING);
+        db.execSQL(CreateTable.SQL_CREATE_TESTS);
         db.execSQL(CreateTable.SQL_CREATE_STREETS);
         db.execSQL(CreateTable.SQL_CREATE_ENTRYLOGS);
 
@@ -78,7 +78,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     //ADDITION in DB
-    public long addListing(Tests tests) throws JSONException, SQLiteException {
+    public long addTest(Tests tests) throws JSONException, SQLiteException {
         SQLiteDatabase db = null;
         long newRowId = -1;
 
@@ -94,6 +94,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(TableContracts.TestsTable.COLUMN_UID, tests.getUid());
         values.put(TestsTable.COLUMN_USERNAME, tests.getUserName());
         values.put(TestsTable.COLUMN_SYSDATE, tests.getSysDate());
+        values.put(TestsTable.COLUMN_SESSION_ID, tests.getSessionID());
 /*        values.put(TestsTable.COLUMN_GPSLAT, tests.getGpsLat());
         values.put(TestsTable.COLUMN_GPSLNG, tests.getGpsLng());
         values.put(TestsTable.COLUMN_GPSPRO, tests.getGpsProvider());
@@ -104,7 +105,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(TestsTable.COLUMN_APPVERSION, tests.getAppver());
         values.put(TestsTable.COLUMN_SYNCED, tests.getSynced());
         values.put(TestsTable.COLUMN_SYNC_DATE, tests.getSyncDate());
-        values.put(TestsTable.COLUMN_STESTS, tests.sTestToString());
+        values.put(TestsTable.COLUMN_SPRETESTS, tests.sPreTestToString());
+        values.put(TestsTable.COLUMN_SPOSTTESTS, tests.sPostTestToString());
 
 
         // Insert into database
@@ -230,7 +232,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (checkPassword(password, loggedInUser.getPassword())) {
             MainApp.user = loggedInUser;
             MainApp.selectedDistrict = loggedInUser.getDist_id();
-            MainApp.selectedLHW = String.valueOf(loggedInUser.getUserID());
+            MainApp.selectedModule = String.valueOf(loggedInUser.getUserID());
             return countCheck;
         } else {
             return false;
@@ -274,7 +276,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public JSONArray getUnsyncedListing() throws JSONException {
+    public JSONArray getUnsyncedTests() throws JSONException {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
         String[] columns = null;
@@ -304,7 +306,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             /** WorkManager Upload
              /*Tests fc = new Tests();
              allFC.add(fc.Hydrate(c));*/
-            Log.d(TAG, "getUnsyncedFormHH: " + c.getCount());
+            Log.d(TAG, "getUnsyncedTests: " + c.getCount());
             Tests tests = new Tests();
             allForms.put(tests.hydrate(c).toJSONObject());
 
@@ -315,8 +317,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             c.close();
         }
 
-        Log.d(TAG, "getUnsyncedFormHH: " + allForms.toString().length());
-        Log.d(TAG, "getUnsyncedFormHH: " + allForms);
+        Log.d(TAG, "getUnsyncedTests: " + allForms.toString().length());
+        Log.d(TAG, "getUnsyncedTests: " + allForms);
         return allForms;
     }
 
@@ -348,12 +350,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 orderBy                    // The sort order
         );
         while (c.moveToNext()) {
-            Log.d(TAG, "getUnsyncedEntryLog: " + c.getCount());
+            Log.d(TAG, "getUnsyncedEntryLog1: " + c.getCount());
             EntryLog entryLog = new EntryLog();
             all.put(entryLog.Hydrate(c).toJSONObject());
         }
-        Log.d(TAG, "getUnsyncedEntryLog: " + all.toString().length());
-        Log.d(TAG, "getUnsyncedEntryLog: " + all);
+        Log.d(TAG, "getUnsyncedEntryLog2: " + all.toString().length());
+        Log.d(TAG, "getUnsyncedEntryLog3: " + all);
         return all;
     }
 
@@ -466,8 +468,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    public Tests getTestsByUsernModule()  throws JSONException {
 
+            SQLiteDatabase db = this.getReadableDatabase();
+            android.database.Cursor c = null;
 
+            Boolean distinct = false;
+            String tableName = TestsTable.TABLE_NAME;
+            String[] columns = null;
+            String whereClause = TestsTable.COLUMN_SESSION_ID + "= ? AND " +
+                    TestsTable.COLUMN_USERNAME + "= ? ";
+            String[] whereArgs = {String.valueOf(MainApp.sessionid), MainApp.user.getUserName()};
+            String groupBy = null;
+            String having = null;
+            String orderBy = TestsTable.COLUMN_SYSDATE + " ASC";
+            String limitRows = "1";
 
+            c = db.query(
+                    distinct,       // Distinct values
+                    tableName,      // The table to query
+                    columns,        // The columns to return
+                    whereClause,    // The columns for the WHERE clause
+                    whereArgs,      // The values for the WHERE clause
+                    groupBy,        // don't group the rows
+                    having,         // don't filter by row groups
+                    orderBy,
+                    limitRows
+            );
 
+            Tests tests = null;
+            while (c.moveToNext()) {
+                tests = (new Tests().hydrate(c));
+            }
+
+            if (c != null && !c.isClosed()) {
+                c.close();
+            }
+            return tests;
+
+        }
 }
+
+

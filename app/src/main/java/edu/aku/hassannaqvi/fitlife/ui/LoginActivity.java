@@ -12,12 +12,15 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.sqlite.SQLiteException;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Base64;
@@ -34,8 +37,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import edu.aku.hassannaqvi.fitlife.R;
@@ -69,6 +77,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
@@ -129,37 +138,28 @@ public class LoginActivity extends AppCompatActivity {
                  }
              });*/
     private int clicks;
+    // ActivityResultLauncher for requesting permissions
+    private final ActivityResultLauncher<String[]> requestPermissionsLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), result -> {
+                boolean allGranted = true;
+                for (Map.Entry<String, Boolean> entry : result.entrySet()) {
+                    if (!entry.getValue()) {
+                        allGranted = false;
+                        break;
+                    }
+                }
+                if (allGranted) {
+                    MainApp.permissionCheck = true;
+                }
+            });
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         initializingCountry();
-        Dexter.withContext(this)
-                .withPermissions(
-                        Manifest.permission.ACCESS_NETWORK_STATE,
-                        Manifest.permission.WAKE_LOCK,
-                        Manifest.permission.INTERNET,
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_PHONE_STATE,
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.POST_NOTIFICATIONS
-
-                ).withListener(new MultiplePermissionsListener() {
-                    @Override
-                    public void onPermissionsChecked(MultiplePermissionsReport report) {
-                        if (report.areAllPermissionsGranted()) {
-                            MainApp.permissionCheck = true;
-                        }
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-                        token.continuePermissionRequest();
-                    }
-                }).check();
+        showPermissionRationale();
 
         bi = DataBindingUtil.setContentView(this, R.layout.activity_login);
         setSupportActionBar(bi.toolbar);
@@ -249,6 +249,20 @@ public class LoginActivity extends AppCompatActivity {
         // Force show the keyboard
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(bi.username, InputMethodManager.SHOW_IMPLICIT);
+    }
+
+    private void showPermissionRationale() {
+        new AlertDialog.Builder(this)
+                .setTitle("Location Permission Required")
+                .setMessage("Location permission is required for the app to function properly. Please grant it to continue using the app.")
+                .setPositiveButton("OK", (dialog, which) -> {
+                    // Request the permissions after the user acknowledges the message
+                    requestPermissionsLauncher.launch(new String[]{
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                    });
+                }).show();
     }
 
     @Override
@@ -763,8 +777,87 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void registerUser(View view) {
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            checkLocationPermission();
+        } else {
+            // If permission is granted, proceed to RegisterActivity
+            startActivity(new Intent(this, RegisterActivity.class));
+        }
     }
+
+
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
+
+    private void checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Check if we should show a rationale (i.e., the user has denied before, but hasn't checked "Never ask again")
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                Log.d("Permission", "Showing rationale dialog...");
+
+                // Show rationale dialog
+                new AlertDialog.Builder(this)
+                        .setTitle("Location Permission Required")
+                        .setMessage("This app needs location permission to function properly. Please grant it.")
+                        .setPositiveButton("OK", (dialog, which) -> {
+                            // Request the permission
+                            ActivityCompat.requestPermissions(this,
+                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                    LOCATION_PERMISSION_REQUEST_CODE);
+                        })
+                        .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                        .show();
+
+            } else {
+                // The user has denied the permission and checked "Never ask again"
+                Log.d("Permission", "User has denied the permission with 'Never ask again'.");
+
+                // Show a dialog that explains why the permission is needed and guide them to app settings
+                new AlertDialog.Builder(this)
+                        .setTitle("Location Permission Denied")
+                        .setMessage("To use this feature, you need to grant location permission. Please enable it in app settings.")
+                        .setPositiveButton("Go to Settings", (dialog, which) -> {
+                            // Open app settings for the user to manually grant the permission
+                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            Uri uri = Uri.fromParts("package", getPackageName(), null);
+                            intent.setData(uri);
+                            startActivityForResult(intent, LOCATION_PERMISSION_REQUEST_CODE);
+                        })
+                        .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                        .show();
+            }
+
+        } else {
+            // Permission already granted
+            Log.d("Permission", "Location permission is granted");
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted
+                Log.d("Permission", "Location permission granted");
+            } else {
+                // Permission denied
+                Log.d("Permission", "Location permission denied");
+
+                // Check if the user has denied the permission permanently (Never ask again)
+                if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    // Show a dialog guiding the user to settings
+                    Toast.makeText(this, "Location permission is necessary to proceed. Please enable it in settings.", Toast.LENGTH_LONG).show();
+                } else {
+                    // Show a toast explaining that the user denied it without choosing "Never ask again"
+                    Toast.makeText(this, "Location permission is necessary to proceed.", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
 }
 

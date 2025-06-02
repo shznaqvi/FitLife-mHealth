@@ -12,6 +12,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
@@ -37,7 +38,6 @@ import androidx.lifecycle.ProcessLifecycleOwner;
 
 import com.scottyab.rootbeer.RootBeer;
 
-import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.json.JSONArray;
 
@@ -47,6 +47,7 @@ import java.util.Locale;
 
 import edu.aku.hassannaqvi.fitlife.R;
 import edu.aku.hassannaqvi.fitlife.core.location.LocationService;
+import edu.aku.hassannaqvi.fitlife.models.Feedback;
 import edu.aku.hassannaqvi.fitlife.models.Tests;
 import edu.aku.hassannaqvi.fitlife.models.Users;
 import edu.aku.hassannaqvi.fitlife.ui.LoginActivity;
@@ -55,7 +56,7 @@ import edu.aku.hassannaqvi.fitlife.ui.PeriodicWorkerHelper;
 
 public class MainApp extends Application implements LifecycleObserver {
 
-    public static final String PROJECT_NAME = "room_database";
+    public static final String PROJECT_NAME = "eshepp";
     public static final String DIST_ID = null;
     public static final String SYNC_LOGIN = "sync_login";
     public static final String _IP = "https://vhds.aku.edu";// .LIVE server
@@ -68,7 +69,7 @@ public class MainApp extends Application implements LifecycleObserver {
     public static final String _REGISTER_USER_URL = "regUser.php";
     public static final String _USER_URL = "resetpassword.php";
     public static final String _SERVER_GET_URL = "getDatagcm.php";
-    public static final String _UPDATE_URL = MainApp._IP + "/room_database/app/";
+    public static final String _UPDATE_URL = MainApp._IP + "/eshepp/app/";
     public static final String _APP_FOLDER = "../app";
     public static final String _EMPTY_ = "";
     public static final long INACTIVITY_TIMEOUT =  20 * 60 * 1000; // 2 minutes
@@ -103,7 +104,7 @@ public class MainApp extends Application implements LifecycleObserver {
     public static String deviceid;
     public static boolean permissionCheck = false;
     public static boolean lhwComplete = false;
-    public static String selectedLHW;
+    public static String selectedModule;
     public static String selectedHousehold;
     public static int memberCount = 0;
     public static int selectedMember;
@@ -140,6 +141,8 @@ public class MainApp extends Application implements LifecycleObserver {
     public static String sessionName;
     public static String sessionObj;
     public static String videoID;
+    public static Feedback feedback;
+    public static boolean testCase;
 
     protected static LocationManager locationManager;
     private Handler inactivityHandler;
@@ -298,7 +301,6 @@ public class MainApp extends Application implements LifecycleObserver {
 
         //SQLiteDatabase.loadLibs(this);
         System.loadLibrary("sqlcipher");
-
         //Initiate DateTime
         //Initializ App info
         appInfo = new AppInfo(this);
@@ -324,8 +326,8 @@ public class MainApp extends Application implements LifecycleObserver {
                 new GPSLocationListener(this) // Implement this class from code
 
         );
-
         initSecure();
+
 
         // Create an instance of PeriodicWorkerHelper
         PeriodicWorkerHelper periodicWorkerHelper = new PeriodicWorkerHelper(getApplicationContext());
@@ -355,21 +357,31 @@ public class MainApp extends Application implements LifecycleObserver {
         File databaseFile = getDatabasePath(DATABASE_NAME);
        /* databaseFile.mkdirs();
         databaseFile.delete();*/
-        SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(databaseFile.getAbsolutePath(), DATABASE_PASSWORD, null, null);
+        //SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(databaseFile.getAbsolutePath(), DATABASE_PASSWORD, null, null);
+        SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(databaseFile.getAbsolutePath(), DATABASE_PASSWORD, null, null, null);
+
         // Prepare encryption KEY
         ApplicationInfo ai = null;
         // Start the location service
-        startService(new Intent(this, LocationService.class));
         try {
             ai = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
             Bundle bundle = ai.metaData;
             //TRATS = bundle.getInt("YEK_TRATS");
             //IBAHC = bundle.getString("YEK_REVRES").substring(TRATS, TRATS + 16);
             IBAHC = bundle.getString("YEK_REVRES");
-            Log.d(TAG, "onCreate: YEK_REVRES = " + IBAHC);
-        } catch (PackageManager.NameNotFoundException e) {
+            Log.d(TAG, "initSecure: YEK_REVRES = " + IBAHC);
+        } catch (Exception e) {
+            Log.d(TAG, "initSecure: Error getting meta-data, Exception("+e.getClass().getName()+"): " + e.getMessage());
+
             e.printStackTrace();
         }
+        // Check Location permissions
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            startService(new Intent(this, LocationService.class));
+        }
+
+
+
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
@@ -431,4 +443,6 @@ public class MainApp extends Application implements LifecycleObserver {
         // Stop the location service
         stopService(new Intent(this, LocationService.class));
     }
+
+
 }

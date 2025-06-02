@@ -45,9 +45,9 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/app_icon"
-            android:contentDescription="App Logo"
-            android:layout_gravity="start"
-            android:scaleType="fitCenter"/>
+                android:contentDescription="App Logo"
+                android:layout_gravity="start"
+                android:scaleType="fitCenter"/>
 
             <!-- Title -->
             <TextView
@@ -66,234 +66,232 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_menu_hamburger"
-            android:contentDescription="Menu"
-            android:layout_gravity="end"
-            android:padding="8dp"/>
+                android:contentDescription="Menu"
+                android:layout_gravity="end"
+                android:padding="8dp"/>
         </androidx.appcompat.widget.Toolbar>
-<androidx.appcompat.widget.LinearLayoutCompat
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/greenBg"
-    android:orientation="vertical">
-
-        <androidx.cardview.widget.CardView
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="56dp"
-            android:layout_marginEnd="56dp"
-            style="@style/cardView">
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="16dp"
-            android:background="@android:color/white">
+            android:layout_height="wrap_content"
+            android:background="@color/greenBg"
+            android:orientation="vertical">
 
-            <!-- Heading -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="16dp"
-                android:textColor="@color/gray"
-                android:fontFamily="@font/alexandria"
-                android:text="Test Scores Summary"
-                android:textStyle="bold" />
-            <!-- Light Gray Divider -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#D3D3D3"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"/>
+            <androidx.cardview.widget.CardView
+                android:layout_margin="10dp"
+                style="@style/cardView">
 
-            <!-- Table Layout -->
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:stretchColumns="1">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/white"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                <!-- Header Row -->
-                <TableRow>
+                    <!-- Heading -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:padding="8dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Score"
-                        android:textAllCaps="true"
                         android:fontFamily="@font/alexandria"
-                        android:textColor="@color/gray"
-
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:padding="8dp"/>
-
-                    <TextView
-                        android:layout_width="101dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/alexandria"
-                        android:gravity="center"
-                        android:padding="8dp"
-
-
-                        android:text="Correct"
-                        android:textAllCaps="true"
-
+                        android:paddingBottom="16dp"
+                        android:text="Test Scores Summary"
                         android:textColor="@color/gray"
                         android:textStyle="bold" />
+                    <!-- Light Gray Divider -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:background="#D3D3D3" />
 
-                    <TextView
+                    <!-- Table Layout -->
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <!-- Header Row -->
+                        <TableRow>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/alexandria"
+                                android:gravity="center"
+                                android:text="Score"
+                                android:textAllCaps="true"
+                                style="@style/NoStyleTextView"
+                                android:textColor="@color/gray"
+                                android:textStyle="bold"
+
+                                />
+
+                            <TextView
+                                android:layout_width="101dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/alexandria"
+                                android:gravity="center"
+
+
+                                android:text="Correct"
+                                android:textAllCaps="true"
+
+                                android:textColor="@color/gray"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/alexandria"
+                                android:gravity="center"
+                                android:text="Wrong"
+                                android:textAllCaps="true"
+                                android:textAppearance="@null"
+                                android:textColor="@color/gray"
+                                android:textStyle="bold" />
+                        </TableRow>
+
+                        <!-- Pre-Test Scores -->
+                        <TableRow>
+
+                            <TextView
+                                style="@style/NoStyleTextView"
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/alexandria"
+                                android:text="Pre"
+                                android:paddingStart="0dp"
+                                android:paddingEnd="0dp"
+                                android:layout_marginStart="0dp"
+                                android:layout_marginEnd="0dp"
+                                android:textColor="@color/gray"
+
+                                android:textStyle="bold"
+
+                                />
+
+                            <TextView
+                                android:id="@+id/tvPreScore"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/alexandria"
+                                android:gravity="center"
+                                android:text='@{String.format("%.2f", (100f * mainApp.preScore) / 6)+"%"}'
+                                android:textStyle="bold"
+
+                                />
+
+                            <TextView
+                                android:id="@+id/tvPreCorrect"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/alexandria"
+                                android:gravity="center"
+                                android:text="@{String.valueOf(mainApp.preScore)}"
+                                android:textColor="@color/muted_green"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvPreWrong"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/alexandria"
+                                android:gravity="center"
+                                android:text="@{String.valueOf(6-mainApp.preScore)}"
+                                android:textColor="@color/soft_coral"
+                                android:textStyle="bold"
+
+
+                                />
+                        </TableRow>
+
+                        <!-- Post-Test Scores -->
+                        <TableRow>
+
+                            <TextView
+                                style="@style/NoStyleTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/alexandria"
+                                android:text="Post"
+                                android:textColor="@color/gray"
+                                android:textStyle="bold"
+                                android:paddingStart="0dp"
+                                android:paddingEnd="0dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/tvPostScore"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/alexandria"
+                                android:gravity="center"
+                                android:text='@{String.format("%.2f", (100f * mainApp.postScore) / 6)+"%"}'
+                                android:textAppearance="@null"
+                                android:textColor="@color/gray"
+                                android:textStyle="bold"
+                                tools:text="0%"
+
+                                />
+
+                            <TextView
+                                android:id="@+id/tvPostCorrect"
+                                android:layout_width="102dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/alexandria"
+                                android:gravity="center"
+                                android:text="@{String.valueOf(mainApp.postScore)}"
+
+                                android:textColor="@color/muted_green"
+                                android:textStyle="bold"
+                                tools:text="0"
+
+                                />
+
+                            <TextView
+                                android:id="@+id/tvPostWrong"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/alexandria"
+                                android:gravity="center"
+                                android:text="@{String.valueOf(6-mainApp.postScore)}"
+                                android:textColor="@color/soft_coral"
+                                android:textStyle="bold"
+
+                                />
+                        </TableRow>
+                        <!-- Light Gray Divider -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:background="#D3D3D3" />
+                    </TableLayout>
+
+                    <Button
+                        android:id="@+id/btnDownload"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Wrong"
+                        android:layout_height="48dp"
+                        android:background="@drawable/download_button"
+                        android:paddingStart="40dp"
+                        android:paddingEnd="16dp"
+                        android:text="Download Certificate"
+                        android:textColor="#FFFFFF"
                         android:textStyle="bold"
-                        android:textAllCaps="true"
-                        android:fontFamily="@font/alexandria"
-                        android:textColor="@color/gray"
-                        android:textAppearance="@null"
-                        android:gravity="center"
-                        android:padding="8dp"/>
-                </TableRow>
+                        android:visibility="gone" />
 
-                <!-- Pre-Test Scores -->
-                <TableRow>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="Pre"
-                        android:textColor="@color/gray"
-
-                        android:textStyle="bold"
-
-                        android:fontFamily="@font/alexandria"
-
-                      />
-
-                    <TextView
-                        android:id="@+id/tvPreScore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:text='@{String.format("%.2f", (100f * mainApp.preScore) / 6)+"%"}'
-                        android:textSize="42sp"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:fontFamily="@font/alexandria"
-
-                        />
-
-                    <TextView
-                        android:id="@+id/tvPreCorrect"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{String.valueOf(mainApp.preScore)}"
-                        android:textSize="42sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/alexandria"
-                        android:textColor="@color/muted_green"
-                        android:gravity="center"
-                      />
-
-                    <TextView
-                        android:id="@+id/tvPreWrong"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{String.valueOf(6-mainApp.preScore)}"
-                        android:textSize="42sp"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:fontFamily="@font/alexandria"
-                        android:textColor="@color/soft_coral"
-
-
-
-                      />
-                </TableRow>
-
-                <!-- Post-Test Scores -->
-                <TableRow>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="Post"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/alexandria"
-                        android:textColor="@color/gray"
-
-                      />
-
-                    <TextView
-                        android:id="@+id/tvPostScore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text='@{String.format("%.2f", (100f * mainApp.postScore) / 6)+"%"}'
-                        android:textSize="42sp"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:textAppearance="@null"
-                        android:fontFamily="@font/alexandria"
-                        tools:text="0%"
-                        android:textColor="@color/gray"
-
-                     />
-
-                    <TextView
-                        android:id="@+id/tvPostCorrect"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{String.valueOf(mainApp.postScore)}"
-                        android:gravity="center"
-                        android:fontFamily="@font/alexandria"
-                        android:textSize="42sp"
-
-                        tools:text="0"
-                        android:textStyle="bold"
-                        android:textColor="@color/muted_green"
-
-                       />
-
-                    <TextView
-                        android:id="@+id/tvPostWrong"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{String.valueOf(6-mainApp.postScore)}"
-                        android:textSize="42sp"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:fontFamily="@font/alexandria"
-                        android:textColor="@color/soft_coral"
-
-                        />
-                </TableRow>
-                <!-- Light Gray Divider -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#D3D3D3"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="4dp"/>
-            </TableLayout>
-            <Button
-                android:id="@+id/btnDownload"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:background="@drawable/download_button"
-android:visibility="gone"
-                android:text="Download Certificate"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:paddingStart="40dp"
-                android:paddingEnd="16dp"/>
-
-        </LinearLayout>
-        </androidx.cardview.widget.CardView>
-</androidx.appcompat.widget.LinearLayoutCompat>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -383,7 +381,7 @@ android:visibility="gone"
                                     android:visibility="@{tests.pre01.equals(`4`) ? View.VISIBLE : View.INVISIBLE}"
 
                                     android:text="pre"/>
-                                
+
                             </androidx.appcompat.widget.LinearLayoutCompat>
                             <androidx.appcompat.widget.LinearLayoutCompat
                                 android:layout_width="wrap_content"
@@ -420,49 +418,54 @@ android:visibility="gone"
                                     android:gravity="center_vertical|center_horizontal"
                                     android:visibility="@{tests.post01.equals(`4`) ? View.VISIBLE : View.INVISIBLE}"
                                     android:text="post"/>
-                                
+
                             </androidx.appcompat.widget.LinearLayoutCompat>
-                        <RadioGroup
-                            android:id="@+id/pre01"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content">
+                            <RadioGroup
+                                android:id="@+id/pre01"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
 
-                            <RadioButton
-                                android:id="@+id/pre01A"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:checked="@{tests.post01.equals(`1`)}"
-                                android:editable="false"
-                                android:text="@string/a01A" />
+                                <RadioButton
+                                    android:id="@+id/pre01A"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post01.equals(`1`)}"
+                                        android:inputType="none"
+android:editable="false"
+                                    android:text="@string/a01A" />
 
-                            <RadioButton
-                                android:id="@+id/pre01B"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:checked="@{tests.post01.equals(`2`)}"
-                                android:editable="false"
-                                android:text="@string/a01B" />
+                                <RadioButton
+                                    android:id="@+id/pre01B"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post01.equals(`2`)}"
+                                        android:inputType="none"
+android:editable="false"
+                                    android:text="@string/a01B" />
 
-                            <RadioButton
-                                android:id="@+id/pre01C"
-                                android:background="@color/muted_green_alfa"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:checked="@{tests.post01.equals(`3`)}"
-                                android:editable="false"
+                                <RadioButton
+                                    android:id="@+id/pre01C"
+                                    android:background="@color/muted_green_alfa"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post01.equals(`3`)}"
 
-                                android:text="@string/a01Cc" />
+                                        android:inputType="none"
+android:editable="false"
 
-                            <RadioButton
-                                android:editable="false"
+                                    android:text="@string/a01Cc" />
 
-                                android:id="@+id/pre01D"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:checked="@{tests.post01.equals(`4`)}"
-                                android:text="@string/a01D" />
-                        </RadioGroup>
+                                <RadioButton
+                                        android:inputType="none"
+android:editable="false"
+
+                                    android:id="@+id/pre01D"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@{tests.post01.equals(`4`)}"
+                                    android:text="@string/a01D" />
+                            </RadioGroup>
                         </androidx.appcompat.widget.LinearLayoutCompat>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -575,7 +578,8 @@ android:visibility="gone"
                                 android:layout_height="wrap_content">
 
                                 <RadioButton
-                                    android:editable="false"
+                                        android:inputType="none"
+android:editable="false"
                                     android:id="@+id/pre02A"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -583,7 +587,8 @@ android:visibility="gone"
                                     android:text="@string/a02A" />
 
                                 <RadioButton
-                                    android:editable="false"
+                                        android:inputType="none"
+android:editable="false"
                                     android:id="@+id/pre02B"
                                     android:background="@color/muted_green_alfa"
                                     android:layout_width="match_parent"
@@ -592,7 +597,8 @@ android:visibility="gone"
                                     android:text="@string/a02B" />
 
                                 <RadioButton
-                                    android:editable="false"
+                                        android:inputType="none"
+android:editable="false"
                                     android:id="@+id/pre02C"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -600,7 +606,8 @@ android:visibility="gone"
                                     android:text="@string/a02C" />
 
                                 <RadioButton
-                                    android:editable="false"
+                                        android:inputType="none"
+android:editable="false"
                                     android:id="@+id/pre02D"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -719,7 +726,8 @@ android:visibility="gone"
                                 android:layout_height="wrap_content">
 
                                 <RadioButton
-                                    android:editable="false"
+                                        android:inputType="none"
+android:editable="false"
                                     android:background="@color/muted_green_alfa"
                                     android:id="@+id/pre03A"
                                     android:layout_width="match_parent"
@@ -728,7 +736,8 @@ android:visibility="gone"
                                     android:text="@string/a03A" />
 
                                 <RadioButton
-                                    android:editable="false"
+                                        android:inputType="none"
+android:editable="false"
                                     android:id="@+id/pre03B"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -736,7 +745,8 @@ android:visibility="gone"
                                     android:text="@string/a03B" />
 
                                 <RadioButton
-                                    android:editable="false"
+                                        android:inputType="none"
+android:editable="false"
                                     android:id="@+id/pre03C"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -744,7 +754,8 @@ android:visibility="gone"
                                     android:text="@string/a03C" />
 
                                 <RadioButton
-                                    android:editable="false"
+                                        android:inputType="none"
+android:editable="false"
                                     android:id="@+id/pre03D"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -862,7 +873,8 @@ android:visibility="gone"
                                 android:layout_height="wrap_content">
 
                                 <RadioButton
-                                    android:editable="false"
+                                        android:inputType="none"
+android:editable="false"
                                     android:id="@+id/pre04A"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -870,7 +882,8 @@ android:visibility="gone"
                                     android:text="@string/a04A" />
 
                                 <RadioButton
-                                    android:editable="false"
+                                        android:inputType="none"
+android:editable="false"
                                     android:background="@color/muted_green_alfa"
                                     android:id="@+id/pre04B"
                                     android:layout_width="match_parent"
@@ -879,7 +892,8 @@ android:visibility="gone"
                                     android:text="@string/a04B" />
 
                                 <RadioButton
-                                    android:editable="false"
+                                        android:inputType="none"
+android:editable="false"
                                     android:id="@+id/pre04C"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -887,7 +901,8 @@ android:visibility="gone"
                                     android:text="@string/a04C" />
 
                                 <RadioButton
-                                    android:editable="false"
+                                        android:inputType="none"
+android:editable="false"
                                     android:id="@+id/pre04D"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -1005,7 +1020,8 @@ android:visibility="gone"
                                 android:layout_height="wrap_content">
 
                                 <RadioButton
-                                    android:editable="false"
+                                        android:inputType="none"
+android:editable="false"
                                     android:id="@+id/pre05A"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -1013,7 +1029,8 @@ android:visibility="gone"
                                     android:text="@string/a05A" />
 
                                 <RadioButton
-                                    android:editable="false"
+                                        android:inputType="none"
+android:editable="false"
                                     android:id="@+id/pre05B"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -1021,7 +1038,8 @@ android:visibility="gone"
                                     android:text="@string/a05B" />
 
                                 <RadioButton
-                                    android:editable="false"
+                                        android:inputType="none"
+android:editable="false"
                                     android:id="@+id/pre05C"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -1029,7 +1047,8 @@ android:visibility="gone"
                                     android:text="@string/a05C" />
 
                                 <RadioButton
-                                    android:editable="false"
+                                        android:inputType="none"
+android:editable="false"
                                     android:background="@color/muted_green_alfa"
                                     android:id="@+id/pre05D"
                                     android:layout_width="match_parent"
@@ -1148,7 +1167,8 @@ android:visibility="gone"
                                 android:layout_height="wrap_content">
 
                                 <RadioButton
-                                    android:editable="false"
+                                        android:inputType="none"
+android:editable="false"
                                     android:background="@color/muted_green_alfa"
                                     android:id="@+id/pre06A"
                                     android:layout_width="match_parent"
@@ -1157,7 +1177,8 @@ android:visibility="gone"
                                     android:text="@string/a06A" />
 
                                 <RadioButton
-                                    android:editable="false"
+                                        android:inputType="none"
+android:editable="false"
                                     android:id="@+id/pre06B"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -1165,7 +1186,8 @@ android:visibility="gone"
                                     android:text="@string/a06B" />
 
                                 <RadioButton
-                                    android:editable="false"
+                                        android:inputType="none"
+android:editable="false"
                                     android:id="@+id/pre06C"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -1173,7 +1195,8 @@ android:visibility="gone"
                                     android:text="@string/a06C" />
 
                                 <RadioButton
-                                    android:editable="false"
+                                        android:inputType="none"
+android:editable="false"
                                     android:id="@+id/pre06D"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"

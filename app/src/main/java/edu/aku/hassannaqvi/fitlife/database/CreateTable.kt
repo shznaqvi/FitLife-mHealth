@@ -14,36 +14,26 @@ import edu.aku.hassannaqvi.fitlife.contracts.TableContracts.UsersTable
 object CreateTable {
 
 
-  /*  const val SQL_CREATE_LISTING = ("CREATE TABLE "
+    const val SQL_CREATE_TESTS = ("CREATE TABLE "
             + TestsTable.TABLE_NAME + "("
             + TestsTable.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + TestsTable.COLUMN_SESSION_ID + " TEXT,"
             + TestsTable.COLUMN_PROJECT_NAME + " TEXT,"
             + TestsTable.COLUMN_UID + " TEXT,"
-            + TestsTable.COLUMN_STUID + " TEXT,"
             + TestsTable.COLUMN_DISTRICT_ID + " TEXT,"
-            + TestsTable.COLUMN_AREA + " TEXT,"
-            + TestsTable.COLUMN_CLUSTER_CODE + " TEXT,"
-            + TestsTable.COLUMN_STREET_NUMBER + " TEXT,"
-            + TestsTable.COLUMN_STRUCTURE_NUMBER + " TEXT,"
-            + TestsTable.COLUMN_TAB_NUMBER + " TEXT,"
-            + TestsTable.COLUMN_HHID + " TEXT,"
+
             + TestsTable.COLUMN_USERNAME + " TEXT,"
             + TestsTable.COLUMN_SYSDATE + " TEXT,"
             + TestsTable.COLUMN_ISTATUS + " TEXT,"
             + TestsTable.COLUMN_DEVICEID + " TEXT,"
-            + TestsTable.COLUMN_GPSLAT + " TEXT,"
-            + TestsTable.COLUMN_GPSLNG + " TEXT,"
-            + TestsTable.COLUMN_GPSPRO + " TEXT,"
-            + TestsTable.COLUMN_GPSDATE + " TEXT,"
-            + TestsTable.COLUMN_GPSACC + " TEXT,"
+
             + TestsTable.COLUMN_SYNCED + " TEXT,"
             + TestsTable.COLUMN_SYNC_DATE + " TEXT,"
             + TestsTable.COLUMN_APPVERSION + " TEXT,"
-            + TestsTable.COLUMN_STESTS + " TEXT"
+            + TestsTable.COLUMN_SPRETESTS + " TEXT,"
+            + TestsTable.COLUMN_SPOSTTESTS + " TEXT"
 
             + ");")
-*/
     const val SQL_CREATE_STREETS = "CREATE TABLE " +
             StreetsTable.TABLE_NAME + " (" +
             StreetsTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +

@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import edu.aku.hassannaqvi.fitlife.R;
 import edu.aku.hassannaqvi.fitlife.core.MainApp;
+import edu.aku.hassannaqvi.fitlife.database.DatabaseHelper;
 import edu.aku.hassannaqvi.fitlife.databinding.ActivityMainBinding;
 
 import org.json.JSONException;
@@ -57,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         //bi.adminView.setVisibility(MainApp.admin ? View.VISIBLE : View.GONE);
         bi.toolbar.setSubtitle("Welcome, " + MainApp.user.getFullname() + (MainApp.admin ? " (Admin)" : "") + "!");
         invalidateOptionsMenu();
-
         // Set BottomNavigationView Listener
         bi.navView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.nav_home) {
@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
         int itemId = item.getItemId();
 
         if (itemId == R.id.action_database) {
-          //  intent = new Intent(MainActivity.this, AndroidDatabaseManager.class);
+         // intent = new Intent(MainActivity.this, AndroidDatabaseManager.class);
             startActivity(intent);
         }  else if (itemId == R.id.action_checkWorker) {
       //  intent = new Intent(MainActivity.this, CheckWorkerActivity.class);

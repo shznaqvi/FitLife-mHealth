@@ -136,7 +136,7 @@ public class SyncActivity extends AppCompatActivity {
         int viewId = view.getId();
         if (viewId == R.id.btnUpload) {
             // Upload button clicked
-            bi.activityTitle.setText("Upload Data");
+            //bi.activityTitle.setText("Upload Data");
             bi.dataLayout.setVisibility(View.VISIBLE);
             bi.photoLayout.setVisibility(View.GONE);
             bi.mTextViewS.setVisibility(View.GONE);
@@ -147,7 +147,7 @@ public class SyncActivity extends AppCompatActivity {
             // Tests
             uploadTables.add(new SyncModel(TableContracts.TestsTable.TABLE_NAME));
             try {
-                MainApp.uploadData.add(db.getUnsyncedListing());
+                MainApp.uploadData.add(db.getUnsyncedTests());
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.d(TAG, "ProcessStart: JSONException(Forms): " + e.getMessage());
@@ -181,7 +181,7 @@ public class SyncActivity extends AppCompatActivity {
              /*   // Forms - unlocked
                 uploadTables.add(new SyncModel(TestsTable.TABLE_NAME, true));
                 try {
-                //    MainApp.uploadData.add(db.getUnlockedUnsyncedFormHH());
+                //    MainApp.uploadData.add(db.getUnlockedUnsyncedTests());
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.d(TAG, "ProcessStart: JSONException(Forms): " + e.getMessage());
@@ -207,7 +207,7 @@ public class SyncActivity extends AppCompatActivity {
             BeginUpload();
         } else if (viewId == R.id.btnSync) {
 
-            bi.activityTitle.setText("Download Data");
+           // bi.activityTitle.setText("Download Data");
 
             MainApp.downloadData = new String[0];
             bi.dataLayout.setVisibility(View.VISIBLE);

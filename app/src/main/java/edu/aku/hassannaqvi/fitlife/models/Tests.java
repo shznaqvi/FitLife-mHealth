@@ -80,6 +80,7 @@ public class Tests extends BaseObservable implements Observable {
         setDeviceId(MainApp.deviceid);  // Ensure this is properly set in your application
         setAppver(MainApp.appInfo.getAppVersion());      // Ensure this is properly set in your application
         setProjectName(PROJECT_NAME); // Ensure this is properly set in your application
+        setSessionID(String.valueOf(MainApp.sessionid)); // Ensure this is properly set in your application
         tests.setUserName(MainApp.user.getUserName());
 
         //listings.setStructureNo(String.valueOf(MainApp.maxStructure));
@@ -495,9 +496,13 @@ public class Tests extends BaseObservable implements Observable {
 
 
         // Hydrate sHH fields
-        String sTestJsonString = cursor.getString(cursor.getColumnIndexOrThrow(TableContracts.TestsTable.COLUMN_STESTS));
-        if (sTestJsonString != null) {
-            sTestHydrate(sTestJsonString);
+        String sPreTestJsonString = cursor.getString(cursor.getColumnIndexOrThrow(TestsTable.COLUMN_SPRETESTS));
+        if (sPreTestJsonString != null) {
+            sPreTestHydrate(sPreTestJsonString);
+        }
+        String sPostTestJsonString = cursor.getString(cursor.getColumnIndexOrThrow(TestsTable.COLUMN_SPOSTTESTS));
+        if (sPostTestJsonString != null) {
+            sPostTestHydrate(sPostTestJsonString);
         }
 
 
@@ -505,7 +510,7 @@ public class Tests extends BaseObservable implements Observable {
     }
 
 
-    public void sTestHydrate(String jsonString) throws JSONException {
+    public void sPreTestHydrate(String jsonString) throws JSONException {
         Log.d(TAG, "hydrateTest: " + jsonString);
         if (jsonString != null) {
             JSONObject json = new JSONObject(jsonString);
@@ -516,6 +521,15 @@ public class Tests extends BaseObservable implements Observable {
             this.pre04 = json.optString("pre04", _EMPTY_);
             this.pre05 = json.optString("pre05", _EMPTY_);
             this.pre06 = json.optString("pre06", _EMPTY_);
+
+        }
+    }
+    public void sPostTestHydrate(String jsonString) throws JSONException {
+        Log.d(TAG, "hydrateTest: " + jsonString);
+        if (jsonString != null) {
+            JSONObject json = new JSONObject(jsonString);
+
+
 
             this.post01 = json.optString("post01", _EMPTY_);
             this.post02 = json.optString("post02", _EMPTY_);
@@ -545,14 +559,15 @@ public class Tests extends BaseObservable implements Observable {
 
 
         // Convert sHH and sBG groups to JSONObjects
-        json.put(TableContracts.TestsTable.COLUMN_STESTS, new JSONObject(sTestToString()));
+        json.put(TableContracts.TestsTable.COLUMN_SPRETESTS, new JSONObject(sPreTestToString()));
+        json.put(TableContracts.TestsTable.COLUMN_SPOSTTESTS, new JSONObject(sPostTestToString()));
 
         return json;
     }
 
 
 
-    public String sTestToString() throws JSONException {
+    public String sPreTestToString() throws JSONException {
         Log.d(TAG, "hydrateTestToString: ");
 
         JSONObject json = new JSONObject();
@@ -563,6 +578,17 @@ public class Tests extends BaseObservable implements Observable {
         json.put("pre04", pre04);
         json.put("pre05", pre05);
         json.put("pre06", pre06);
+
+
+        return json.toString();
+    }
+
+    public String sPostTestToString() throws JSONException {
+
+        Log.d(TAG, "hydrateTestToString: ");
+
+        JSONObject json = new JSONObject();
+
 
         json.put("post01", post01);
         json.put("post02", post02);

@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.main" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.main" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryLight</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -18,7 +18,7 @@
     </style>
 
 
-    <style name="AppThemeEnglish1" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppThemeEnglish1" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowFullscreen">true</item>
         <item name="android:textSize">16sp</item>
 
@@ -48,7 +48,25 @@
         <item name="android:animateLayoutChanges">false</item>
     </style>
 
-    <style name="AppThemeUrdu" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppThemeEnglish2" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Custom Component Styles -->
+        <item name="textAppearanceHeadlineSmall">@style/labels</item>
+        <item name="textAppearanceBodyMedium">@style/labels</item>
+        <item name="textAppearanceBodySmall">@style/labels</item>
+        <item name="editTextStyle">@style/textInput</item>
+        <item name="radioButtonStyle">@style/radiobutton</item>
+        <item name="checkboxStyle">@style/checkbox</item>
+        <item name="buttonStyle">@style/button</item>
+
+        <!-- Hint text and layout direction -->
+        <item name="android:textColorHint">@color/grayLight</item>
+        <item name="android:layoutDirection">ltr</item>
+
+        <!-- Optional: Material3-specific overrides -->
+        <item name="materialButtonStyle">@style/button</item>
+    </style>
+
+    <style name="AppThemeUrdu" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowFullscreen">true</item>
         <item name="android:textSize">16sp</item>
 
@@ -75,7 +93,7 @@
         <item name="android:animateLayoutChanges">false</item>
     </style>
 
-    <style name="AppThemeSindhi" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppThemeSindhi" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowFullscreen">true</item>
         <item name="android:textSize">16sp</item>
 
@@ -108,7 +126,7 @@
 
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowFullscreen">true</item>
 
         <item name="fontFamily">@font/roboto</item>
@@ -636,5 +654,15 @@
         <item name="android:textColorPrimary">@color/white</item>
     </style>
     <!--    <item name="android:actionBarStyle">@style/ActionBarStyle</item>-->
+    <style name="NoStyleTextView">
+        <!-- styles.xml -->
+            <item name="android:paddingStart">0dp</item>
+            <item name="android:paddingEnd">0dp</item>
+            <item name="android:layout_marginStart">0dp</item>
+            <item name="android:layout_marginEnd">0dp</item>
 
+            <item name="android:background">@null</item>
+            <item name="android:textColor">@android:color/black</item>
+            <item name="android:fontFamily">sans-serif</item>
+    </style>
 </resources>
