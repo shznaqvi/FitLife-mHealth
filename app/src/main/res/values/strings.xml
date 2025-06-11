@@ -138,7 +138,9 @@
     <string name="lang">English\n</string>
     <string name="ncdPrevention">NCD Prevention Program</string>
 
-    <!-- Session 1: Risk Factor Questions -->
+    <!-- Session 1: Non-Communicable Diseases (NCDs) and its risk factors -->
+    <string name="section1" translatable="false">Non-Communicable Diseases (NCDs) and its risk factors
+</string>
 
     <!-- Question Numbers -->
     <string name="Q_a01" translatable="false">A01</string>
@@ -152,7 +154,7 @@
     <string name="a01">What are Non-Communicable Diseases (NCDs)?</string>
     <string name="a01A">Diseases that spread from one person to another</string>
     <string name="a01B">Diseases caused by germs or infections</string>
-    <string name="a01Cc">Long-lasting diseases that do not spread from person to person</string> <!-- Correct Answer -->
+    <string name="a01C">Long-lasting diseases that do not spread from person to person</string> <!-- Correct Answer -->
     <string name="a01D">Diseases that only affect animals</string>
 
     <!-- Question A02 -->
@@ -190,6 +192,297 @@
     <string name="a06C">Lack of exercise</string>
     <string name="a06D">Unhealthy diet</string>
     <string name="ProjectName">School eHealth Education Program Pakistan (eSHEPP)</string>
+
+    <!-- Session 2: Physical Activity -->
+    <string name="section2" translatable="false">Physical Activity</string>
+
+    <!-- Question Numbers -->
+    <string name="Q_b01" translatable="false">B01</string>
+    <string name="Q_b02" translatable="false">B02</string>
+    <string name="Q_b03" translatable="false">B03</string>
+    <string name="Q_b04" translatable="false">B04</string>
+    <string name="Q_b05" translatable="false">B05</string>
+    <string name="Q_b06" translatable="false">B06</string>
+    <string name="Q_b07" translatable="false">B07</string>
+
+    <!-- Question B01 -->
+    <string name="b01">Why is physical activity important for your health?</string>
+    <string name="b01A">It helps you get good grades in school.</string>
+    <string name="b01B">It keeps your body strong and helps prevent diseases.</string> <!-- Correct Answer -->
+    <string name="b01C">It makes you hungry all the time.</string>
+    <string name="b01D">It doesn’t really matter for your health.</string>
+
+    <!-- Question B02 -->
+    <string name="b02">How much physical activity should children do each day?</string>
+    <string name="b02A">10 minutes.</string>
+    <string name="b02B">30 minutes.</string>
+    <string name="b02C">At least 60 minutes.</string> <!-- Correct Answer -->
+    <string name="b02D">5 hours.</string>
+
+    <!-- Question B03 -->
+    <string name="b03">Which of these is considered a physical activity?</string>
+    <string name="b03A">Watching TV.</string>
+    <string name="b03B">Playing video games.</string>
+    <string name="b03C">Running, jumping, or playing sports.</string> <!-- Correct Answer -->
+    <string name="b03D">Eating snacks.</string>
+
+    <!-- Question B04 -->
+    <string name="b04">How can physical activity help prevent non-communicable diseases (NCDs)?</string>
+    <string name="b04A">By making you sick more often.</string>
+    <string name="b04B">By keeping your heart, lungs, and body healthy.</string> <!-- Correct Answer -->
+    <string name="b04C">By making you spend more time sitting.</string>
+    <string name="b04D">By helping you avoid exercise.</string>
+
+    <!-- Question B05 -->
+    <string name="b05">Which of the following is a fun way to stay active?</string>
+    <string name="b05A">Playing outside with friends.</string> <!-- Correct Answer -->
+    <string name="b05B">Watching TV all day.</string>
+    <string name="b05C">Sleeping late every day.</string>
+    <string name="b05D">Eating fast food.</string>
+
+    <!-- Question B06 -->
+    <string name="b06">Which of these activities can you easily include in your daily routine?</string>
+    <string name="b06A">Taking the stairs instead of the elevator.</string> <!-- Correct Answer -->
+    <string name="b06B">Sitting on the couch all day.</string>
+    <string name="b06C">Playing video games all evening.</string>
+    <string name="b06D">Skipping your physical education class.</string>
+
+    <!-- Question B07 -->
+    <string name="b07">How can you stay active even when you have a busy schedule?</string>
+    <string name="b07A">Skip physical activity altogether.</string>
+    <string name="b07B">Find small opportunities to move, like walking to school.</string> <!-- Correct Answer -->
+    <string name="b07C">Only exercise on weekends.</string>
+    <string name="b07D">Ignore physical activity until you have more time.</string>
+
+
+    <!-- Section 3: Eat Smart -->
+    <string name="section3" translatable="false">Eat Smart</string>
+
+    <!-- Question Numbers -->
+    <string name="Q_c01" translatable="false">C01</string>
+    <string name="Q_c02" translatable="false">C02</string>
+    <string name="Q_c03" translatable="false">C03</string>
+    <string name="Q_c04" translatable="false">C04</string>
+    <string name="Q_c05" translatable="false">C05</string>
+    <string name="Q_c06" translatable="false">C06</string>
+    <string name="Q_c07" translatable="false">C07</string>
+
+    <!-- Question C01 -->
+    <string name="c01">What does it mean to eat a balanced diet?</string>
+    <string name="c01A">Eating only fruits and vegetables.</string>
+    <string name="c01B">Including a variety of different foods in the right amounts.</string> <!-- Correct Answer -->
+    <string name="c01C">Eating as much as you want of your favourite foods.</string>
+    <string name="c01D">Avoiding all fats and carbohydrates.</string>
+
+    <!-- Question C02 -->
+    <string name="c02">What is a healthy snack choice?</string>
+    <string name="c02A">Potato chips.</string>
+    <string name="c02B">Candy bars.</string>
+    <string name="c02C">Fresh fruit or yogurt.</string> <!-- Correct Answer -->
+    <string name="c02D">Cookies and soda.</string>
+
+    <!-- Question C03 -->
+    <string name="c03">Why should we limit sugary foods and drinks?</string>
+    <string name="c03A">They taste too good.</string>
+    <string name="c03B">They can cause tooth decay &amp; weight gain.</string> <!-- Correct Answer -->
+    <string name="c03C">They are cheap and easy to find.</string>
+    <string name="c03D">They give a lot of energy.</string>
+
+    <!-- Question C04 -->
+    <string name="c04">Why is breakfast considered the most important meal of the day?</string>
+    <string name="c04A">It’s the only meal you need all day.</string>
+    <string name="c04B">It gives you energy for the day and helps with concentration.</string> <!-- Correct Answer -->
+    <string name="c04C">It’s usually the largest meal.</string>
+    <string name="c04D">So you can skip lunch and dinner.</string>
+
+    <!-- Question C05 -->
+    <string name="c05">Why is it important to eat healthy foods during childhood?</string>
+    <string name="c05A">It helps with growth and development.</string> <!-- Correct Answer -->
+    <string name="c05B">It doesn’t matter what children eat.</string>
+    <string name="c05C">Only adults need to eat healthily.</string>
+    <string name="c05D">Healthy foods don’t taste good.</string>
+
+    <!-- Question C06 -->
+    <string name="c06">What happens if you eat too much salty food?</string>
+    <string name="c06A">Improved heart health.</string>
+    <string name="c06B">Increased risk of high blood pressure.</string> <!-- Correct Answer -->
+    <string name="c06C">Better sleep quality.</string>
+    <string name="c06D">No effect on the body.</string>
+
+    <!-- Question C07 -->
+    <string name="c07">What is a simple way to reduce sugar in your diet?</string>
+    <string name="c07A">Drink water instead of sugary drinks.</string> <!-- Correct Answer -->
+    <string name="c07B">Add extra sugar to your cereal.</string>
+    <string name="c07C">Eat desserts after every meal.</string>
+    <string name="c07D">Only eat canned fruits in syrup.</string>
+
+    <!-- Section 4: Smoking -->
+    <string name="section4" translatable="false">Smoking</string>
+
+    <!-- Question Numbers -->
+    <string name="Q_d01" translatable="false">D01</string>
+    <string name="Q_d02" translatable="false">D02</string>
+    <string name="Q_d03" translatable="false">D03</string>
+    <string name="Q_d04" translatable="false">D04</string>
+    <string name="Q_d05" translatable="false">D05</string>
+    <string name="Q_d06" translatable="false">D06</string>
+
+    <!-- Question D01 -->
+    <string name="d01">Why is smoking harmful to your health?</string>
+    <string name="d01A">It helps you run faster.</string>
+    <string name="d01B">It damages your lungs and can lead to serious diseases.</string> <!-- Correct Answer -->
+    <string name="d01C">It makes you stronger.</string>
+    <string name="d01D">It has no effect on health.</string>
+
+    <!-- Question D02 -->
+    <string name="d02">Which of these is a harmful effect of smoking?</string>
+    <string name="d02A">Stronger muscles.</string>
+    <string name="d02B">Better eyesight.</string>
+    <string name="d02C">Lung cancer.</string> <!-- Correct Answer -->
+    <string name="d02D">Faster growth.</string>
+
+    <!-- Question D03 -->
+    <string name="d03">What are harmful drugs?</string>
+    <string name="d03A">Medicine that helps you when you\'re sick.</string>
+    <string name="d03B">Substances that can harm your body and mind.</string> <!-- Correct Answer -->
+    <string name="d03C">Something you eat for energy.</string>
+    <string name="d03D">A type of healthy drink.</string>
+
+    <!-- Question D04 -->
+    <string name="d04">Why should you avoid using drugs?</string>
+    <string name="d04A">They are fun and safe.</string>
+    <string name="d04B">They can harm your brain and body, leading to addiction and illness.</string> <!-- Correct Answer -->
+    <string name="d04C">They help you study better.</string>
+    <string name="d04D">They make you popular.</string>
+
+    <!-- Question D05 -->
+    <string name="d05">How does smoking affect your physical fitness?</string>
+    <string name="d05A">It improves your stamina.</string>
+    <string name="d05B">It makes you run faster.</string>
+    <string name="d05C">It reduces your ability to exercise and makes breathing difficult.</string> <!-- Correct Answer -->
+    <string name="d05D">It has no impact on fitness.</string>
+
+    <!-- Question D06 -->
+    <string name="d06">How can tobacco use affect your appearance?</string>
+    <string name="d06A">It makes your skin glow.</string>
+    <string name="d06B">It can cause yellow teeth and bad breath.</string> <!-- Correct Answer -->
+    <string name="d06C">It has no effect on appearance.</string>
+    <string name="d06D">It makes you look older in a good way.</string>
+
+    <!-- Section 5: Mental Health -->
+    <string name="section5" translatable="false">Mental Health</string>
+
+    <!-- Question Numbers -->
+    <string name="Q_e01" translatable="false">E01</string>
+    <string name="Q_e02" translatable="false">E02</string>
+    <string name="Q_e03" translatable="false">E03</string>
+    <string name="Q_e04" translatable="false">E04</string>
+    <string name="Q_e05" translatable="false">E05</string>
+    <string name="Q_e06" translatable="false">E06</string>
+
+    <!-- Question E01 -->
+    <string name="e01">What is mental health?</string>
+    <string name="e01A">Feeling happy all the time</string>
+    <string name="e01B">How you think and feel</string> <!-- Correct Answer -->
+    <string name="e01C">How well you sleep</string>
+    <string name="e01D">Your physical fitness</string>
+
+    <!-- Question E02 -->
+    <string name="e02">Which of these is a common mental health issue?</string>
+    <string name="e02A">Feeling sad or worried</string> <!-- Correct Answer -->
+    <string name="e02B">Having a cold</string>
+    <string name="e02C">Running fast</string>
+    <string name="e02D">Eating a lot</string>
+
+    <!-- Question E03 -->
+    <string name="e03">How can poor mental health affect your life?</string>
+    <string name="e03A">It can make it hard to enjoy things</string> <!-- Correct Answer -->
+    <string name="e03B">It helps you sleep better</string>
+    <string name="e03C">It makes you more creative</string>
+    <string name="e03D">It improves your grades</string>
+
+    <!-- Question E04 -->
+    <string name="e04">How can you manage stress?</string>
+    <string name="e04A">By playing video games for hours</string>
+    <string name="e04B">By doing deep breathing and relaxation exercises</string> <!-- Correct Answer -->
+    <string name="e04C">By eating junk food</string>
+    <string name="e04D">By ignoring your feelings</string>
+
+    <!-- Question E05 -->
+    <string name="e05">What is a sign of good mental health?</string>
+    <string name="e05A">Enjoying activities and feeling positive</string> <!-- Correct Answer -->
+    <string name="e05B">Feeling sad all the time</string>
+    <string name="e05C">Having headaches often</string>
+    <string name="e05D">Avoiding friends and activities</string>
+
+    <!-- Question E06 -->
+    <string name="e06">What is one benefit of having a good sleep routine?</string>
+    <string name="e06A">It helps you stay focused and energetic</string> <!-- Correct Answer -->
+    <string name="e06B">It makes you feel more stressed</string>
+    <string name="e06C">It decreases your energy levels</string>
+    <string name="e06D">It increases anxiety levels</string>
+
+    <!-- Section 6: Wrap up -->
+    <string name="section6" translatable="false">Wrap up</string>
+
+    <!-- Question Numbers -->
+    <string name="Q_f01" translatable="false">F01</string>
+    <string name="Q_f02" translatable="false">F02</string>
+    <string name="Q_f03" translatable="false">F03</string>
+    <string name="Q_f04" translatable="false">F04</string>
+    <string name="Q_f05" translatable="false">F05</string>
+    <string name="Q_f06" translatable="false">F06</string>
+    <string name="Q_f07" translatable="false">F07</string>
+
+    <!-- Question F01 -->
+    <string name="f01">Which of these is a healthy habit?</string>
+    <string name="f01A">A. Eating fruits and vegetables</string> <!-- Correct Answer -->
+    <string name="f01B">B. Eating a lot of candy</string>
+    <string name="f01C">C. Watching TV for hours</string>
+    <string name="f01D">D. Skipping breakfast</string>
+
+    <!-- Question F02 -->
+    <string name="f02">How can small changes in your lifestyle impact your health?</string>
+    <string name="f02A">A. They can help you feel better and prevent health problems</string> <!-- Correct Answer -->
+    <string name="f02B">B. They have no effect on your health</string>
+    <string name="f02C">C. They make you feel worse</string>
+    <string name="f02D">D. They only affect your appearance</string>
+
+    <!-- Question F03 -->
+    <string name="f03">Why is sleep important for overall health?</string>
+    <string name="f03A">A. It helps your body and mind rest and recover</string> <!-- Correct Answer -->
+    <string name="f03B">B. It makes you more tired</string>
+    <string name="f03C">C. It doesn’t affect your health</string>
+    <string name="f03D">D. It is not important at all</string>
+
+    <!-- Question F04 -->
+    <string name="f04">What is a good habit to include in your daily routine?</string>
+    <string name="f04A">A. Regular exercise and balanced meals</string> <!-- Correct Answer -->
+    <string name="f04B">B. Skipping meals and watching TV for long periods</string>
+    <string name="f04C">C. Eating only sugary snacks</string>
+    <string name="f04D">D. Avoiding physical activity</string>
+
+    <!-- Question F05 -->
+    <string name="f05">How can you incorporate physical activity into your daily life?</string>
+    <string name="f05A">A. By walking or biking to school, playing sports, or dancing</string> <!-- Correct Answer -->
+    <string name="f05B">B. By sitting all day and doing nothing</string>
+    <string name="f05C">C. By only exercising on weekends</string>
+    <string name="f05D">D. By skipping physical activities</string>
+
+    <!-- Question F06 -->
+    <string name="f06">What is the benefit of having a healthy breakfast?</string>
+    <string name="f06A">A. It provides energy and helps you focus during the day</string> <!-- Correct Answer -->
+    <string name="f06B">B. It makes you feel tired</string>
+    <string name="f06C">C. It has no impact on your energy levels</string>
+    <string name="f06D">D. It is not necessary for health</string>
+
+    <!-- Question F07 -->
+    <string name="f07">What does a healthy daily routine include?</string>
+    <string name="f07A">A. Balanced meals, regular exercise, and enough sleep</string> <!-- Correct Answer -->
+    <string name="f07B">B. Skipping meals and avoiding exercise</string>
+    <string name="f07C">C. Eating junk food and staying up late</string>
+    <string name="f07D">D. Watching TV all day</string>
+
 
 
     <!--Feedback Performa-->

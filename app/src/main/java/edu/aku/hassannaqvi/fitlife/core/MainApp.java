@@ -272,6 +272,8 @@ public class MainApp extends Application implements LifecycleObserver {
         Toast.makeText(context, lang + "_" + country, Toast.LENGTH_SHORT).show();
     }
 
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -350,6 +352,25 @@ public class MainApp extends Application implements LifecycleObserver {
 
         resetInactivityTimer();
 
+    }
+
+    public static void reInitKey(Context c) {
+        // Prepare encryption KEY
+        ApplicationInfo ai = null;
+        // Start the location service
+        try {
+
+            ai = c.getPackageManager().getApplicationInfo(c.getPackageName(), PackageManager.GET_META_DATA);
+            Bundle bundle = ai.metaData;
+            //TRATS = bundle.getInt("YEK_TRATS");
+            //IBAHC = bundle.getString("YEK_REVRES").substring(TRATS, TRATS + 16);
+            IBAHC = bundle.getString("YEK_REVRES");
+            Log.d(TAG, "reInitSecure: YEK_REVRES = " + IBAHC);
+        } catch (Exception e) {
+            Log.d(TAG, "reInitSecure: Error getting meta-data, Exception("+e.getClass().getName()+"): " + e.getMessage());
+
+            e.printStackTrace();
+        }
     }
 
     private void initSecure() {

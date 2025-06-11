@@ -9,10 +9,12 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.work.BackoffPolicy;
 import androidx.work.Constraints;
 import androidx.work.Data;
 import androidx.work.ExistingPeriodicWorkPolicy;
@@ -95,10 +97,18 @@ public class PeriodicWorkerHelper {
             Log.d(TAG, "ProcessStart: JSONException(Forms): " + e.getMessage());
         }
 */
+
+        // Entry Log
+
+
+
         // Tests
         uploadTables.add(new SyncModel(TableContracts.TestsTable.TABLE_NAME));
         try {
-            MainApp.uploadDataPeriodic.add(db.getUnsyncedTests());
+            JSONArray unsyncedRows = db.getUnsyncedTests();
+            if (unsyncedRows.length() > 0)
+                uploadDataPeriodic.add(unsyncedRows);
+
         } catch (JSONException e) {
             e.printStackTrace();
             Log.d(TAG, "ProcessStart: JSONException(Tests): " + e.getMessage());
@@ -108,7 +118,9 @@ public class PeriodicWorkerHelper {
         // Entry Log
         uploadTables.add(new SyncModel(EntryLogTable.TABLE_NAME));
         try {
-            uploadDataPeriodic.add(db.getUnsyncedEntryLog());
+            JSONArray unsyncedRows = db.getUnsyncedTests();
+            if (unsyncedRows.length() > 0)
+                uploadDataPeriodic.add(unsyncedRows);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -137,7 +149,8 @@ public class PeriodicWorkerHelper {
                     .build();
            PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(DataUpPeriodicWorkerALL.class, repeatInterval, timeUnit)
                     .addTag(uploadTables.get(i).getTableName())
-                    .setInputData(data)
+                   .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 30, TimeUnit.SECONDS)
+                   .setInputData(data)
                     .setConstraints(constraints)
                     .build();
            workRequests.add(workRequest);
@@ -177,7 +190,7 @@ public class PeriodicWorkerHelper {
                             if (result != null) {
                                 if (result.length() > 0) {
                                     try {
-                                        Log.d(TAG, "onPostExecute: " + result);
+                                        Log.d(TAG, "onPostExecute("+tableName+"): " + result);
                                         json = new JSONArray(result);
 
                                         Method method = null;
@@ -201,7 +214,7 @@ public class PeriodicWorkerHelper {
                                         if (method != null) {
                                             for (int i = 0; i < json.length(); i++) {
                                                 JSONObject jsonObject = new JSONObject(json.getString(i));
-                                                Log.d(TAG, "onChanged: " + json.getString(i));
+                                                Log.d(TAG, "onChanged("+tableName+"): " + json.getString(i));
                                                 if (jsonObject.getString("status").equals("1") && jsonObject.getString("error").equals("0")) {
                                                     method.invoke(db, jsonObject.getString("id"));
                                                 } else if (jsonObject.getString("status").equals("2") && jsonObject.getString("error").equals("0")) {

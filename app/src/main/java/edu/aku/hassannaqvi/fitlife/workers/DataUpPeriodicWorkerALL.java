@@ -66,24 +66,26 @@ public class DataUpPeriodicWorkerALL extends Worker {
      * The update hosts notification identifier.
      */
     private static final int NOTIFICATION_ID = 10;
+    private static final int READ_TIMEOUT_MS = 100_000;
+    private static final int CONNECT_TIMEOUT_MS = 150_000;
 
 
     // to be initialised by workParams
     private final Context mContext;
     private final String uploadTable;
-    private final URL serverURL = null;
     private final int position;
     private final String uploadWhere;
     private final DatabaseHelper db;
     HttpsURLConnection urlConnection;
-    private JSONArray uploadData;
+    private JSONArray uploadData = new JSONArray();
     private String nTitle = MainApp.PROJECT_NAME + ": Data Upload";
     private String nMessage;
-    private ProgressDialog pd;
+
     private int length;
     private Data data;
     private long startTime;
     private int responseLength = 0, requestLength = 0;
+    private URL serverURL = null;
 
     public DataUpPeriodicWorkerALL(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -92,10 +94,12 @@ public class DataUpPeriodicWorkerALL extends Worker {
         mContext = context;
         uploadTable = workerParams.getInputData().getString("table");
         position = workerParams.getInputData().getInt("position", -2);
-        //uploadData = MainApp.uploadData.get(position);
-        //uploadTables.clear();
-        //MainApp.uploadDataPeriodic.clear();
+        Log.d(TAG, "DataUpPeriodicWorkerALL: table:"+uploadTable+" Position:"+position);
 
+        if (MainApp.uploadDataPeriodic.size() >0 )
+            uploadData = MainApp.uploadDataPeriodic.get(position);
+
+     /*   uploadData = new JSONArray();
         switch (uploadTable) {
             // Forms
             case TableContracts.TestsTable.TABLE_NAME:
@@ -107,7 +111,6 @@ public class DataUpPeriodicWorkerALL extends Worker {
                 }
                 break;
 
-
             // Entry Log
             case TableContracts.EntryLogTable.TABLE_NAME:
                 try {
@@ -117,7 +120,7 @@ public class DataUpPeriodicWorkerALL extends Worker {
                     Log.d(TAG, "ProcessStart: JSONException(EntryLog): " + e.getMessage());
                 }
         }
-
+*/
         Log.d(TAG, "Upload Begins uploadData: " + uploadData);
 
         Log.d(TAG, "DataDownWorkerALL: position " + position);
@@ -126,68 +129,7 @@ public class DataUpPeriodicWorkerALL extends Worker {
 
     }
 
-    /*
-     * This method is responsible for doing the work
-     * so whatever work that is needed to be performed
-     * we will put it here
-     *
-     * For example, here I am calling the method displayNotification()
-     * It will display a notification
-     * So that we will understand the work is executed
-     * */
-  /*  private static SSLSocketFactory buildSslSocketFactory(Context context) {
-        try {
 
-
-            CertificateFactory cf = CertificateFactory.getInstance("X.509");
-            AssetManager assetManager = context.getAssets();
-            InputStream caInput = assetManager.open("vcoe1_aku_edu.cer");
-            Certificate ca;
-            try {
-                ca = cf.generateCertificate(caInput);
-                System.out.println("ca=" + ((X509Certificate) ca).getSubjectDN());
-            } finally {
-                caInput.close();
-            }
-
-            // Create a KeyStore containing our trusted CAs
-            String keyStoreType = KeyStore.getDefaultType();
-            KeyStore keyStore = KeyStore.getInstance(keyStoreType);
-            keyStore.load(null, null);
-            keyStore.setCertificateEntry("ca", ca);
-
-            // Create a TrustManager that trusts the CAs in our KeyStore
-            String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
-            TrustManagerFactory tmf = TrustManagerFactory.getInstance(tmfAlgorithm);
-            tmf.init(keyStore);
-*//*
-
-            SSLContext context = SSLContext.getInstance("TLS");
-            context.init(null, new X509TrustManager[]{new X509TrustManager() {
-                public void checkClientTrusted(X509Certificate[] chain,
-                                               String authType) throws CertificateException {
-                }
-
-                public void checkServerTrusted(X509Certificate[] chain,
-                                               String authType) throws CertificateException {
-                }
-
-                public X509Certificate[] getAcceptedIssuers() {
-                    return new X509Certificate[0];
-                }
-            }}, new SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(
-                    context.getSocketFactory());
-            *//*
-            // Create an SSLContext that uses our TrustManager
-            SSLContext context1 = SSLContext.getInstance("TLSv1.2");
-            context1.init(null, tmf.getTrustManagers(), null);
-            return context1.getSocketFactory();
-        } catch (NoSuchAlgorithmException | KeyStoreException | KeyManagementException | CertificateException | IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }*/
 
     public static void longInfo(String str) {
         if (str.length() > 4000) {
@@ -197,62 +139,13 @@ public class DataUpPeriodicWorkerALL extends Worker {
             Log.i(TAG, str);
     }
 
-    /*
-     * The method is doing nothing but only generating
-     * a simple notification
-     * If you are confused about it
-     * you should check the Android Notification Tutorial
-     * */
-/*    private void displayNotification(String title, String task) {
-        NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("scrlog", "BLF", NotificationManager.IMPORTANCE_DEFAULT);
-            notificationManager.createNotificationChannel(channel);
-        }
-
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(getApplicationContext(), "scrlog")
-                .setContentTitle(title)
-                .setContentText(task)
-                .setSmallIcon(R.mipmap.ic_launcher);
-
-        final int maxProgress = 100;
-        int curProgress = 0;
-        notification.setProgress(length, curProgress, false);
-
-        //notificationManager.notify(1, notification.build());
-    }*/
-
-   /* private boolean certIsValid(Certificate[] certs, Certificate ca) {
-        for (Certificate cert : certs) {
-            System.out.println("Certificate is: " + cert);
-            if (cert instanceof X509Certificate) {
-
-                try {
-                    ((X509Certificate) cert).checkValidity();
-
-                    System.out.println("Certificate is active for current date");
-                    if (cert.equals(ca)) {
-
-                        return true;
-                    }
-                    //  Toast.makeText(mContext, "Certificate is active for current date", Toast.LENGTH_SHORT).show();
-                } catch (CertificateExpiredException | CertificateNotYetValidException e) {
-                    e.printStackTrace();
-                    return false;
-                }
-            }
-
-        }
-        return false;
-    }*/
 
     @NonNull
     @Override
     public Result doWork() {
         startTime = System.currentTimeMillis();
 
-        if (uploadData.length() == 0) {
+        if (uploadData == null || uploadData.length() == 0) {
             data = new Data.Builder()
                     .putString("error", "No new records to upload")
                     .putString("time", getTime())
@@ -260,35 +153,31 @@ public class DataUpPeriodicWorkerALL extends Worker {
                     .putInt("position", this.position)
                     .build();
 
-            return Result.failure(data);
+            return Result.success(data);
         }
         Log.d(TAG, "doWork: Starting");
+
+        createNotificationChannel();
         displayNotification(nTitle, "Starting upload");
 
         StringBuilder result = new StringBuilder();
 
         URL url = null;
 
-        InputStream caInput = null;
         Certificate ca = null;
-        try {
+        AssetManager assetManager = mContext.getAssets();
+
+        try (InputStream caInput = assetManager.open("star_aku_edu_2025.crt")) {
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
-            AssetManager assetManager = mContext.getAssets();
-            caInput = assetManager.open("star_aku_edu_2025.crt");
-
-
             ca = cf.generateCertificate(caInput);
-            //     System.out.println("ca=" + ((X509Certificate) ca).getSubjectDN());
         } catch (CertificateException e) {
             e.printStackTrace();
+            Log.e(TAG, "Certificate loading failed: ", e);
+
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                caInput.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            Log.e(TAG, "Unexpected error while loading certificate: ", e);
         }
 
         try {
@@ -310,8 +199,8 @@ public class DataUpPeriodicWorkerALL extends Worker {
 
             urlConnection = (HttpsURLConnection) url.openConnection();
             urlConnection.setSSLSocketFactory(buildSslSocketFactory(mContext));
-            urlConnection.setReadTimeout(100000 /* milliseconds */);
-            urlConnection.setConnectTimeout(150000 /* milliseconds */);
+            urlConnection.setReadTimeout(READ_TIMEOUT_MS);
+            urlConnection.setConnectTimeout(CONNECT_TIMEOUT_MS);
             urlConnection.setRequestMethod("POST");
             urlConnection.setDoOutput(true);
             urlConnection.setDoInput(true);
@@ -324,13 +213,16 @@ public class DataUpPeriodicWorkerALL extends Worker {
             Certificate[] certs = urlConnection.getServerCertificates();
 
             if (certIsValid(certs, ca)) {
+                for (Certificate cert : certs) {
+                    Log.d(TAG, "Server Cert: " + cert.toString());
+                }
 
 
                 Log.d(TAG, "downloadURL: " + url);
 
                 JSONArray jsonSync = new JSONArray();
 
-                DataOutputStream wr = new DataOutputStream(urlConnection.getOutputStream());
+                // DataOutputStream wr = new DataOutputStream(urlConnection.getOutputStream());
 
                 JSONObject jsonTable = new JSONObject();
                 JSONArray jsonParam = new JSONArray();
@@ -349,16 +241,16 @@ public class DataUpPeriodicWorkerALL extends Worker {
 
                 String cipheredRequest = CipherSecure.encryptGCM(jsonParam.toString());
                 requestLength = cipheredRequest.length();
-                wr.writeBytes(cipheredRequest);
+                try (DataOutputStream wr = new DataOutputStream(urlConnection.getOutputStream())) {
+                    wr.writeBytes(cipheredRequest);
 
-                String writeEnc = CipherSecure.encryptGCM(jsonParam.toString());
-
-                longInfo("Encrypted: " + writeEnc);
+                    wr.flush();
+                }
+                longInfo("Encrypted: " + cipheredRequest);
 
                 //     wr.writeBytes(jsonParam.toString());
 
-                wr.flush();
-                wr.close();
+
 
                 Log.d(TAG, "doInBackground: " + urlConnection.getResponseCode());
 
@@ -372,15 +264,16 @@ public class DataUpPeriodicWorkerALL extends Worker {
 
                     InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        result.append(line);
+                    try (BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            result.append(line);
 
+                        }
                     }
                     displayNotification(nTitle, "Received Data");
-                    longInfo("result-server: " + decryptGCM(String.valueOf(result)));
+                    longInfo("result-server("+uploadTable+"): " + decryptGCM(String.valueOf(result)));
 
                 } else {
 
@@ -393,9 +286,9 @@ public class DataUpPeriodicWorkerALL extends Worker {
                             .putInt("position", this.position)
                             .build();
                     nTitle = "Data Upload Failed";
-                    nMessage = "Data Uploaded Successfully Completed\nError: " + urlConnection.getResponseCode();
+                    nMessage = "Data Upload Failed\nError: " + urlConnection.getResponseCode();
                     displayNotification(nTitle, nMessage);
-                    return Result.failure(data);
+                    return Result.success(data);
                 }
             } else {
                 data = new Data.Builder()
@@ -407,7 +300,7 @@ public class DataUpPeriodicWorkerALL extends Worker {
                 nTitle = "Data Upload Failed";
                 nMessage = "Data Uploaded Successfully Completed\nError: Invalid Certificate";
                 displayNotification(nTitle, nMessage);
-                return Result.failure(data);
+                return Result.success(data);
             }
         } catch (java.net.SocketTimeoutException e) {
             Log.d(TAG, "doWork (Timeout): " + e.getMessage());
@@ -421,7 +314,7 @@ public class DataUpPeriodicWorkerALL extends Worker {
             nTitle = "Data Upload Failed";
             nMessage = "Data Uploaded Successfully Completed\nError: " + e.getMessage();
             displayNotification(nTitle, nMessage);
-            return Result.failure(data);
+            return Result.success(data);
 
         } catch (IOException | JSONException | NoSuchPaddingException | NoSuchAlgorithmException |
                  InvalidAlgorithmParameterException | InvalidKeyException | BadPaddingException |
@@ -437,7 +330,7 @@ public class DataUpPeriodicWorkerALL extends Worker {
             nTitle = "Data Upload Failed";
             nMessage = "Data Uploaded Successfully Completed\nError: " + e.getMessage();
             displayNotification(nTitle, nMessage);
-            return Result.failure(data);
+            return Result.success(data);
 
         }
         try {
@@ -456,14 +349,14 @@ public class DataUpPeriodicWorkerALL extends Worker {
             nTitle = "Data Upload Failed";
             nMessage = "Data Uploaded Successfully Completed\nError: " + e.getMessage();
             displayNotification(nTitle, nMessage);
-            return Result.failure(data);
+            return Result.success(data);
 
         }
 
         if (result != null) {
             if (result.length() > 0) {
                 try {
-                    Log.d(TAG, "onPostExecute: " + result);
+                    Log.d(TAG, "onPostExecute("+uploadTable+"): " + result);
                     JSONArray json = new JSONArray(result.toString());
 
                     Method method = null;
@@ -487,7 +380,7 @@ public class DataUpPeriodicWorkerALL extends Worker {
                     if (method != null) {
                         for (int i = 0; i < json.length(); i++) {
                             JSONObject jsonObject = new JSONObject(json.getString(i));
-                            Log.d(TAG, "onChanged: " + json.getString(i));
+                            Log.d(TAG, "onChanged("+uploadTable+"): " + json.getString(i));
                             if (jsonObject.getString("status").equals("1") && jsonObject.getString("error").equals("0")) {
                                 method.invoke(db, jsonObject.getString("id"));
                             } else if (jsonObject.getString("status").equals("2") && jsonObject.getString("error").equals("0")) {
@@ -515,17 +408,6 @@ public class DataUpPeriodicWorkerALL extends Worker {
             displayNotification(nTitle, "Data Size: " + result.length());
 
 
-            // JSONArray jsonArray = new JSONArray(json);
-
-
-            //JSONObject jsonObjectCC = jsonArray.getJSONObject(0);
-            ///BE CAREFULL DATA.BUILDER CAN HAVE ONLY 1024O BYTES. EACH CHAR HAS 8 BIT
-          /*  if (result.toString().length() > 10240) {
-                data = new Data.Builder()
-                        .putString("message", "Data Limit Reached ("+result.toString().length()+"/10240):"+String.valueOf(result).substring(0, (10240 - 1) / 8))
-                        .putInt("position", this.position)
-                        .build();
-            } else {*/
             MainApp.downloadData[position] = result.toString();
 
 
@@ -575,15 +457,6 @@ public class DataUpPeriodicWorkerALL extends Worker {
         return toMinutes > 0 ? toMinutes + "m " + toSeconds + "s" : toSeconds > 0 ? TimeUnit.MILLISECONDS.toSeconds(timeElapsed) + "s" : timeElapsed + "ms";
     }
 
-/*    public static void enqueuePeriodicWork(Context context) {
-        PeriodicWorkRequest periodicWorkRequest =
-                new PeriodicWorkRequest.Builder(
-                        DataUpWorkerALL.class,
-                        15, TimeUnit.MINUTES
-                ).build();
-
-        WorkManager.getInstance(context).enqueue(periodicWorkRequest);
-    }*/
 
     private void showNotification(String title, String content) {
         Toast.makeText(mContext, "Notifying...: " + title + " : " + content, Toast.LENGTH_LONG).show();
@@ -599,13 +472,7 @@ public class DataUpPeriodicWorkerALL extends Worker {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(mContext);
 
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+
             return;
         }
         notificationManager.notify(NOTIFICATION_ID, builder.build());
@@ -631,5 +498,20 @@ public class DataUpPeriodicWorkerALL extends Worker {
         notification.setProgress(length, curProgress, false);
 
         //notificationManager.notify(1, notification.build());
+    }
+
+    private void createNotificationChannel() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationManager manager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (manager.getNotificationChannel(NOTIFICATION_CHANNEL) == null) {
+                NotificationChannel channel = new NotificationChannel(
+                        NOTIFICATION_CHANNEL,
+                        "Data Upload Channel",
+                        NotificationManager.IMPORTANCE_DEFAULT
+                );
+                channel.setDescription("Channel for data upload notifications");
+                manager.createNotificationChannel(channel);
+            }
+        }
     }
 }

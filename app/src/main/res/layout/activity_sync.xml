@@ -29,7 +29,7 @@
             android:theme="@style/CustomToolbarTheme"
             app:popupTheme="@style/CustomPopupTheme"
             app:subtitleTextAppearance="@style/Toolbar.SubtitleText"
-            app:title="Data Sync Screen"
+            app:title="User Activation"
             app:titleTextAppearance="@style/Toolbar.TitleText" />
 
 
@@ -91,16 +91,14 @@
                     android:visibility="gone"
                     tools:visibility="visible" />
 
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
+
 
                     <LinearLayout
                         android:id="@+id/dataLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical"
+
                         android:visibility="visible">
 
                         <androidx.recyclerview.widget.RecyclerView
@@ -109,7 +107,7 @@
                             android:layout_height="match_parent"
                             android:padding="8dp"
                             android:visibility="visible"
-                            tools:itemCount="9"
+                            tools:itemCount="1"
                             tools:listitem="@layout/sync_list_adapter">
 
                         </androidx.recyclerview.widget.RecyclerView>
@@ -122,9 +120,9 @@
                             android:gravity="center"
                             android:text="No Activty"
                             android:textColor="@color/redLight"
-                            android:visibility="gone" />
+                            android:visibility="invisible" />
                     </LinearLayout>
-                </ScrollView>
+
 
                 <!-- <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -250,13 +248,32 @@
                     android:orientation="horizontal">
 
                     <Button
+                        style="@null"
                         android:id="@+id/btn_Continue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/capsule"
-
+                        android:background="@android:color/transparent"
+    android:drawablePadding="24dp"
                         android:onClick="btnContinue"
                         android:text="Go back"
+                        android:drawableStart="@drawable/ix_return"
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold" />
+
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent" />
+
+                    <Button
+                        android:id="@+id/btnSync"
+                        style="@style/button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/capsule"
+                        android:onClick="ProcessStart"
+                        android:text="Check Activation"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
 
@@ -280,69 +297,6 @@
                 android:orientation="vertical">
 
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:elevation="16dp"
-                    android:orientation="horizontal">
-
-                    <View
-                        android:layout_width="8dp"
-                        android:layout_height="match_parent" />
-
-                    <Button
-                        android:id="@+id/btnSync"
-                        style="@style/button"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/capsule"
-                        android:onClick="ProcessStart"
-                        android:text="@string/btnDownloadData"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
-
-                    <View
-                        android:layout_width="8dp"
-                        android:layout_height="match_parent" />
-
-                    <Button
-                        android:id="@+id/btnUpload"
-
-                        style="@style/button"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/capsule"
-                        android:onClick="ProcessStart"
-                        android:text="@string/btnUpload"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
-
-                    <View
-                        android:layout_width="8dp"
-                        android:layout_height="match_parent"
-                        android:visibility="gone"
-                        />
-
-                    <Button
-                        android:id="@+id/btnUploadPhotos"
-                        style="@style/button"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/capsule"
-                        android:onClick="UploadPhotos"
-                        android:text="Upload Photos"
-                        android:textColor="@color/white"
-                        android:visibility="gone"
-                        android:textStyle="bold" />
-
-                    <View
-                        android:layout_width="8dp"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
 
                 <CheckBox
                     android:id="@+id/uploadUnlocked"

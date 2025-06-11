@@ -94,12 +94,29 @@
                             android:gravity="center_horizontal">
 
                             <!-- Logo Image on top -->
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="110dp"
                                 android:src="@drawable/ncd_risk_factors"
                             android:contentDescription="Logo"
                             android:layout_marginBottom="8dp"/>
+
+                                <ImageView
+                                    android:id="@+id/checkmark1"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:layout_gravity="top|end"
+                                    android:layout_marginStart="6dp"
+                                    android:layout_marginTop="6dp"
+                                    android:layout_marginEnd="6dp"
+                                    android:layout_marginBottom="6dp"
+                                    android:contentDescription="Checkmark"
+                                    android:src="@drawable/ic_green_check"
+                                    android:visibility="invisible" />
+                            </RelativeLayout>
                             <!-- Text below the logo -->
                             <TextView
                                 android:layout_width="match_parent"
@@ -135,12 +152,25 @@
                             android:gravity="center_horizontal">
 
                             <!-- Logo Image on top -->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="110dp"
                                 android:src="@drawable/ncd_physical_activity"
                                 android:contentDescription="Logo"
                                 android:layout_marginBottom="8dp"/>
+            <ImageView
+                android:id="@+id/checkmark2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="top|end"
+                android:layout_margin="6dp"
+                android:src="@drawable/ic_green_check"
+                android:contentDescription="Checkmark"
+                android:visibility="gone" />
+        </RelativeLayout>
                             <!-- Text below the logo -->
                             <TextView
                                 android:layout_width="match_parent"
@@ -175,12 +205,25 @@
                             android:gravity="center_horizontal">
 
                             <!-- Logo Image on top -->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="110dp"
                                 android:src="@drawable/ncd_food"
                                 android:contentDescription="Logo"
                                 android:layout_marginBottom="8dp"/>
+            <ImageView
+                android:id="@+id/checkmark3"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="top|end"
+                android:layout_margin="6dp"
+                android:src="@drawable/ic_green_check"
+                android:contentDescription="Checkmark"
+                android:visibility="gone" />
+        </RelativeLayout>
                             <!-- Text below the logo -->
                             <TextView
                                 android:layout_width="match_parent"
@@ -216,12 +259,25 @@
                             android:gravity="center_horizontal">
 
                             <!-- Logo Image on top -->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="110dp"
                                 android:src="@drawable/ncd_smoking"
                                 android:contentDescription="Logo"
                                 android:layout_marginBottom="8dp"/>
+            <ImageView
+                android:id="@+id/checkmark4"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="top|end"
+                android:layout_margin="6dp"
+                android:src="@drawable/ic_green_check"
+                android:contentDescription="Checkmark"
+                android:visibility="gone" />
+        </RelativeLayout>
                             <!-- Text below the logo -->
                             <TextView
                                 android:layout_width="match_parent"
@@ -257,12 +313,25 @@
                             android:gravity="center_horizontal">
 
                             <!-- Logo Image on top -->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="110dp"
                                 android:src="@drawable/ncd_mental_health"
                                 android:contentDescription="Logo"
                                 android:layout_marginBottom="8dp"/>
+            <ImageView
+                android:id="@+id/checkmark5"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="top|end"
+                android:layout_margin="6dp"
+                android:src="@drawable/ic_green_check"
+                android:contentDescription="Checkmark"
+                android:visibility="gone" />
+        </RelativeLayout>
                             <!-- Text below the logo -->
                             <TextView
                                 android:layout_width="match_parent"
@@ -297,12 +366,25 @@
                             android:gravity="center_horizontal">
 
                             <!-- Logo Image on top -->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="110dp"
                                 android:src="@drawable/ncd_wrap_up"
                                 android:contentDescription="Logo"
                                 android:layout_marginBottom="8dp"/>
+            <ImageView
+                android:id="@+id/checkmark6"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="top|end"
+                android:layout_margin="6dp"
+                android:src="@drawable/ic_green_check"
+                android:contentDescription="Checkmark"
+                android:visibility="gone" />
+        </RelativeLayout>
                             <!-- Text below the logo -->
                             <TextView
                                 android:layout_width="match_parent"
@@ -338,6 +420,7 @@
                     android:elevation="2dp"
                     android:background="@color/gray"/>
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnDownloadCertificate"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/all_round_corners"
@@ -346,9 +429,10 @@
                     android:paddingEnd="24dp"
                     android:elevation="5dp"
                     android:layout_margin="8dp"
-                    android:onClick="btnContinue"
+                    android:onClick="downloadCertificateSimple"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
+                    android:visibility="visible"
                     android:text="Download Certificate"
                     />
             </LinearLayout>

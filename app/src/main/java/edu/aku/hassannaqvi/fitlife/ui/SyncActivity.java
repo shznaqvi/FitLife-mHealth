@@ -40,6 +40,7 @@ import edu.aku.hassannaqvi.fitlife.core.MainApp;
 import edu.aku.hassannaqvi.fitlife.database.DatabaseHelper;
 import edu.aku.hassannaqvi.fitlife.databinding.ActivitySyncBinding;
 import edu.aku.hassannaqvi.fitlife.models.SyncModel;
+import edu.aku.hassannaqvi.fitlife.models.Tests;
 import edu.aku.hassannaqvi.fitlife.workers.DataDownWorkerALL;
 import edu.aku.hassannaqvi.fitlife.workers.DataUpWorkerALL;
 import edu.aku.hassannaqvi.fitlife.workers.PhotoUploadWorker2;
@@ -134,7 +135,7 @@ public class SyncActivity extends AppCompatActivity {
             return;
 
         int viewId = view.getId();
-        if (viewId == R.id.btnUpload) {
+        /*if (viewId == R.id.btnUpload) {
             // Upload button clicked
             //bi.activityTitle.setText("Upload Data");
             bi.dataLayout.setVisibility(View.VISIBLE);
@@ -156,7 +157,8 @@ public class SyncActivity extends AppCompatActivity {
 
 
 
-            /*// Tests
+            *//*//
+        Tests
             uploadTables.add(new SyncModel(TableContracts.TestsTable.TABLE_NAME));
             try {
                 MainApp.uploadData.add(db.getUnsyncedTests());
@@ -164,7 +166,7 @@ public class SyncActivity extends AppCompatActivity {
                 e.printStackTrace();
                 Log.d(TAG, "ProcessStart: JSONException(Tests): " + e.getMessage());
                 Toast.makeText(this, "JSONException(Tests): " + e.getMessage(), Toast.LENGTH_SHORT).show();
-            }*/
+            }*//*
 
             // Entry Log
             uploadTables.add(new SyncModel(EntryLogTable.TABLE_NAME));
@@ -177,8 +179,8 @@ public class SyncActivity extends AppCompatActivity {
             }
 
             // INCLUDE DATA FOR UNLOCKED RECORDS
-            if (bi.uploadUnlocked.isChecked()) {
-             /*   // Forms - unlocked
+         *//*   if (bi.uploadUnlocked.isChecked()) {
+             *//**//*   // Forms - unlocked
                 uploadTables.add(new SyncModel(TestsTable.TABLE_NAME, true));
                 try {
                 //    MainApp.uploadData.add(db.getUnlockedUnsyncedTests());
@@ -186,9 +188,9 @@ public class SyncActivity extends AppCompatActivity {
                     e.printStackTrace();
                     Log.d(TAG, "ProcessStart: JSONException(Forms): " + e.getMessage());
                     Toast.makeText(this, "JSONException(Forms): " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }*/
+                }*//**//*
 
-          /*       // Child - unlocked
+          *//**//*       // Child - unlocked
                 uploadTables.add(new SyncModel(ChildTable.TABLE_NAME, true));
                 // Uncomment the following lines if required
 
@@ -199,13 +201,13 @@ public class SyncActivity extends AppCompatActivity {
             Log.d(TAG, "ProcessStart: JSONException(Child): " + e.getMessage());
             Toast.makeText(SyncActivity.this, "JSONException(Child)" + e.getMessage(), Toast.LENGTH_LONG).show();
         }
-        */
-            }
+        *//**//*
+            }*//*
 
             MainApp.downloadData = new String[uploadData.size()];
             setAdapter(uploadTables);
             BeginUpload();
-        } else if (viewId == R.id.btnSync) {
+        } else*/ if (viewId == R.id.btnSync) {
 
            // bi.activityTitle.setText("Download Data");
 
@@ -226,8 +228,8 @@ public class SyncActivity extends AppCompatActivity {
                 filter = " enabled = '1' ";*/
 
            // downloadTables.add(new SyncModel(TableContracts.ClusterTable.TABLE_NAME));
-            downloadTables.add(new SyncModel(TableContracts.UsersTable.TABLE_NAME));
-            downloadTables.add(new SyncModel("versionApp"));
+            downloadTables.add(new SyncModel(TableContracts.UsersTable.TABLE_NAME, 0, "Checking Activation"));
+           // downloadTables.add(new SyncModel("versionApp"));
         /*    } else {
 
                 select = " * ";
@@ -378,9 +380,9 @@ public class SyncActivity extends AppCompatActivity {
                                                     });
                                                 }
 
-                                                downloadTable.setmessage("Received: " + finalJsonArray.length() + "  •  Saved: " + insertCount);
-                                                downloadTable.setstatus(insertCount == 0 ? "Unsuccessful" : "Successful");
-                                                downloadTables.get(position).setInfo("Time: " + finalTime + "/" + getTime() + "\t Size: " + finalSize);
+                                                downloadTable.setmessage("Please go back and login. ");
+                                                downloadTable.setstatus(insertCount == 0 ? "Unsuccessful" : "Done");
+                                                downloadTables.get(position).setInfo("If you've received activation email. You'll be able to login.");
                                                 downloadTable.setstatusID(insertCount == 0 ? 1 : 3);
                                                 runOnUiThread(new Runnable() {
                                                     @Override

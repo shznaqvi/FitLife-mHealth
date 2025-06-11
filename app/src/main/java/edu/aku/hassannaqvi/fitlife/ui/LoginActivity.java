@@ -154,12 +154,14 @@ public class LoginActivity extends AppCompatActivity {
             });
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         initializingCountry();
-        showPermissionRationale();
+        //showPermissionRationale();
 
         bi = DataBindingUtil.setContentView(this, R.layout.activity_login);
         setSupportActionBar(bi.toolbar);
@@ -249,6 +251,9 @@ public class LoginActivity extends AppCompatActivity {
         // Force show the keyboard
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(bi.username, InputMethodManager.SHOW_IMPLICIT);
+
+
+
     }
 
     private void showPermissionRationale() {
@@ -260,7 +265,9 @@ public class LoginActivity extends AppCompatActivity {
                     requestPermissionsLauncher.launch(new String[]{
                             Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.READ_EXTERNAL_STORAGE
+                            Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.INTERNET
+
                     });
                 }).show();
     }
@@ -466,7 +473,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     MainApp.user.setUserName(username);
 
-                    MainApp.admin = username.contains("@") || username.contains("test");
+                    MainApp.admin = username.contains("@aku") || username.contains("@test");
                     MainApp.superuser = MainApp.user.getDesignation().contains("Supervisor");
                     Intent iLogin = null;
                     if (MainApp.admin) {
@@ -777,12 +784,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void registerUser(View view) {
+        if (MainApp.IBAHC == null || MainApp.IBAHC.length() < 16) {
+            MainApp.reInitKey(this);
+        }
+        startActivity(new Intent(this, RegisterActivity.class));
+/*
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             checkLocationPermission();
         } else {
             // If permission is granted, proceed to RegisterActivity
             startActivity(new Intent(this, RegisterActivity.class));
-        }
+        }*/
     }
 
 

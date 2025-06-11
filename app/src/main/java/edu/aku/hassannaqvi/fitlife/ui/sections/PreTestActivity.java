@@ -3,6 +3,7 @@ package edu.aku.hassannaqvi.fitlife.ui.sections;
 
 
 import static edu.aku.hassannaqvi.fitlife.core.MainApp.PROJECT_NAME;
+import static edu.aku.hassannaqvi.fitlife.core.MainApp.entryType;
 import static edu.aku.hassannaqvi.fitlife.core.MainApp.tests;
 
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,12 +55,71 @@ public class PreTestActivity extends AppCompatActivity {
         bi.setCallback(this);
         bi.setTests(tests);
 
+
+        switch (MainApp.sessionid) {
+            case 1:
+                loadSectionContent("a", R.string.section1, false);
+                break;
+            case 2:
+                loadSectionContent("b", R.string.section2, true);
+                break;
+            case 3:
+                loadSectionContent("c", R.string.section3, true);
+                break;
+            case 4:
+                loadSectionContent("d", R.string.section4, false);
+                break;
+            case 5:
+                loadSectionContent("e", R.string.section5, true);
+                break;
+            case 6:
+                loadSectionContent("f", R.string.section6, false);
+                break;
+            default:
+                loadSectionContent("a", R.string.section1, false);
+                break;
+        }
+
         //   if (MainApp.superuser)
         //         bi.btnContinue.setText("Review Next");
         db = MainApp.appInfo.dbHelper;
         //     form.setA101C(String.valueOf(new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH).format(new Date().getTime())));
         recordEntry("Pre-Test Started: "+MainApp.sessionName);
 
+    }
+
+    private void loadSectionContent(String sectionPrefix, int sectionResId, boolean q07) {
+        bi.sectionHeader.setText(getString(sectionResId));
+        int qnum = 6; // Default number of questions for sections without q07
+        if( q07 ) {
+            bi.fldGrpCVpre07.setVisibility(View.VISIBLE);
+            qnum =7;
+
+        } else {
+            bi.fldGrpCVpre07.setVisibility(View.GONE);
+        }
+
+        for (int i = 1; i <= qnum; i++) {
+            // Question Numbers
+            int qNumResId = getResources().getIdentifier("Q_" + sectionPrefix + String.format("%02d", i), "string", getPackageName());
+            int qNumId = getResources().getIdentifier("qnumPre" + String.format("%02d", i), "id", getPackageName());
+            TextView qNumView = findViewById(qNumId);
+            qNumView.setText(getString(qNumResId));
+
+            // Question Texts
+            int qTxtResId = getResources().getIdentifier(sectionPrefix + String.format("%02d", i), "string", getPackageName());
+            int qTxtId = getResources().getIdentifier("qtxtPre" + String.format("%02d", i), "id", getPackageName());
+            TextView qTxtView = findViewById(qTxtId);
+            qTxtView.setText(getString(qTxtResId));
+
+            // Answer Options (A-D)
+            for (char option = 'A'; option <= 'D'; option++) {
+                int optResId = getResources().getIdentifier(sectionPrefix + String.format("%02d", i) + option, "string", getPackageName());
+                int optViewId = getResources().getIdentifier("pre" + String.format("%02d", i) + option, "id", getPackageName());
+                TextView optView = findViewById(optViewId);
+                optView.setText(getString(optResId));
+            }
+        }
     }
 
     //

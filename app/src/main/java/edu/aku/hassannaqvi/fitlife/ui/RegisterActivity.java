@@ -380,6 +380,10 @@ public class RegisterActivity extends AppCompatActivity {
                 result.append(line);
             }
 
+            reader.close();
+
+            Log.d(TAG, "handleServerResponse(RAW): " + result.toString());
+
             try {
                 Log.d(TAG, "handleServerResponse(Encrypted): " + result);
                 String decryptedResponse = CipherSecure.decryptGCM(result.toString());
@@ -395,7 +399,8 @@ public class RegisterActivity extends AppCompatActivity {
                     if (error == 1 || status == 0) {
                         showErrorDialog("Registration Error", message);
                     } else {
-                        Toast.makeText(RegisterActivity.this, "User registered successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Your registration request has been submitted.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegisterActivity.this, "You will be notified via email once your account is activated.", Toast.LENGTH_LONG).show();
                         finish();
                     }
                 });

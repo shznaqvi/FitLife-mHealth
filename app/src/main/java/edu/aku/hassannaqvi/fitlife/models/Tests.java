@@ -22,11 +22,14 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class Tests extends BaseObservable implements Observable {
 
     final String TAG = "Tests";
+    private final String[] correctAnswers;
 
 
     // FIELD VARIABLES for Pre-Test and Post-Test Questions (pre01 - pre06 and post01 - post06)
@@ -36,6 +39,7 @@ public class Tests extends BaseObservable implements Observable {
     public String pre04 = _EMPTY_;
     public String pre05 = _EMPTY_;
     public String pre06 = _EMPTY_;
+    public String pre07 = _EMPTY_;
 
     public String post01 = _EMPTY_;
     public String post02 = _EMPTY_;
@@ -43,6 +47,7 @@ public class Tests extends BaseObservable implements Observable {
     public String post04 = _EMPTY_;
     public String post05 = _EMPTY_;
     public String post06 = _EMPTY_;
+    public String post07 = _EMPTY_;
 
 
     // APP VARIABLES
@@ -65,11 +70,22 @@ public class Tests extends BaseObservable implements Observable {
     String gpsProvider = _EMPTY_;
     String iStatus = _EMPTY_;
     String iStatus96x = _EMPTY_;
-    String[] correctAnswers = {"3", "2", "1", "2", "4", "1"}; // Correct answers indexed as 0, 1, 2
+    //String[] correctAnswers = {"3", "2", "1", "2", "4", "1"}; // Correct answers indexed as 0, 1, 2
 
 
     public Tests() {
         setSysDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(new Date().getTime()));
+
+        Map<Integer, String[]> sectionAnswers = new HashMap<>();
+
+        sectionAnswers.put(1, new String[]{"3", "2", "1", "2", "4", "1", "-1"});
+        sectionAnswers.put(2, new String[]{"2", "3", "3", "2", "1", "1", "2"});
+        sectionAnswers.put(3, new String[]{"2", "3", "2", "2", "1", "2", "1"});
+        sectionAnswers.put(4, new String[]{"2", "3", "2", "2", "3", "2", "-1"});
+        sectionAnswers.put(5, new String[]{"2", "1", "1", "2", "1", "1", "-1"});
+        sectionAnswers.put(6, new String[]{"1", "1", "1", "1", "1", "1", "1"});
+
+        correctAnswers = sectionAnswers.get(MainApp.sessionid); // Default to section 1 answers
     }
 
 
@@ -387,6 +403,19 @@ public class Tests extends BaseObservable implements Observable {
         }
         notifyPropertyChanged(BR.pre06);
     }
+    @Bindable
+    public String getPre07() {
+        return pre07;
+    }
+
+    public void setPre07(String pre07) {
+        this.pre07 = pre07;
+        if (pre07.equals(correctAnswers[7-1])) {
+            MainApp.preScore++;
+        }
+        notifyPropertyChanged(BR.pre07);
+    }
+    
 
 // Getters and Setters for Post-Test Questions
 
@@ -474,6 +503,19 @@ public class Tests extends BaseObservable implements Observable {
         notifyPropertyChanged(BR.post06);
     }
 
+  @Bindable
+    public String getPost07() {
+        return post07;
+    }
+
+    public void setPost07(String post07) {
+        this.post07 = post07;
+        if (post07.equals(correctAnswers[7-1])) {
+            MainApp.postScore++;
+        }
+        notifyPropertyChanged(BR.post07);
+    }
+
     public Tests hydrate(Cursor cursor) throws JSONException {
         if (cursor == null) {
             throw new IllegalArgumentException("Cursor must not be null.");
@@ -521,6 +563,7 @@ public class Tests extends BaseObservable implements Observable {
             this.pre04 = json.optString("pre04", _EMPTY_);
             this.pre05 = json.optString("pre05", _EMPTY_);
             this.pre06 = json.optString("pre06", _EMPTY_);
+            this.pre07 = json.optString("pre07", _EMPTY_);
 
         }
     }
@@ -537,6 +580,7 @@ public class Tests extends BaseObservable implements Observable {
             this.post04 = json.optString("post04", _EMPTY_);
             this.post05 = json.optString("post05", _EMPTY_);
             this.post06 = json.optString("post06", _EMPTY_);
+            this.post07 = json.optString("post07", _EMPTY_);
         }
     }
 
@@ -578,6 +622,7 @@ public class Tests extends BaseObservable implements Observable {
         json.put("pre04", pre04);
         json.put("pre05", pre05);
         json.put("pre06", pre06);
+        json.put("pre07", pre07);
 
 
         return json.toString();
@@ -596,6 +641,7 @@ public class Tests extends BaseObservable implements Observable {
         json.put("post04", post04);
         json.put("post05", post05);
         json.put("post06", post06);
+        json.put("post07", post07);
 
         return json.toString();
     }

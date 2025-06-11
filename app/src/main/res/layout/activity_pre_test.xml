@@ -35,6 +35,18 @@
             app:title="@string/app_name"
             app:titleTextAppearance="@style/Toolbar.TitleText" />
 
+        <TextView
+            android:id="@+id/section_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            android:textStyle="bold"
+            android:padding="8dp"
+            android:textColor="@color/colorAccent"
+            android:background="#33333333"
+            android:textSize="20sp"
+            android:text="Section Header"/>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -63,18 +75,22 @@
                             android:orientation="horizontal">
 
                             <TextView
+
                                 style="@style/quesNum"
+                                android:id="@+id/qnumPre01"
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="@string/Q_a01" />
 
                             <TextView
+                                android:id="@+id/qtxtPre01"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="@string/a01" />
 
                         </LinearLayout>
+                        <!-- Options Pre01 -->
 
                         <RadioGroup
                             android:id="@+id/pre01"
@@ -103,7 +119,7 @@
                                 android:layout_height="wrap_content"
                                 android:checked="@{tests.pre01.equals(`3`)}"
                                 android:onClick="@{()->tests.setPre01(`3`)}"
-                                android:text="@string/a01Cc" />
+                                android:text="@string/a01C" />
 
                             <RadioButton
                                 android:id="@+id/pre01D"
@@ -132,17 +148,21 @@
                             android:background="@drawable/bottom"
                             android:orientation="horizontal">
 
+
                             <TextView
+
                                 style="@style/quesNum"
+                                android:id="@+id/qnumPre02"
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="@string/Q_a02" />
+                                android:text="@string/Q_a01" />
 
                             <TextView
+                                android:id="@+id/qtxtPre02"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="@string/a02" />
+                                android:text="@string/a01" />
 
                         </LinearLayout>
 
@@ -202,17 +222,21 @@
                             android:background="@drawable/bottom"
                             android:orientation="horizontal">
 
+
                             <TextView
+
                                 style="@style/quesNum"
+                                android:id="@+id/qnumPre03"
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="@string/Q_a03" />
+                                android:text="@string/Q_a01" />
 
                             <TextView
+                                android:id="@+id/qtxtPre03"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="@string/a03" />
+                                android:text="@string/a01" />
 
                         </LinearLayout>
 
@@ -272,17 +296,21 @@
                             android:background="@drawable/bottom"
                             android:orientation="horizontal">
 
+
                             <TextView
+
                                 style="@style/quesNum"
+                                android:id="@+id/qnumPre04"
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="@string/Q_a04" />
+                                android:text="@string/Q_a01" />
 
                             <TextView
+                                android:id="@+id/qtxtPre04"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="@string/a04" />
+                                android:text="@string/a01" />
 
                         </LinearLayout>
 
@@ -343,16 +371,19 @@
                             android:orientation="horizontal">
 
                             <TextView
+
                                 style="@style/quesNum"
+                                android:id="@+id/qnumPre05"
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="@string/Q_a05" />
+                                android:text="@string/Q_a01" />
 
                             <TextView
+                                android:id="@+id/qtxtPre05"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="@string/a05" />
+                                android:text="@string/a01" />
 
                         </LinearLayout>
 
@@ -412,18 +443,21 @@
                             android:background="@drawable/bottom"
                             android:orientation="horizontal">
 
+
                             <TextView
+
                                 style="@style/quesNum"
+                                android:id="@+id/qnumPre06"
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="@string/Q_a06" />
+                                android:text="@string/Q_a01" />
 
                             <TextView
+                                android:id="@+id/qtxtPre06"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="@string/a06" />
-
+                                android:text="@string/a01" />
                         </LinearLayout>
 
                         <RadioGroup
@@ -462,6 +496,78 @@
                                 android:checked="@{tests.pre06.equals(`4`)}"
                                 android:onClick="@{()->tests.setPre06(`4`)}"
                                 android:text="@string/a06D" />
+                        </RadioGroup>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <!-- Question Pre07 -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/fldGrpCVpre07"
+                    style="@style/cardView">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bottom"
+                            android:orientation="horizontal">
+
+
+                            <TextView
+
+                                style="@style/quesNum"
+                                android:id="@+id/qnumPre07"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="@string/Q_a01" />
+
+                            <TextView
+                                android:id="@+id/qtxtPre07"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/a01" />
+                        </LinearLayout>
+
+                        <RadioGroup
+                            android:id="@+id/pre07"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RadioButton
+                                android:id="@+id/pre07A"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.pre07.equals(`1`)}"
+                                android:onClick="@{()->tests.setPre07(`1`)}"
+                             />
+
+                            <RadioButton
+                                android:id="@+id/pre07B"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.pre07.equals(`2`)}"
+                                android:onClick="@{()->tests.setPre07(`2`)}"
+                         />
+
+                            <RadioButton
+                                android:id="@+id/pre07C"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.pre07.equals(`3`)}"
+                                android:onClick="@{()->tests.setPre07(`3`)}"
+                            />
+
+                            <RadioButton
+                                android:id="@+id/pre07D"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@{tests.pre07.equals(`4`)}"
+                                android:onClick="@{()->tests.setPre07(`4`)}"
+                           />
                         </RadioGroup>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>

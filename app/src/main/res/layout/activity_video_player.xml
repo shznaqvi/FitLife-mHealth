@@ -57,12 +57,14 @@
             android:id="@+id/webviewHolder"
             android:layout_width="match_parent"
             android:layout_height="315dp"
-            android:orientation="vertical">
+           >
 
             <WebView
                 android:id="@+id/youtube_webview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+
+
         </LinearLayout>
 
 
@@ -195,6 +197,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_pause"/>
+
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

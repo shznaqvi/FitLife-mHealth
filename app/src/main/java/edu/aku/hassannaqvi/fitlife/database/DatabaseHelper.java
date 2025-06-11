@@ -3,6 +3,7 @@ package edu.aku.hassannaqvi.fitlife.database;
 
 import static edu.aku.hassannaqvi.fitlife.core.MainApp.IBAHC;
 import static edu.aku.hassannaqvi.fitlife.core.MainApp.PROJECT_NAME;
+import static edu.aku.hassannaqvi.fitlife.core.MainApp.sessionid;
 import static edu.aku.hassannaqvi.fitlife.core.UserAuth.checkPassword;
 
 import android.content.ContentValues;
@@ -283,7 +284,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String whereClause;
         //whereClause = null;
-        whereClause = TableContracts.TestsTable.COLUMN_SYNCED + " = '' ";
+        whereClause = TableContracts.TestsTable.COLUMN_SYNCED + " = '' AND " +
+                TestsTable.COLUMN_ISTATUS + " = '1' ";
 
         String[] whereArgs = null;
 
@@ -361,9 +363,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     //update SyncedTables
-    public void updateSyncedListing(String id) {
+    public void updateSyncedTests(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Log.d(TAG, "updateSyncedListing: " + id);
 // New value for one column
         ContentValues values = new ContentValues();
         values.put(TestsTable.COLUMN_SYNCED, true);
@@ -378,6 +379,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 values,
                 where,
                 whereArgs);
+        Log.d(TAG, "updateSyncedListing: Updated = " + id + " Count = " + count);
+
     }
 
     //update SyncedTables
@@ -447,6 +450,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 values,
                 where,
                 whereArgs);
+
+        Log.d(TAG, "updateSyncedEntryLog: Updated = " + id + " Count = " + count);
     }
 
 
@@ -468,7 +473,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public Tests getTestsByUsernModule()  throws JSONException {
+    public Tests getTestsByUsernModule(String sessionid, String userName)  throws JSONException {
 
             SQLiteDatabase db = this.getReadableDatabase();
             android.database.Cursor c = null;
@@ -478,7 +483,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String[] columns = null;
             String whereClause = TestsTable.COLUMN_SESSION_ID + "= ? AND " +
                     TestsTable.COLUMN_USERNAME + "= ? ";
-            String[] whereArgs = {String.valueOf(MainApp.sessionid), MainApp.user.getUserName()};
+            String[] whereArgs = {sessionid, userName};
             String groupBy = null;
             String having = null;
             String orderBy = TestsTable.COLUMN_SYSDATE + " ASC";

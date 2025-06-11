@@ -1,7 +1,6 @@
 package edu.aku.hassannaqvi.fitlife.ui;
 
 import static edu.aku.hassannaqvi.fitlife.core.MainApp.PROJECT_NAME;
-import static edu.aku.hassannaqvi.fitlife.core.MainApp.testCase;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -10,11 +9,11 @@ import android.content.res.Configuration;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -24,12 +23,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONException;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.concurrent.BlockingDeque;
 
 import edu.aku.hassannaqvi.fitlife.R;
 import edu.aku.hassannaqvi.fitlife.contracts.TableContracts;
@@ -37,7 +33,6 @@ import edu.aku.hassannaqvi.fitlife.core.MainApp;
 import edu.aku.hassannaqvi.fitlife.database.DatabaseHelper;
 import edu.aku.hassannaqvi.fitlife.databinding.ActivityVideoPlayerBinding;
 import edu.aku.hassannaqvi.fitlife.models.EntryLog;
-import edu.aku.hassannaqvi.fitlife.models.Tests;
 import edu.aku.hassannaqvi.fitlife.ui.sections.PostTestActivity;
 
 public class VideoPlayerActivity extends AppCompatActivity {
@@ -52,6 +47,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
     double videoDuration;
     private ViewGroup.LayoutParams params;
     private int widthYoutube;
+    private Handler handler = new Handler();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,25 +63,25 @@ public class VideoPlayerActivity extends AppCompatActivity {
         bi.sectionName.setText(MainApp.sessionName);
         bi.sectionObj.setText(MainApp.sessionObj);
         recordEntry("Session started: "+MainApp.sessionName);
-        params = bi.webviewHolder.getLayoutParams();
 
         bi.youtubeWebview.post(() -> {
             widthYoutube = bi.youtubeWebview.getWidth();
             int heightSrc = (int) ((widthYoutube / 16.0) * 9);
             Log.d(TAG, "onTouch: " + heightSrc);
 
-            ViewGroup.LayoutParams params = bi.youtubeWebview.getLayoutParams();
-            params.height = heightSrc;
-            bi.youtubeWebview.setLayoutParams(params);
+            ViewGroup.LayoutParams webviewParams = bi.youtubeWebview.getLayoutParams();
+            webviewParams.height = heightSrc;
+            bi.youtubeWebview.setLayoutParams(webviewParams);
         });
 
+        params = bi.webviewHolder.getLayoutParams();
         int orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             bi.fullscreenContainer.setVisibility(View.VISIBLE);
             bi.toolbar.setVisibility(View.VISIBLE);
             bi.youtubeWebview.setVisibility(View.GONE);
 
-            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+           // holderParams.height = FrameLayout.LayoutParams.MATCH_PARENT;
             bi.youtubeWebview.setLayoutParams(params);
         } else {
             bi.fullscreenContainer.setVisibility(View.GONE);
@@ -187,6 +184,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         webSettings.setDomStorageEnabled(true);
 
         webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        webSettings.setMediaPlaybackRequiresUserGesture(false); // <-- Important
 
         VideoJavaScriptInterface vi = new VideoJavaScriptInterface();
 
@@ -200,6 +198,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         });
 
         bi.youtubeWebview.setOnTouchListener(new View.OnTouchListener() {
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
@@ -210,6 +209,9 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     @SuppressLint("ClickableViewAccessibility") int currentOrientation = getRequestedOrientation();
+                    Log.d(TAG, "onTouch: touched");
+                    // Show button
+
 
                     if (currentOrientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
                         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -236,67 +238,67 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
 
 // Load YouTube player using iframe API inside WebView
-            String html = "<html><head>" +
-                    "<style>" +
-                    "  body, html { margin:0; padding:0; height:100%; overflow:hidden; background:black; }" +
-                    "  #player { position:absolute; top:0; left:0; width:100%; height:100%; }" +
-                    "</style>" +
-                    "</head><body>" +
-                    "<div id=\"player\"></div>" +
-                    "<script>" +
-                    "  var tag = document.createElement('script');" +
-                    "  tag.src = \"https://www.youtube.com/iframe_api\";" +
-                    "  var firstScriptTag = document.getElementsByTagName('script')[0];" +
-                    "  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);" +
+        String html = "<html><head>" +
+                "<style>" +
+                "  body, html { margin:0; padding:0; height:100%; overflow:hidden; background:black; }" +
+                "  #player { position:absolute; top:0; left:0; width:100%; height:100%; }" +
+                "</style>" +
+                "</head><body>" +
+                "<div id=\"player\"></div>" +
+                "<script>" +
+                "  var tag = document.createElement('script');" +
+                "  tag.src = \"https://www.youtube.com/iframe_api\";" +
+                "  var firstScriptTag = document.getElementsByTagName('script')[0];" +
+                "  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);" +
 
-                    "  var player;" +
-                    "  var isPlaying = false;" + // state tracker
+                "  var player;" +
+                "  var isPlaying = false;" + // state tracker
 
-                    "  function onYouTubeIframeAPIReady() {" +
-                    "    player = new YT.Player('player', {" +
-                    "      videoId: '" + MainApp.videoID + "'," +
-                    "      playerVars: { 'autoplay': 1, 'controls': 0, 'rel': 0, 'modestbranding': 1, 'vq': 'hd1080' }," +
-                    "      events: {" +
-                    "        'onReady': onPlayerReady," +
-                    "        'onStateChange': onPlayerStateChange" +
-                    "      }" +
-                    "    });" +
-                    "  }" +
+                "  function onYouTubeIframeAPIReady() {" +
+                "    player = new YT.Player('player', {" +
+                "      videoId: '" + MainApp.videoID + "'," +
+                "      playerVars: { 'autoplay': 1, 'controls': 0, 'rel': 0, 'modestbranding': 1, 'vq': 'hd1080' }," +
+                "      events: {" +
+                "        'onReady': onPlayerReady," +
+                "        'onStateChange': onPlayerStateChange" +
+                "      }" +
+                "    });" +
+                "  }" +
 
-                    "  function onPlayerReady(event) {" +
-                    "    var duration = player.getDuration();" +
-                    "    Android.onVideoDuration(duration);" +
+                "  function onPlayerReady(event) {" +
+                "    var duration = player.getDuration();" +
+                "    Android.onVideoDuration(duration);" +
 
-                    "    setInterval(function() {" +
-                    "      var currentTime = player.getCurrentTime();" +
-                    "      Android.onVideoProgress(currentTime);" +
-                    "    }, 1000);" +
-                    "  }" +
+                "    setInterval(function() {" +
+                "      var currentTime = player.getCurrentTime();" +
+                "      Android.onVideoProgress(currentTime);" +
+                "    }, 1000);" +
+                "  }" +
 
-                    "  function onPlayerStateChange(event) {" +
-                    "    if (event.data == YT.PlayerState.ENDED) {" +
-                    "      Android.onVideoEnded();" +
-                    "    } else if (event.data == YT.PlayerState.PLAYING) {" +
-                    "      isPlaying = true;" +
-                    "      Android.onVideoPlay();" +              // <-- Add this
-                    "    } else if (event.data == YT.PlayerState.PAUSED) {" +
-                    "      Android.onVideoPause();" +             // <-- And this
-                    "      isPlaying = false;" +
-                    "    }" +
-                    "  }" +
+                "  function onPlayerStateChange(event) {" +
+                "    if (event.data == YT.PlayerState.ENDED) {" +
+                "      Android.onVideoEnded();" +
+                "    } else if (event.data == YT.PlayerState.PLAYING) {" +
+                "      isPlaying = true;" +
+                "      Android.onVideoPlay();" +              // <-- Add this
+                "    } else if (event.data == YT.PlayerState.PAUSED) {" +
+                "      isPlaying = false;" +
+                "      Android.onVideoPause();" +             // <-- And this
+                "    }" +
+                "  }" +
 
-                    // Toggle play/pause function
-                    "  function togglePlayPause() {" +
-                    "    if (player && player.playVideo && player.pauseVideo) {" +
-                    "      if (isPlaying) {" +
-                    "        player.pauseVideo();" +
-                    "      } else {" +
-                    "        player.playVideo();" +
-                    "      }" +
-                    "    }" +
-                    "  }" +
-                    "</script>" +
-                    "</body></html>";
+                // Toggle play/pause function
+                "  function togglePlayPause() {" +
+                "    if (player && player.playVideo && player.pauseVideo) {" +
+                "      if (isPlaying) {" +
+                "        player.pauseVideo();" +
+                "      } else {" +
+                "        player.playVideo();" +
+                "      }" +
+                "    }" +
+                "  }" +
+                "</script>" +
+                "</body></html>";
 
 
 
@@ -373,14 +375,14 @@ public class VideoPlayerActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: VideoPlayerActivity resumed");
+
         int orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             bi.fullscreenContainer.setVisibility(View.VISIBLE);
             bi.toolbar.setVisibility(View.VISIBLE);
             bi.youtubeWebview.setVisibility(View.GONE);
 
-            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+            //holderParams.height = FrameLayout.LayoutParams.MATCH_PARENT;
             bi.youtubeWebview.setLayoutParams(params);
         } else {
             bi.fullscreenContainer.setVisibility(View.GONE);
@@ -404,8 +406,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         public void onVideoEnded() {
             VideoPlayerActivity.setIsVideoFinished(true);
             isPlaying = false;
-
-bi.sectionName.setText("(Video Finished) " + bi.sectionName.getText());
+            bi.sectionName.setText("(Video Finished) " + bi.sectionName.getText());
             Toast.makeText(VideoPlayerActivity.this, "Video has ended. Continue button enabled!", Toast.LENGTH_SHORT).show();
 
             //runOnUiThread(() -> enableContinueButton());
@@ -430,7 +431,7 @@ bi.sectionName.setText("(Video Finished) " + bi.sectionName.getText());
                 bi.progressBar.setVisibility(View.VISIBLE);
 
 
-                                // Use duration as needed, e.g., show toast or update UI
+                // Use duration as needed, e.g., show toast or update UI
                 Toast.makeText(VideoPlayerActivity.this, "Video duration: " + duration + " seconds", Toast.LENGTH_SHORT).show();
             });
         }
@@ -493,7 +494,7 @@ bi.sectionName.setText("(Video Finished) " + bi.sectionName.getText());
     private void enableContinueButton() {
         Toast.makeText(this, "Video has ended. Continue button enabled!", Toast.LENGTH_SHORT).show();
 
-       bi.btnContinue.setEnabled(true);
+        bi.btnContinue.setEnabled(true);
         bi.btnContinue.setClickable(true);
         bi.btnContinue.setTextColor(getResources().getColor(R.color.warm_mustard));
     }
@@ -505,21 +506,16 @@ bi.sectionName.setText("(Video Finished) " + bi.sectionName.getText());
     }
 
     public void btnContinue(View v) {
-        if (isVideoFinished || !testCase) {
+        if (isVideoFinished) {
             recordEntry("Session ended: " + MainApp.sessionName);
-
-
-                if(MainApp.testCase) {
-                    Intent i = new Intent(this, PostTestActivity.class);
-                     startActivity(i);
-                }
-
-
+            Intent intent = new Intent(this, PostTestActivity.class);
+            startActivity(intent);
             finish();
         } else {
             Toast.makeText(this, "Please finish watching the video before continuing.", Toast.LENGTH_SHORT).show();
         }
     }
+
 
 
     private void recordEntry(String entryType) {

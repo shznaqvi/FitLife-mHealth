@@ -346,7 +346,7 @@
                             android:drawablePadding="4dp"
                             android:includeFontPadding="false"
                             android:onClick="onSyncDataClick"
-                            android:text="@string/downData"
+                            android:text="Check Activation Status"
                             android:textColor="@color/white"
                             android:textSize="12dp" />
                     </androidx.appcompat.widget.LinearLayoutCompat>

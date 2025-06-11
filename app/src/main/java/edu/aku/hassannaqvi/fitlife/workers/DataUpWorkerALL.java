@@ -208,116 +208,116 @@ public class DataUpWorkerALL extends Worker {
 
     @NonNull
     @Override
-    public Result doWork() {
-        startTime = System.currentTimeMillis();
+        public Result doWork() {
+            startTime = System.currentTimeMillis();
 
-        if (uploadData.length() == 0) {
-            data = new Data.Builder()
-                    .putString("error", "No new records to upload")
-                    .putString("time", getTime())
-                    .putString("size", getSize(requestLength) + "/" + getSize(responseLength))
-                    .putInt("position", this.position)
-                    .build();
+            if (uploadData.length() == 0) {
+                data = new Data.Builder()
+                        .putString("error", "No new records to upload")
+                        .putString("time", getTime())
+                        .putString("size", getSize(requestLength) + "/" + getSize(responseLength))
+                        .putInt("position", this.position)
+                        .build();
 
-            return Result.failure(data);
-        }
-        Log.d(TAG, "doWork: Starting");
-        displayNotification(nTitle, "Starting upload");
+                return Result.failure(data);
+            }
+            Log.d(TAG, "doWork: Starting");
+            displayNotification(nTitle, "Starting upload");
 
-        StringBuilder result = new StringBuilder();
+            StringBuilder result = new StringBuilder();
 
-        URL url = null;
+            URL url = null;
 
-        InputStream caInput = null;
-        Certificate ca = null;
-        try {
-            CertificateFactory cf = CertificateFactory.getInstance("X.509");
-            AssetManager assetManager = mContext.getAssets();
-            caInput = assetManager.open("star_aku_edu_2025.crt");
-
-
-            ca = cf.generateCertificate(caInput);
-            //     System.out.println("ca=" + ((X509Certificate) ca).getSubjectDN());
-        } catch (CertificateException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
+            InputStream caInput = null;
+            Certificate ca = null;
             try {
-                caInput.close();
+                CertificateFactory cf = CertificateFactory.getInstance("X.509");
+                AssetManager assetManager = mContext.getAssets();
+                caInput = assetManager.open("star_aku_edu_2025.crt");
+
+
+                ca = cf.generateCertificate(caInput);
+                //     System.out.println("ca=" + ((X509Certificate) ca).getSubjectDN());
+            } catch (CertificateException e) {
+                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-        }
-
-        try {
-            if (serverURL == null) {
-                url = new URL(MainApp._HOST_URL + MainApp._SERVER_URL);
-            } else {
-                url = serverURL;
-            }
-            Log.d(TAG, "doWork: Connecting...");
-
-            HostnameVerifier allHostsValid = new HostnameVerifier() {
-                public boolean verify(String hostname, SSLSession session) {
-                    //Logcat.d(hostname + " / " + apiHostname);
-                    Log.d(TAG, "verify: hostname " + hostname);
-                    return true;
+            } finally {
+                try {
+                    caInput.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            };
-            //HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+            }
 
-            urlConnection = (HttpsURLConnection) url.openConnection();
-            urlConnection.setSSLSocketFactory(buildSslSocketFactory(mContext));
-            urlConnection.setReadTimeout(100000 /* milliseconds */);
-            urlConnection.setConnectTimeout(150000 /* milliseconds */);
-            urlConnection.setRequestMethod("POST");
-            urlConnection.setDoOutput(true);
-            urlConnection.setDoInput(true);
-            urlConnection.setRequestProperty("Content-Type", "application/json");
-            urlConnection.setRequestProperty("charset", "utf-8");
-            urlConnection.setUseCaches(false);
-            startTime = System.currentTimeMillis();
-            urlConnection.connect();
+            try {
+                if (serverURL == null) {
+                    url = new URL(MainApp._HOST_URL + MainApp._SERVER_URL);
+                } else {
+                    url = serverURL;
+                }
+                Log.d(TAG, "doWork: Connecting...");
 
-            Certificate[] certs = urlConnection.getServerCertificates();
+                HostnameVerifier allHostsValid = new HostnameVerifier() {
+                    public boolean verify(String hostname, SSLSession session) {
+                        //Logcat.d(hostname + " / " + apiHostname);
+                        Log.d(TAG, "verify: hostname " + hostname);
+                        return true;
+                    }
+                };
+                //HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
 
-            if (certIsValid(certs, ca)) {
+                urlConnection = (HttpsURLConnection) url.openConnection();
+                urlConnection.setSSLSocketFactory(buildSslSocketFactory(mContext));
+                urlConnection.setReadTimeout(100000 /* milliseconds */);
+                urlConnection.setConnectTimeout(150000 /* milliseconds */);
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setDoOutput(true);
+                urlConnection.setDoInput(true);
+                urlConnection.setRequestProperty("Content-Type", "application/json");
+                urlConnection.setRequestProperty("charset", "utf-8");
+                urlConnection.setUseCaches(false);
+                startTime = System.currentTimeMillis();
+                urlConnection.connect();
+
+                Certificate[] certs = urlConnection.getServerCertificates();
+
+                if (certIsValid(certs, ca)) {
 
 
-                Log.d(TAG, "downloadURL: " + url);
+                    Log.d(TAG, "downloadURL: " + url);
 
-                JSONArray jsonSync = new JSONArray();
+                    JSONArray jsonSync = new JSONArray();
 
-                DataOutputStream wr = new DataOutputStream(urlConnection.getOutputStream());
+                    DataOutputStream wr = new DataOutputStream(urlConnection.getOutputStream());
 
-                JSONObject jsonTable = new JSONObject();
-                JSONArray jsonParam = new JSONArray();
+                    JSONObject jsonTable = new JSONObject();
+                    JSONArray jsonParam = new JSONArray();
 
-                jsonTable.put("table", uploadTable);
-                //Log.d(TAG, "doWork: " + uploadData);
-                //System.out.print("doWork: " + uploadData);
-                //jsonSync.put(uploadData);
-                jsonParam
-                        .put(jsonTable)
-                        .put(uploadData);
+                    jsonTable.put("table", uploadTable);
+                    //Log.d(TAG, "doWork: " + uploadData);
+                    //System.out.print("doWork: " + uploadData);
+                    //jsonSync.put(uploadData);
+                    jsonParam
+                            .put(jsonTable)
+                            .put(uploadData);
 
-                Log.d(TAG, "Upload Begins Length: " + jsonParam.length());
-                Log.d(TAG, "Upload Begins: " + jsonParam);
-                longInfo(String.valueOf(jsonParam));
+                    Log.d(TAG, "Upload Begins Length: " + jsonParam.length());
+                    Log.d(TAG, "Upload Begins: " + jsonParam);
+                    longInfo(String.valueOf(jsonParam));
 
-                String cipheredRequest = CipherSecure.encryptGCM(jsonParam.toString());
-                requestLength = cipheredRequest.length();
-                wr.writeBytes(cipheredRequest);
+                    String cipheredRequest = CipherSecure.encryptGCM(jsonParam.toString());
+                    requestLength = cipheredRequest.length();
+                    wr.writeBytes(cipheredRequest);
 
-                String writeEnc = CipherSecure.encryptGCM(jsonParam.toString());
+                    String writeEnc = CipherSecure.encryptGCM(jsonParam.toString());
 
-                longInfo("Encrypted: " + writeEnc);
+                    longInfo("Encrypted: " + writeEnc);
 
-                //     wr.writeBytes(jsonParam.toString());
+                    //     wr.writeBytes(jsonParam.toString());
 
-                wr.flush();
-                wr.close();
+                    wr.flush();
+                    wr.close();
 
                 Log.d(TAG, "doInBackground: " + urlConnection.getResponseCode());
 

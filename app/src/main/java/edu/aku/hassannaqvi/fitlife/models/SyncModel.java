@@ -25,6 +25,17 @@ public class SyncModel {
 
     }
 
+
+    public SyncModel(String tableName, int select, String title) {
+
+        this.tableName = tableName;
+        this.tableTitle = title;
+        this.status = _EMPTY_;
+        this.statusID = 0;
+        this.message = _EMPTY_;
+
+    }
+
     public SyncModel(String tableName, String select) {
 
         this.tableName = tableName;
