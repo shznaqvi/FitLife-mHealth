@@ -1,8 +1,8 @@
 package edu.aku.hassannaqvi.fitlife.ui;
 
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static edu.aku.hassannaqvi.fitlife.core.MainApp.editor;
 import static edu.aku.hassannaqvi.fitlife.core.MainApp.sharedPref;
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 import android.app.DownloadManager;
 import android.content.Intent;
@@ -20,11 +20,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import edu.aku.hassannaqvi.fitlife.R;
-import edu.aku.hassannaqvi.fitlife.core.MainApp;
-import edu.aku.hassannaqvi.fitlife.database.DatabaseHelper;
-import edu.aku.hassannaqvi.fitlife.databinding.ActivityMainBinding;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,6 +27,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
+import edu.aku.hassannaqvi.fitlife.R;
+import edu.aku.hassannaqvi.fitlife.core.MainApp;
+import edu.aku.hassannaqvi.fitlife.database.AndroidDatabaseManager;
+import edu.aku.hassannaqvi.fitlife.databinding.ActivityMainBinding;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
         int itemId = item.getItemId();
 
         if (itemId == R.id.action_database) {
-         // intent = new Intent(MainActivity.this, AndroidDatabaseManager.class);
+            intent = new Intent(MainActivity.this, AndroidDatabaseManager.class);
             startActivity(intent);
         }  else if (itemId == R.id.action_checkWorker) {
       //  intent = new Intent(MainActivity.this, CheckWorkerActivity.class);

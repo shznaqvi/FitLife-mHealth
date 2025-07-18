@@ -1,9 +1,7 @@
 package edu.aku.hassannaqvi.fitlife.ui.sections;
 
 
-
 import static edu.aku.hassannaqvi.fitlife.core.MainApp.PROJECT_NAME;
-import static edu.aku.hassannaqvi.fitlife.core.MainApp.entryType;
 import static edu.aku.hassannaqvi.fitlife.core.MainApp.tests;
 
 import android.content.Intent;
@@ -70,10 +68,10 @@ public class PreTestActivity extends AppCompatActivity {
                 loadSectionContent("d", R.string.section4, false);
                 break;
             case 5:
-                loadSectionContent("e", R.string.section5, true);
+                loadSectionContent("e", R.string.section5, false);
                 break;
             case 6:
-                loadSectionContent("f", R.string.section6, false);
+                loadSectionContent("f", R.string.section6, true);
                 break;
             default:
                 loadSectionContent("a", R.string.section1, false);
@@ -103,12 +101,15 @@ public class PreTestActivity extends AppCompatActivity {
             // Question Numbers
             int qNumResId = getResources().getIdentifier("Q_" + sectionPrefix + String.format("%02d", i), "string", getPackageName());
             int qNumId = getResources().getIdentifier("qnumPre" + String.format("%02d", i), "id", getPackageName());
+            Log.d(TAG, "loadSectionContent: " + sectionPrefix + "qnumPre" + String.format("%02d", i) + " - " + qNumResId + " - " + qNumId);
             TextView qNumView = findViewById(qNumId);
             qNumView.setText(getString(qNumResId));
 
             // Question Texts
             int qTxtResId = getResources().getIdentifier(sectionPrefix + String.format("%02d", i), "string", getPackageName());
             int qTxtId = getResources().getIdentifier("qtxtPre" + String.format("%02d", i), "id", getPackageName());
+            Log.d(TAG, "loadSectionContent: " + sectionPrefix + "qtxtPre" + String.format("%02d", i) + " - " + qTxtResId + " - " + qTxtId);
+
             TextView qTxtView = findViewById(qTxtId);
             qTxtView.setText(getString(qTxtResId));
 
@@ -116,6 +117,7 @@ public class PreTestActivity extends AppCompatActivity {
             for (char option = 'A'; option <= 'D'; option++) {
                 int optResId = getResources().getIdentifier(sectionPrefix + String.format("%02d", i) + option, "string", getPackageName());
                 int optViewId = getResources().getIdentifier("pre" + String.format("%02d", i) + option, "id", getPackageName());
+                Log.d(TAG, "loadSectionContent: " + sectionPrefix + "pre" + String.format("%02d", i) + option + " - " + optResId + " - " + optViewId);
                 TextView optView = findViewById(optViewId);
                 optView.setText(getString(optResId));
             }

@@ -46,20 +46,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
-import edu.aku.hassannaqvi.fitlife.R;
-import edu.aku.hassannaqvi.fitlife.contracts.TableContracts;
-import edu.aku.hassannaqvi.fitlife.core.AppInfo;
-import edu.aku.hassannaqvi.fitlife.core.MainApp;
-import edu.aku.hassannaqvi.fitlife.database.DatabaseHelper;
-import edu.aku.hassannaqvi.fitlife.databinding.ActivityLoginBinding;
-import edu.aku.hassannaqvi.fitlife.models.EntryLog;
-import edu.aku.hassannaqvi.fitlife.models.Users;
 import com.google.android.material.snackbar.Snackbar;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.MultiplePermissionsReport;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -75,10 +62,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+
+import edu.aku.hassannaqvi.fitlife.R;
+import edu.aku.hassannaqvi.fitlife.contracts.TableContracts;
+import edu.aku.hassannaqvi.fitlife.core.AppInfo;
+import edu.aku.hassannaqvi.fitlife.core.MainApp;
+import edu.aku.hassannaqvi.fitlife.database.DatabaseHelper;
+import edu.aku.hassannaqvi.fitlife.databinding.ActivityLoginBinding;
+import edu.aku.hassannaqvi.fitlife.models.EntryLog;
+import edu.aku.hassannaqvi.fitlife.models.Users;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -266,6 +261,7 @@ public class LoginActivity extends AppCompatActivity {
                             Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE,
                             Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.POST_NOTIFICATIONS,
                             Manifest.permission.INTERNET
 
                     });
@@ -409,6 +405,9 @@ public class LoginActivity extends AppCompatActivity {
                 getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
+            if (MainApp.IBAHC == null || MainApp.IBAHC.length() < 16) {
+                MainApp.reInitKey(this);
+            }
             startActivity(new Intent(this, SyncActivity.class).putExtra("login", true));
         } else {
             Toast.makeText(this, getString(R.string.network_conn_error), Toast.LENGTH_SHORT).show();

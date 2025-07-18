@@ -1,11 +1,9 @@
 package edu.aku.hassannaqvi.fitlife.ui.sections;
 
 
-
 import static edu.aku.hassannaqvi.fitlife.core.MainApp.PROJECT_NAME;
 import static edu.aku.hassannaqvi.fitlife.core.MainApp.tests;
 
-import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,8 +16,6 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import com.validatorcrawler.aliazaz.Validator;
-
-import org.json.JSONException;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -67,10 +63,10 @@ public class ResultsTestActivity extends AppCompatActivity {
                 loadSectionContent("d", R.string.section4, false);
                 break;
             case 5:
-                loadSectionContent("e", R.string.section5, true);
+                loadSectionContent("e", R.string.section5, false);
                 break;
             case 6:
-                loadSectionContent("f", R.string.section6, false);
+                loadSectionContent("f", R.string.section6, true);
                 break;
             default:
                 loadSectionContent("a", R.string.section1, false);

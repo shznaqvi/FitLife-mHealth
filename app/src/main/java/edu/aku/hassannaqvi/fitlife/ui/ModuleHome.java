@@ -1,8 +1,5 @@
 package edu.aku.hassannaqvi.fitlife.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
@@ -18,12 +15,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
 import org.json.JSONException;
 
 import java.io.File;
 
 import edu.aku.hassannaqvi.fitlife.R;
 import edu.aku.hassannaqvi.fitlife.core.MainApp;
+import edu.aku.hassannaqvi.fitlife.core.SecureFileDownloader;
 import edu.aku.hassannaqvi.fitlife.database.DatabaseHelper;
 import edu.aku.hassannaqvi.fitlife.databinding.ActivityModuleHomeBinding;
 import edu.aku.hassannaqvi.fitlife.models.Tests;
@@ -87,7 +88,10 @@ public class ModuleHome extends AppCompatActivity {
         //MainApp.form = db.getFormByhhid();
         MainApp.tests = db.getTestsByUsernModule(sessionId, userName);
 
-        return MainApp.tests != null;
+        if (MainApp.tests == null)
+            return false;
+
+        return !(MainApp.tests.getPost06().equals("") || MainApp.tests.getPre06().equals(""));
 
 
     }
@@ -100,7 +104,7 @@ public class ModuleHome extends AppCompatActivity {
 
         if (view.getId() == R.id.ncd_risk_factors) {
             MainApp.sessionid = 1;
-            MainApp.videoID = "yb5KhcbtQJ0";
+            MainApp.videoID = "yb5KhcbtQJ0"; //<-- 9:19
             MainApp.sessionName = "Session 1: \n" +
                     "Non-Communicable Diseases (NCDs) and its risk factors\n";
             MainApp.sessionObj = "• Understand NCDs and their health implications.\n" +
@@ -110,7 +114,7 @@ public class ModuleHome extends AppCompatActivity {
 
         } else if (view.getId() == R.id.ncd_physical_activity) {
             MainApp.sessionid = 2;
-            MainApp.videoID = "UqJszWOyt6g";
+            MainApp.videoID = "UqJszWOyt6g"; //<-- 6:29
             MainApp.sessionName = "Session 3: Keep moving ";
             MainApp.sessionObj = "•\tImportance of physical activity for NCD prevention\n" +
                     "•\tBenefits of physical activity\n" +
@@ -120,7 +124,7 @@ public class ModuleHome extends AppCompatActivity {
 
         }  else if (view.getId() == R.id.ncd_food) {
             MainApp.sessionid = 3;
-            MainApp.videoID = "gj7y5hC6d0M";
+            MainApp.videoID = "gj7y5hC6d0M";//<-- 8:30
             MainApp.sessionName = "Session 2: Eat smart ";
             MainApp.sessionObj = "•\tImportance of healthy eating for NCD prevention\n" +
                     "•\tFood groups and their benefits\n" +
@@ -130,7 +134,7 @@ public class ModuleHome extends AppCompatActivity {
 
         }  else if (view.getId() == R.id.ndc_smoking) {
             MainApp.sessionid = 4;
-            MainApp.videoID = "ljMTCDmib5g";
+            MainApp.videoID = "ljMTCDmib5g"; //<-- 6:43
             MainApp.sessionName = "Session 4: Run away from smoking and drugs";
             MainApp.sessionObj = "•\tDangers of tobacco and drug use\n" +
                     "•\tHealth risks associated with tobacco and drug abuse\n" +
@@ -139,7 +143,7 @@ public class ModuleHome extends AppCompatActivity {
 
         }  else if (view.getId() == R.id.ncd_mental_health) {
             MainApp.sessionid = 5;
-            MainApp.videoID = "_ZS34pzTT4I";
+            MainApp.videoID = "_ZS34pzTT4I"; //<-- 6:21
             MainApp.sessionName = "Session 5: Stay well ";
             MainApp.sessionObj = "•\tWhat is mental health\n" +
                     "•\tCommon mental health problems\n" +
@@ -150,7 +154,7 @@ public class ModuleHome extends AppCompatActivity {
 
         }  else if (view.getId() == R.id.ncd_wrap_up) {
             MainApp.sessionid = 6;
-            MainApp.videoID = "I8p4rmsFJwY";
+            MainApp.videoID = "I8p4rmsFJwY"; //<-- 9:07
             MainApp.sessionName = "Session 6: Adopting Healthy Habits";
             MainApp.sessionObj = "•\tRecognizing the importance of healthy habits in preventing NCDs.\n" +
                     "•\tExploring the impact of small lifestyle changes on long-term health outcomes.\n" +
@@ -182,29 +186,46 @@ public class ModuleHome extends AppCompatActivity {
 
 
     public void downloadCertificateSimple(View view) {
-        String url = "https://vhds.aku.edu/eshepp/api/certificate.php?username=s";
-
-// Get your app's external files directory for downloads
-        File downloadDir = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-        if (downloadDir != null && !downloadDir.exists()) {
-            downloadDir.mkdirs();
+        String username = MainApp.user != null ? MainApp.user.getUserName() : "default_user";
+        if (username == null || username.isEmpty()) {
+            Toast.makeText(this, "Username is invalid.", Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        File destinationFile = new File(downloadDir, "Certificate_user.pdf");
-        Uri destinationUri = Uri.fromFile(destinationFile);
+        String url = "https://vhds.aku.edu/eshepp/api/generate_certificate.php?username=" + username;
 
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-        request.setTitle("Certificate");
-        request.setDescription("Downloading your certificate");
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setAllowedOverMetered(true);
-        request.setAllowedOverRoaming(true);
+        Log.d("DownloadDebug", "Download URL: " + url);
 
-// Save file in your app's external downloads folder
-        request.setDestinationUri(destinationUri);
+        SecureFileDownloader.downloadFile(
+                this,
+                url,
+                "latest_version.zip",
+                new SecureFileDownloader.DownloadCallback() {
+                    @Override
+                    public void onProgress(int progress) {
+                        Log.d("DL", "Progress: " + progress + "%");
+                    }
 
-        DownloadManager dm = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-        dm.enqueue(request);
+                    @Override
+                    public void onSuccess(File file) {
+                        runOnUiThread(() ->
+
+                                Toast.makeText(getApplicationContext(), "Download complete: " + file.getAbsolutePath(), Toast.LENGTH_LONG).show()
+                        );
+                    }
+
+                    @Override
+                    public void onFailure(Exception e) {
+                        runOnUiThread(() ->
+
+
+                                Toast.makeText(getApplicationContext(), "Download failed: " + e.getMessage(), Toast.LENGTH_LONG).show()
+                        );
+                    }
+                }
+        );
+
+
     }
     public void downloadCertificate(View view) {
 

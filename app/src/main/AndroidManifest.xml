@@ -25,6 +25,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+
     <queries>
         <intent>
             <action android:name="android.intent.action.SENDTO" />
@@ -130,6 +131,16 @@
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="location" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/download_path" />
+        </provider>
     </application>
 
 </manifest>

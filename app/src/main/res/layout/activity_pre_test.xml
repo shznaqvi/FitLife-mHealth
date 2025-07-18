@@ -26,12 +26,11 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:minHeight="?attr/actionBarSize"
-            android:theme="@style/ToolbarTheme"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:subtitle="Pre Test"
             app:subtitleTextAppearance="@style/Toolbar.SubtitleText"
             app:subtitleTextColor="@color/grayLight"
-            app:theme="@style/ActionBarTheme"
+            android:theme="@style/ActionBarTheme"
             app:title="@string/app_name"
             app:titleTextAppearance="@style/Toolbar.TitleText" />
 

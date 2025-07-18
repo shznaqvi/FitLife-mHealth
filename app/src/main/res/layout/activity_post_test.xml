@@ -26,12 +26,11 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:minHeight="?attr/actionBarSize"
-            android:theme="@style/ToolbarTheme"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:subtitle="Post Test"
             app:subtitleTextAppearance="@style/Toolbar.SubtitleText"
             app:subtitleTextColor="@color/grayLight"
-            app:theme="@style/ActionBarTheme"
+            android:theme="@style/ActionBarTheme"
             app:title="@string/app_name"
             app:titleTextAppearance="@style/Toolbar.TitleText" />
         <TextView
@@ -75,12 +74,14 @@
 
                             <TextView
                                 style="@style/quesNum"
+                                android:id="@+id/qnumPost01"
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="@string/Q_a01" />
 
                             <TextView
+                                android:id="@+id/qtxtPost01"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="@string/a01" />
@@ -145,12 +146,14 @@
 
                             <TextView
                                 style="@style/quesNum"
+                                android:id="@+id/qnumPost02"
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="@string/Q_a02" />
 
                             <TextView
+                                android:id="@+id/qtxtPost02"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="@string/a02" />
@@ -215,12 +218,14 @@
 
                             <TextView
                                 style="@style/quesNum"
+                                android:id="@+id/qnumPost03"
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="@string/Q_a03" />
 
                             <TextView
+                                android:id="@+id/qtxtPost03"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="@string/a03" />
@@ -285,12 +290,14 @@
 
                             <TextView
                                 style="@style/quesNum"
+                                android:id="@+id/qnumPost04"
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="@string/Q_a04" />
 
                             <TextView
+                                android:id="@+id/qtxtPost04"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="@string/a04" />
@@ -355,12 +362,14 @@
 
                             <TextView
                                 style="@style/quesNum"
+                                android:id="@+id/qnumPost05"
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="@string/Q_a05" />
 
                             <TextView
+                                android:id="@+id/qtxtPost05"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="@string/a05" />
@@ -425,12 +434,14 @@
 
                             <TextView
                                 style="@style/quesNum"
+                                android:id="@+id/qnumPost06"
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="@string/Q_a06" />
 
                             <TextView
+                                android:id="@+id/qtxtPost06"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="@string/a06" />

@@ -1,7 +1,6 @@
 package edu.aku.hassannaqvi.fitlife.ui.sections;
 
 
-
 import static edu.aku.hassannaqvi.fitlife.core.MainApp.PROJECT_NAME;
 import static edu.aku.hassannaqvi.fitlife.core.MainApp.tests;
 
@@ -30,7 +29,6 @@ import edu.aku.hassannaqvi.fitlife.core.MainApp;
 import edu.aku.hassannaqvi.fitlife.database.DatabaseHelper;
 import edu.aku.hassannaqvi.fitlife.databinding.ActivityPostTestBinding;
 import edu.aku.hassannaqvi.fitlife.models.EntryLog;
-import edu.aku.hassannaqvi.fitlife.ui.VideoPlayerActivity;
 
 
 public class PostTestActivity extends AppCompatActivity {
@@ -70,10 +68,10 @@ public class PostTestActivity extends AppCompatActivity {
                 loadSectionContent("d", R.string.section4, false);
                 break;
             case 5:
-                loadSectionContent("e", R.string.section5, true);
+                loadSectionContent("e", R.string.section5, false);
                 break;
             case 6:
-                loadSectionContent("f", R.string.section6, false);
+                loadSectionContent("f", R.string.section6, true);
                 break;
             default:
                 loadSectionContent("a", R.string.section1, false);
@@ -101,12 +99,14 @@ public class PostTestActivity extends AppCompatActivity {
             // Question Numbers
             int qNumResId = getResources().getIdentifier("Q_" + sectionPostfix + String.format("%02d", i), "string", getPackageName());
             int qNumId = getResources().getIdentifier("qnumPost" + String.format("%02d", i), "id", getPackageName());
+            Log.d(TAG, "loadSectionContent: " + sectionPostfix + String.format("%02d", i) + " - " + qNumResId + " - " + qNumId);
             TextView qNumView = findViewById(qNumId);
             qNumView.setText(getString(qNumResId));
 
             // Question Texts
             int qTxtResId = getResources().getIdentifier(sectionPostfix + String.format("%02d", i), "string", getPackageName());
             int qTxtId = getResources().getIdentifier("qtxtPost" + String.format("%02d", i), "id", getPackageName());
+            Log.d(TAG, "loadSectionContent: " + sectionPostfix + String.format("%02d", i) + " - " + qTxtResId + " - " + qTxtId);
             TextView qTxtView = findViewById(qTxtId);
             qTxtView.setText(getString(qTxtResId));
 
@@ -114,6 +114,7 @@ public class PostTestActivity extends AppCompatActivity {
             for (char option = 'A'; option <= 'D'; option++) {
                 int optResId = getResources().getIdentifier(sectionPostfix + String.format("%02d", i) + option, "string", getPackageName());
                 int optViewId = getResources().getIdentifier("post" + String.format("%02d", i) + option, "id", getPackageName());
+                Log.d(TAG, "loadSectionContent: " + sectionPostfix + String.format("%02d", i) + option + " - " + optResId + " - " + optViewId);
                 TextView optView = findViewById(optViewId);
                 optView.setText(getString(optResId));
             }

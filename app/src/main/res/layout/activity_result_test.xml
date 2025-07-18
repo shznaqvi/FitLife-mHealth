@@ -338,12 +338,14 @@
 
                             <TextView
                                 style="@style/quesNum"
+                                android:id="@+id/qnumPre01"
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="@string/Q_a01" />
 
                             <TextView
+                                android:id="@+id/qtxtPre01"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="@string/a01" />
@@ -493,12 +495,14 @@ android:editable="false"
 
                             <TextView
                                 style="@style/quesNum"
+                                android:id="@+id/qnumPre02"
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="@string/Q_a02" />
 
                             <TextView
+                                android:id="@+id/qtxtPre02"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="@string/a02" />
@@ -641,12 +645,15 @@ android:editable="false"
 
                             <TextView
                                 style="@style/quesNum"
+                                android:id="@+id/qnumPre03"
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="@string/Q_a03" />
 
                             <TextView
+                                android:id="@+id/qtxtPre03"
+
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="@string/a03" />
@@ -788,12 +795,14 @@ android:editable="false"
 
                             <TextView
                                 style="@style/quesNum"
+                                android:id="@+id/qnumPre04"
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="@string/Q_a04" />
 
                             <TextView
+                                android:id="@+id/qtxtPre04"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="@string/a04" />
@@ -935,12 +944,14 @@ android:editable="false"
 
                             <TextView
                                 style="@style/quesNum"
+                                android:id="@+id/qnumPre05"
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="@string/Q_a05" />
 
                             <TextView
+                                android:id="@+id/qtxtPre05"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="@string/a05" />
@@ -1082,12 +1093,14 @@ android:editable="false"
 
                             <TextView
                                 style="@style/quesNum"
+                                android:id="@+id/qnumPre06"
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="@string/Q_a06" />
 
                             <TextView
+                                android:id="@+id/qtxtPre06"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="@string/a06" />
@@ -1231,12 +1244,14 @@ android:editable="false"
 
                             <TextView
                                 style="@style/quesNum"
+                                android:id="@+id/qnumPre07"
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="@string/Q_a01" />
 
                             <TextView
+                                android:id="@+id/qtxtPre07"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="@string/a01" />
