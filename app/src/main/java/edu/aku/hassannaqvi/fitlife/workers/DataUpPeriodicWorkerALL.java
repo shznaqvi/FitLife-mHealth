@@ -8,7 +8,6 @@ import static edu.aku.hassannaqvi.fitlife.core.CipherSecure.decryptGCM;
 import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
@@ -22,12 +21,6 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
-
-import edu.aku.hassannaqvi.fitlife.R;
-import edu.aku.hassannaqvi.fitlife.contracts.TableContracts;
-import edu.aku.hassannaqvi.fitlife.core.CipherSecure;
-import edu.aku.hassannaqvi.fitlife.core.MainApp;
-import edu.aku.hassannaqvi.fitlife.database.DatabaseHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,6 +49,12 @@ import javax.crypto.NoSuchPaddingException;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
+
+import edu.aku.hassannaqvi.fitlife.R;
+import edu.aku.hassannaqvi.fitlife.contracts.TableContracts;
+import edu.aku.hassannaqvi.fitlife.core.CipherSecure;
+import edu.aku.hassannaqvi.fitlife.core.MainApp;
+import edu.aku.hassannaqvi.fitlife.database.DatabaseHelper;
 
 
 public class DataUpPeriodicWorkerALL extends Worker {
@@ -99,9 +98,9 @@ public class DataUpPeriodicWorkerALL extends Worker {
         if (MainApp.uploadDataPeriodic.size() >0 )
             uploadData = MainApp.uploadDataPeriodic.get(position);
 
-     /*   uploadData = new JSONArray();
+        uploadData = new JSONArray();
         switch (uploadTable) {
-            // Forms
+     /*       // Forms
             case TableContracts.TestsTable.TABLE_NAME:
                 try {
                     uploadData = db.getUnsyncedTests();
@@ -109,7 +108,7 @@ public class DataUpPeriodicWorkerALL extends Worker {
                     e.printStackTrace();
                     Log.d(TAG, "ProcessStart: JSONException(Tests): " + e.getMessage());
                 }
-                break;
+                break;*/
 
             // Entry Log
             case TableContracts.EntryLogTable.TABLE_NAME:
@@ -120,7 +119,7 @@ public class DataUpPeriodicWorkerALL extends Worker {
                     Log.d(TAG, "ProcessStart: JSONException(EntryLog): " + e.getMessage());
                 }
         }
-*/
+
         Log.d(TAG, "Upload Begins uploadData: " + uploadData);
 
         Log.d(TAG, "DataDownWorkerALL: position " + position);

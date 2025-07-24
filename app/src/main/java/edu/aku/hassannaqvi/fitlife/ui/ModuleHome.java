@@ -1,32 +1,47 @@
 package edu.aku.hassannaqvi.fitlife.ui;
 
+import static edu.aku.hassannaqvi.fitlife.core.MainApp.PROJECT_NAME;
+
+import android.Manifest;
 import android.app.DownloadManager;
+import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.database.sqlite.SQLiteException;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
 
 import org.json.JSONException;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import edu.aku.hassannaqvi.fitlife.R;
+import edu.aku.hassannaqvi.fitlife.contracts.TableContracts;
 import edu.aku.hassannaqvi.fitlife.core.MainApp;
-import edu.aku.hassannaqvi.fitlife.core.SecureFileDownloader;
 import edu.aku.hassannaqvi.fitlife.database.DatabaseHelper;
 import edu.aku.hassannaqvi.fitlife.databinding.ActivityModuleHomeBinding;
+import edu.aku.hassannaqvi.fitlife.models.EntryLog;
 import edu.aku.hassannaqvi.fitlife.models.Tests;
 import edu.aku.hassannaqvi.fitlife.ui.sections.PreTestActivity;
 
@@ -34,16 +49,12 @@ public class ModuleHome extends AppCompatActivity {
 
     private static final String TAG = "ModuleHome";
     private DatabaseHelper db;
-   ActivityModuleHomeBinding bi;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bi = DataBindingUtil.setContentView(this, R.layout.activity_module_home);
-        db = MainApp.appInfo.dbHelper;
-
-        updateCompletedModules();
-    }
+    ActivityModuleHomeBinding bi;
+    private long currentDownloadId = -1;
+    private BroadcastReceiver downloadReceiver;
+    private long downloadId;
+    private Handler handler = new Handler(Looper.getMainLooper());
+    private DownloadManager downloadManager;
 
     private void updateCompletedModules() {
         try {
@@ -182,191 +193,171 @@ public class ModuleHome extends AppCompatActivity {
 
     }
 
+    BroadcastReceiver onComplete = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+            DownloadManager.Query query = new DownloadManager.Query();
+            query.setFilterById(id);
+            Cursor cursor = downloadManager.query(query);
+
+            if (cursor.moveToFirst()) {
+                int status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
+                if (status == DownloadManager.STATUS_SUCCESSFUL) {
+                    Toast.makeText(context, "Certificate downloaded successfully!", Toast.LENGTH_SHORT).show();
+                    setDownloadButtonText();
+                    recordEntry("Certificate Download Successful.");
+                    bi.progressBarDownload.setProgress(100);
 
 
+                    showSystemUI();
+                } else if (status == DownloadManager.STATUS_RUNNING) {
+                    int percent = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR)) * 100 /
+                            cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+                    Toast.makeText(context, "Download in progress: " + percent + "%", Toast.LENGTH_SHORT).show();
+//                    bi.progressBarDownload.setVisibility(View.VISIBLE);
+//                    bi.progressBarDownload.setProgress(percent);
+                } else {
+                    int reason = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_REASON));
+                    Toast.makeText(context, "Download failed! Reason: " + reason, Toast.LENGTH_LONG).show();
+                    recordEntry("Certificate Download Failed: " + reason);
 
-    public void downloadCertificateSimple(View view) {
-        String username = MainApp.user != null ? MainApp.user.getUserName() : "default_user";
-        if (username == null || username.isEmpty()) {
-            Toast.makeText(this, "Username is invalid.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String url = "https://vhds.aku.edu/eshepp/api/generate_certificate.php?username=" + username;
-
-        Log.d("DownloadDebug", "Download URL: " + url);
-
-        SecureFileDownloader.downloadFile(
-                this,
-                url,
-                "latest_version.zip",
-                new SecureFileDownloader.DownloadCallback() {
-                    @Override
-                    public void onProgress(int progress) {
-                        Log.d("DL", "Progress: " + progress + "%");
-                    }
-
-                    @Override
-                    public void onSuccess(File file) {
-                        runOnUiThread(() ->
-
-                                Toast.makeText(getApplicationContext(), "Download complete: " + file.getAbsolutePath(), Toast.LENGTH_LONG).show()
-                        );
-                    }
-
-                    @Override
-                    public void onFailure(Exception e) {
-                        runOnUiThread(() ->
-
-
-                                Toast.makeText(getApplicationContext(), "Download failed: " + e.getMessage(), Toast.LENGTH_LONG).show()
-                        );
-                    }
                 }
-        );
+            }
+            cursor.close();
+        }
+    };
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        bi = DataBindingUtil.setContentView(this, R.layout.activity_module_home);
+        db = MainApp.appInfo.dbHelper;
 
+        updateCompletedModules();
+        setDownloadButtonText();
     }
+
     public void downloadCertificate(View view) {
+        String username = MainApp.user.getUserName();
+        String userFullName = MainApp.user.getFullname();
+        //username = "s";
+        String fileName = userFullName + "_certificate.pdf";
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
 
-        String username = MainApp.user != null ? MainApp.user.getUserName() : "default_user";
-        if (username == null || username.isEmpty()) {
-            Toast.makeText(this, "Username is invalid.", Toast.LENGTH_SHORT).show();
-            return;
+        if (file.exists()) {
+            //Toast.makeText(this, "File already downloaded. Opening...", Toast.LENGTH_SHORT).show();
+
+            Uri uri = FileProvider.getUriForFile(this, getPackageName() + ".provider", file);
+            Intent openIntent = new Intent(Intent.ACTION_VIEW);
+            openIntent.setDataAndType(uri, "application/pdf");
+            openIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+            try {
+                recordEntry("Certificate File Opened.");
+                startActivity(openIntent);
+
+            } catch (ActivityNotFoundException e) {
+                Toast.makeText(this, "No app found to open PDF.", Toast.LENGTH_LONG).show();
+            }
+
+            return;  // ✅ Don't download again
         }
 
-        String url = "https://vhds.aku.edu/eshepp/api/generate_certificate.php?username=" + username;
-
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm != null ? cm.getActiveNetworkInfo() : null;
-        if (activeNetwork == null || !activeNetwork.isConnected()) {
-            Toast.makeText(this, "No internet connection.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        DownloadManager downloadManager = (DownloadManager) this.getSystemService(Context.DOWNLOAD_SERVICE);
-        if (downloadManager == null) {
-            Toast.makeText(this, "DownloadManager is not available.", Toast.LENGTH_SHORT).show();
+        // Proceed with download if file doesn't exist
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
             return;
         }
 
         try {
-            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-            request.setTitle("Certificate for " + username);
-            request.setDescription("Downloading your certificate PDF");
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "Certificate_" + username + ".pdf");
-            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+            downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+            Uri uri = Uri.parse("https://vhds.aku.edu/eshepp/api/generate_certificate.php?username=" + username);
+            Log.d(TAG, "downloadCertificate URL: " + uri.toString());
+            DownloadManager.Request request = new DownloadManager.Request(uri);
+
+            request.setTitle("Certificate Download");
+            request.setDescription("Downloading PDF...");
             request.setMimeType("application/pdf");
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
+            // 👇 Save to shared Downloads so it gets "Open" option in DM notification
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
 
-            long downloadId = downloadManager.enqueue(request); // Get the downloadId
-            Log.d("DownloadID", "Download started with ID: " + downloadId);
+            downloadId = downloadManager.enqueue(request);
+            monitorDownloadProgress();
+            registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
-            Toast.makeText(this, "Downloading certificate...", Toast.LENGTH_SHORT).show();
-
-            // Call checkDownloadStatus immediately or later
-            //checkDownloadStatus(downloadId);
-            monitorDownloadStatus(downloadId);
+            Toast.makeText(this, "Downloading PDF...", Toast.LENGTH_SHORT).show();
+            recordEntry("Certificate Download Started.");
 
         } catch (Exception e) {
-            Log.e("DownloadError", "Download failed: " + e.getMessage());
-            Toast.makeText(this, "Failed to start download: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            recordEntry("Certificate Download Failed.");
+
+            Log.e("DownloadError", "Download failed", e);
+            Toast.makeText(this, "Download failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
-    public void checkDownloadStatus(long downloadId) {
-        DownloadManager downloadManager = (DownloadManager) this.getSystemService(Context.DOWNLOAD_SERVICE);
-        if (downloadManager == null) {
-            Toast.makeText(this, "DownloadManager is not available.", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
-        DownloadManager.Query query = new DownloadManager.Query();
-        query.setFilterById(downloadId);
-
-        Cursor cursor = downloadManager.query(query);
-        if (cursor != null && cursor.moveToFirst()) {
-            int status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
-            int reason = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_REASON));
-
-            switch (status) {
-                case DownloadManager.STATUS_SUCCESSFUL:
-                    Toast.makeText(this, "Download successful!", Toast.LENGTH_SHORT).show();
-                    break;
-                case DownloadManager.STATUS_FAILED:
-                    Toast.makeText(this, "Download failed: Reason code " + reason, Toast.LENGTH_SHORT).show();
-                    break;
-                case DownloadManager.STATUS_PAUSED:
-                    Toast.makeText(this, "Download paused: Reason code " + reason, Toast.LENGTH_SHORT).show();
-                    break;
-                case DownloadManager.STATUS_PENDING:
-                    Log.d("DownloadPending", "Reason code: " + reason);
-                    Toast.makeText(this, "Download pending: Reason code " + reason, Toast.LENGTH_SHORT).show();
-                    break;
-                case DownloadManager.STATUS_RUNNING:
-                    Toast.makeText(this, "Download in progress...", Toast.LENGTH_SHORT).show();
-                    break;
-            }
-            cursor.close();
+    public void setDownloadButtonText() {
+        String username = MainApp.user.getFullname();
+        //username = "s";
+        String fileName = username + "_certificate.pdf";
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
+        if (file.exists()) {
+            bi.btnDownloadCertificate.setText("Open Certificate");
         } else {
-            Toast.makeText(this, "No download found with ID: " + downloadId, Toast.LENGTH_SHORT).show();
+            bi.btnDownloadCertificate.setText("Download Certificate");
         }
     }
 
-    private void monitorDownloadStatus(final long downloadId) {
-        final DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-        if (downloadManager == null) {
-            Toast.makeText(this, "DownloadManager not available.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        final Handler handler = new Handler();
-        final Runnable monitorRunnable = new Runnable() {
+    private void monitorDownloadProgress() {
+        Log.d(TAG, "monitorDownloadProgress: Monitoring download progress for ID: " + downloadId);
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 DownloadManager.Query query = new DownloadManager.Query();
                 query.setFilterById(downloadId);
-
                 Cursor cursor = downloadManager.query(query);
+
                 if (cursor != null && cursor.moveToFirst()) {
-                    int status = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
-                    int reason = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_REASON));
-
-                    switch (status) {
-                        case DownloadManager.STATUS_SUCCESSFUL:
-                            Toast.makeText(ModuleHome.this, "Certificate downloaded successfully!", Toast.LENGTH_SHORT).show();
-                            cursor.close();
-                            handler.removeCallbacks(this);
-                            return;
-
-                        case DownloadManager.STATUS_FAILED:
-                            Toast.makeText(ModuleHome.this, "Download failed. Reason code: " + reason, Toast.LENGTH_LONG).show();
-                            cursor.close();
-                            handler.removeCallbacks(this);
-                            return;
-
-                        case DownloadManager.STATUS_PAUSED:
-                            Log.d("DownloadStatus", "Paused. Reason: " + reason);
-                            break;
-
-                        case DownloadManager.STATUS_PENDING:
-                            Log.d("DownloadStatus", "Pending...");
-                            break;
-
-                        case DownloadManager.STATUS_RUNNING:
-                            Log.d("DownloadStatus", "Downloading...");
-                            break;
+                    int status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
+                    Log.d(TAG, "Download status: " + status);
+                    if (status == DownloadManager.STATUS_RUNNING) {
+                        Log.d(TAG, "run: Download is running");
+                        int downloadedBytes = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
+                        int totalBytes = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+                        int progress = (int) ((downloadedBytes * 100L) / totalBytes);
+                        Log.d(TAG, "run: Download progress: " + progress + "%");
+                        bi.progressBarDownload.setVisibility(View.VISIBLE);
+                        bi.progressBarDownload.setProgress(progress);
                     }
 
-                    cursor.close();
+                    if (status != DownloadManager.STATUS_SUCCESSFUL && status != DownloadManager.STATUS_FAILED) {
+                        // Continue polling
+                        handler.postDelayed(this, 1000); // check every second
+                        Log.d(TAG, "run: Continuing to monitor download progress...");
+                    }
+
                 }
-
-                // Re-run this check after a delay
-                handler.postDelayed(this, 1000);
+                if (cursor != null) cursor.close();
             }
-        };
+        }, 1000);
+    }
 
-        handler.post(monitorRunnable);
+
+    private void showSystemUI() {
+        // Show StatusBar and NavigationBar
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 
     public void btnContinue(View view) {
@@ -377,5 +368,42 @@ public class ModuleHome extends AppCompatActivity {
 
         // Optionally finish the current activity if you don't want it to stay in the back stack
         //finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        try {
+            if (downloadReceiver != null) {
+                unregisterReceiver(downloadReceiver);
+            }
+        } catch (IllegalArgumentException e) {
+            Log.w("Receiver", "Receiver already unregistered.");
+        }
+        super.onDestroy();
+    }
+
+    private void recordEntry(String entryType) {
+        EntryLog entryLog = new EntryLog();
+        entryLog.setProjectName(PROJECT_NAME);
+        entryLog.setUserName(MainApp.user.getUserName());
+        entryLog.setEntryDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(new Date().getTime()));
+        entryLog.setAppver(MainApp.appInfo.getAppVersion());
+        entryLog.setEntryType(entryType);
+        entryLog.setDeviceId(MainApp.deviceid);
+        Long rowId = null;
+        try {
+            rowId = db.addEntryLog(entryLog);
+            if (rowId != -1) {
+                entryLog.setId(String.valueOf(rowId));
+                entryLog.setUid(entryLog.getDeviceId() + entryLog.getId());
+                db.updatesEntryLogColumn(TableContracts.EntryLogTable.COLUMN_UID, entryLog.getUid(), entryLog.getId());
+            } else {
+                Toast.makeText(this, R.string.upd_db_error, Toast.LENGTH_SHORT).show();
+
+            }
+        } catch (SQLiteException e) {
+            Toast.makeText(this, "SQLiteException(EntryLog)" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "recordEntry: " + e.getMessage());
+        }
     }
 }

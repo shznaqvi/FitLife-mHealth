@@ -9,17 +9,23 @@ import static edu.aku.hassannaqvi.fitlife.database.DatabaseHelper.DATABASE_COPY;
 import static edu.aku.hassannaqvi.fitlife.database.DatabaseHelper.DATABASE_NAME;
 
 import android.Manifest;
+import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
@@ -39,7 +45,6 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -147,8 +152,7 @@ public class LoginActivity extends AppCompatActivity {
                     MainApp.permissionCheck = true;
                 }
             });
-
-
+    private DownloadManager downloadManager;
 
 
     @Override
@@ -845,30 +849,126 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    BroadcastReceiver onComplete = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+            DownloadManager.Query query = new DownloadManager.Query();
+            query.setFilterById(id);
+            Cursor cursor = downloadManager.query(query);
 
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted
-                Log.d("Permission", "Location permission granted");
-            } else {
-                // Permission denied
-                Log.d("Permission", "Location permission denied");
-
-                // Check if the user has denied the permission permanently (Never ask again)
-                if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                    // Show a dialog guiding the user to settings
-                    Toast.makeText(this, "Location permission is necessary to proceed. Please enable it in settings.", Toast.LENGTH_LONG).show();
+            if (cursor.moveToFirst()) {
+                int status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
+                if (status == DownloadManager.STATUS_SUCCESSFUL) {
+                    Toast.makeText(context, "Certificate downloaded successfully!", Toast.LENGTH_SHORT).show();
+                    showSystemUI();
+                } else if (status == DownloadManager.STATUS_RUNNING) {
+                    int percent = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR)) * 100 /
+                            cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+                    Toast.makeText(context, "Download in progress: " + percent + "%", Toast.LENGTH_SHORT).show();
+                    //bi.pd.setProgress(percent);
                 } else {
-                    // Show a toast explaining that the user denied it without choosing "Never ask again"
-                    Toast.makeText(this, "Location permission is necessary to proceed.", Toast.LENGTH_LONG).show();
+                    int reason = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_REASON));
+                    Toast.makeText(context, "Download failed! Reason: " + reason, Toast.LENGTH_LONG).show();
                 }
             }
+            cursor.close();
+        }
+    };
+//    public void chkDownload(View view) {
+//        String url = "https://vhds.aku.edu/eshepp/api/generate_certificate.php?username=s";
+//
+//        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+//        request.setTitle("Downloading PDF");
+//        request.setDescription("Please wait...");
+//        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+//        request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, "certificate.pdf");
+//
+//        DownloadManager manager = (DownloadManager) this.getSystemService(Context.DOWNLOAD_SERVICE);
+//        manager.enqueue(request);
+//
+//    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            chkDownload(null); // Try again
+        } else {
+            Toast.makeText(this, "Storage permission denied!", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void chkDownload(View view) {
+        String username = "s";
+        String url = "https://vhds.aku.edu/eshepp/api/generate_certificate.php?username=" + username;
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+            return;
+        }
+
+        try {
+            downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+            Uri uri = Uri.parse(url);
+            DownloadManager.Request request = new DownloadManager.Request(uri);
+
+            request.setTitle("Certificate Download");
+            request.setDescription("Downloading PDF...");
+            request.setMimeType("application/pdf");
+            request.addRequestHeader("Accept", "application/pdf");
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, username + "_certificate.pdf");
+            } else {
+                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, username + "_certificate.pdf");
+            }
+
+            long downloadId = downloadManager.enqueue(request);
+            registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+            Toast.makeText(this, "Downloading PDF...", Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+            Log.e("DownloadError", "Download failed", e);
+            Toast.makeText(this, "Download failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            unregisterReceiver(onComplete);
+        } catch (IllegalArgumentException e) {
+            Log.w(TAG, "Receiver was not registered or already unregistered");
+        }
+    }
+
+    public void chkDownload2(View view) {
+
+        String username = "s";  // Replace with actual logic
+        String url = "https://vhds.aku.edu/eshepp/api/generate_certificate.php?username=" + username;
+
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+        request.setTitle("Downloading file");
+        request.setDescription("Downloading using DownloadManager");
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "filename.pdf");
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+
+        downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+
+
+        // Optional: Store it in SharedPreferences if needed later
+
+
+    }
+
 
 }
 

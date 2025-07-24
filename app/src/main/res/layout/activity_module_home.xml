@@ -392,8 +392,7 @@
                                 android:textSize="18dp"
                                 android:gravity="center"
                                 android:text="Wrap-Up"
-                                android:textStyle="bold"
-                                />
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -402,16 +401,31 @@
                 </GridLayout>
                 </androidx.core.widget.NestedScrollView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/grayLight"
-                android:gravity="center_horizontal"
-
-                android:orientation="vertical">
-                <View
+                <ProgressBar
+                    android:id="@+id/progressBarDownload"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
+                    android:elevation="10dp"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:progress="50"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/grayLight"
+                    android:gravity="center_horizontal"
+
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
                     android:elevation="2dp"
                     android:background="@color/whiteOverlay"/>
                 <View
@@ -419,23 +433,24 @@
                     android:layout_height="2dp"
                     android:elevation="2dp"
                     android:background="@color/gray"/>
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnDownloadCertificate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/all_round_corners"
-                    android:backgroundTint="@color/colorAccent"
-                    android:paddingStart="24dp"
-                    android:paddingEnd="24dp"
-                    android:elevation="5dp"
-                    android:layout_margin="8dp"
-                    android:onClick="downloadCertificateSimple"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorPrimary"
-                    android:visibility="visible"
-                    android:text="Download Certificate"
-                    />
-            </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnDownloadCertificate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/all_round_corners"
+                        android:backgroundTint="@color/colorAccent"
+                        android:paddingStart="24dp"
+                        android:paddingEnd="24dp"
+                        android:layout_marginTop="8dp"
+                        android:elevation="8dp"
+                        android:onClick="downloadCertificate"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimary"
+                        android:visibility="visible"
+                        android:text="Download Certificate" />
+
+                </LinearLayout>
                 <!-- <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
